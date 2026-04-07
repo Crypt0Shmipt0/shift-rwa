@@ -8,10 +8,10 @@ import { CommandPalette } from "@/components/nav/command-palette";
 import { Search } from "lucide-react";
 
 const LINKS = [
-  { href: "/trade/TSL2s", label: "Trade", match: ["/trade", "/markets"] },
+  { href: "/markets", label: "Markets", match: ["/trade", "/markets"] },
   { href: "/leaderboard", label: "Leaderboard", match: ["/leaderboard"] },
-  { href: "/portfolio", label: "Portfolio", match: ["/portfolio", "/history"] },
   { href: "/learn", label: "Learn", match: ["/learn"] },
+  { href: "/rewards", label: "Rewards", match: ["/rewards"] },
 ];
 
 export function TopNav() {
@@ -47,6 +47,12 @@ export function TopNav() {
         </div>
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <CmdButton />
+          <Link
+            href="/app"
+            className="hidden sm:inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-mint text-primary-foreground text-sm font-semibold hover:bg-mint/90 transition-colors"
+          >
+            Launch App
+          </Link>
           <ConnectButton showBalance={false} chainStatus="icon" accountStatus="address" />
         </div>
       </div>
