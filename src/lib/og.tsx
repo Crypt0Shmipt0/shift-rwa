@@ -18,6 +18,7 @@ export const BRAND = {
 };
 
 let cachedFonts: { regular: Buffer; bold: Buffer } | null = null;
+let cachedLogo: string | null = null;
 
 async function loadFonts() {
   if (cachedFonts) return cachedFonts;
@@ -28,6 +29,14 @@ async function loadFonts() {
   ]);
   cachedFonts = { regular, bold };
   return cachedFonts;
+}
+
+async function loadLogoDataUrl() {
+  if (cachedLogo) return cachedLogo;
+  const logoPath = path.join(process.cwd(), "public", "brand", "shift-lockup-gradient-light.png");
+  const buf = await readFile(logoPath);
+  cachedLogo = `data:image/png;base64,${buf.toString("base64")}`;
+  return cachedLogo;
 }
 
 type OgCardProps = {
@@ -41,25 +50,9 @@ type OgCardProps = {
   accent?: string; // override mint
 };
 
-function ShiftLogoMark({ size = 64 }: { size?: number }) {
-  // Inline SVG of the SHIFT mark — two stacked chevrons with brand gradient
-  return (
-    <svg width={size} height={size * 0.68} viewBox="0 0 29 19.8" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="og-shift-g1" x1="14.5" x2="14.5" y1="0" y2="19.8" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#26C8B8" />
-          <stop offset="1" stopColor="#07638C" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M0 10.2L5.2 19.8L10.8 9.6H23.8L29 0H5.6L0 10.2Z"
-        fill="url(#og-shift-g1)"
-      />
-    </svg>
-  );
-}
-
-function OgCard({ eyebrow, title, subtitle, chips, bigNumber, accent }: OgCardProps) {
+function OgCard({
+  eyebrow, title, subtitle, chips, bigNumber, accent, logoDataUrl,
+}: OgCardProps & { logoDataUrl: string }) {
   const mint = accent ?? BRAND.mint;
   return (
     <div
@@ -98,23 +91,10 @@ function OgCard({ eyebrow, title, subtitle, chips, bigNumber, accent }: OgCardPr
         }}
       />
 
-      {/* Header — logo + wordmark */}
+      {/* Header — official SHIFT lockup */}
       <div style={{ display: "flex", alignItems: "center", gap: 20, position: "relative" }}>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <ShiftLogoMark size={72} />
-        </div>
-        <div
-          style={{
-            fontSize: 48,
-            fontWeight: 700,
-            letterSpacing: -1,
-            color: BRAND.offWhite,
-            lineHeight: 1,
-            display: "flex",
-          }}
-        >
-          SHIFT
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logoDataUrl} alt="SHIFT" width={280} height={62} style={{ display: "flex" }} />
         <div
           style={{
             marginLeft: "auto",
@@ -291,8 +271,8 @@ function OgCard({ eyebrow, title, subtitle, chips, bigNumber, accent }: OgCardPr
 }
 
 export async function renderOg(props: OgCardProps) {
-  const { regular, bold } = await loadFonts();
-  return new ImageResponse(<OgCard {...props} />, {
+  const [{ regular, bold }, logoDataUrl] = await Promise.all([loadFonts(), loadLogoDataUrl()]);
+  return new ImageResponse(<OgCard {...props} logoDataUrl={logoDataUrl} />, {
     ...OG_SIZE,
     fonts: [
       { name: "Space Grotesk", data: regular, weight: 400, style: "normal" },
