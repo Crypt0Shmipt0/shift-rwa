@@ -9,9 +9,10 @@ import { Search } from "lucide-react";
 
 const LINKS = [
   { href: "/markets", label: "Markets", match: ["/trade", "/markets"] },
+  { href: "/portfolio", label: "Portfolio", match: ["/portfolio", "/history"] },
   { href: "/leaderboard", label: "Leaderboard", match: ["/leaderboard"] },
-  { href: "/learn", label: "Learn", match: ["/learn"] },
   { href: "/rewards", label: "Rewards", match: ["/rewards"] },
+  { href: "/learn", label: "Learn", match: ["/learn"] },
 ];
 
 export function TopNav() {
