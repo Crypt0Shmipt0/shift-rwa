@@ -11,13 +11,12 @@ import {
   BarChart3,
   Settings,
   TrendingUp,
-  Calculator,
 } from "lucide-react";
 
 const ASSET_CARDS = [
-  { name: "Tesla x2", symbol: "TSL2s", ticker: "TSLA", initials: "TS" },
-  { name: "Nvidia x3", symbol: "NVD3s", ticker: "NVDA", initials: "NV" },
-  { name: "SPY x3", symbol: "SPY3s", ticker: "SPY", initials: "SP" },
+  { name: "Tesla x2", symbol: "TSL2s", img: "/phone/coin-ethereum.png", rotate: "-27.9deg" },
+  { name: "Nvidia x3", symbol: "NVD3s", img: "/phone/coin-cardano.png", rotate: "45deg" },
+  { name: "SPY x3",   symbol: "SPY3s", img: "/phone/coin-bitcoin.png",  rotate: "15deg" },
 ];
 
 const TOP_MOVERS = [
@@ -46,24 +45,14 @@ export function PhoneHome() {
             <Plus className="h-7 w-7 text-primary-foreground" strokeWidth={3} />
           </button>
         </div>
-        {/* Decorative calculator silhouette */}
-        <div className="absolute right-0 top-0 bottom-0 w-[180px] flex items-center justify-center pointer-events-none">
-          <div className="relative w-32 h-40 -rotate-12">
-            <div className="absolute inset-0 bg-gradient-to-br from-secondary via-card to-background rounded-2xl border border-mint/20" />
-            <div className="absolute top-3 left-3 right-3 h-10 rounded-lg bg-mint/80 shadow-inner shadow-mint" />
-            <div className="absolute top-16 left-3 right-3 grid grid-cols-2 gap-1.5">
-              {["$", "T", "N", "S"].map((k) => (
-                <div
-                  key={k}
-                  className="h-9 rounded bg-card border border-mint/20 flex items-center justify-center text-mint text-xs font-bold shadow-inner"
-                >
-                  {k}
-                </div>
-              ))}
-            </div>
-            <Calculator className="absolute -bottom-3 -right-3 h-6 w-6 text-mint/60" />
-          </div>
-        </div>
+        <Image
+          src="/phone/calculator.png"
+          alt=""
+          width={460}
+          height={544}
+          className="absolute -right-4 -top-2 w-[180px] h-auto pointer-events-none select-none"
+          priority
+        />
       </div>
 
       {/* Actions */}
@@ -75,15 +64,14 @@ export function PhoneHome() {
             href={`/trade/${a.symbol}`}
             className="snap-start flex-shrink-0 w-[160px] h-[200px] rounded-3xl bg-mint relative overflow-hidden p-5 flex flex-col justify-end group"
           >
-            {/* Big badge background */}
-            <div className="absolute inset-0 flex items-start justify-center pt-5">
-              <div className="size-24 rounded-full bg-card flex items-center justify-center text-mint font-extrabold text-3xl shadow-2xl shadow-black/50 ring-4 ring-mint/40">
-                {a.initials}
-              </div>
-            </div>
-            <div className="absolute top-3 right-3 text-[10px] font-bold text-primary-foreground/70 uppercase tracking-wider bg-black/20 px-2 py-1 rounded-full">
-              {a.ticker}
-            </div>
+            <Image
+              src={a.img}
+              alt={a.name}
+              width={400}
+              height={400}
+              className="absolute -top-4 -right-4 w-[170px] h-[170px] object-contain pointer-events-none select-none drop-shadow-2xl"
+              style={{ transform: `rotate(${a.rotate})` }}
+            />
             <div className="relative z-10 flex items-center justify-between text-primary-foreground">
               <span className="font-bold text-lg">{a.name}</span>
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -116,7 +104,7 @@ export function PhoneHome() {
         ))}
       </div>
 
-      {/* Mobile bottom bar (hidden on md+) */}
+      {/* Mobile bottom bar */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur border-t border-border h-20 flex items-center justify-around px-4">
         <BottomItem icon={<Home className="h-5 w-5" />} label="Home" active />
         <BottomItem icon={<Wallet className="h-5 w-5" />} label="Wallets" />
