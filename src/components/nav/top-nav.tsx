@@ -14,7 +14,7 @@ export function TopNav() {
           </Link>
           <nav className="flex items-center gap-8 text-sm">
             <Link href="/trade/TSL2s" className="text-mint hover:opacity-80 transition-opacity">Trade</Link>
-            <Link href="#" className="text-foreground/80 hover:text-white transition-colors">Leaderboard</Link>
+            <Link href="/leaderboard" className="text-foreground/80 hover:text-white transition-colors">Leaderboard</Link>
             <Link href="/portfolio" className="text-foreground/80 hover:text-white transition-colors">Portfolio</Link>
           </nav>
         </div>
