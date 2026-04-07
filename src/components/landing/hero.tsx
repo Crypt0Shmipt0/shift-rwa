@@ -32,7 +32,7 @@ export function LandingHero() {
               backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)",
             }}
           >
-            On-Chain.
+            For Crypto.
           </span>
         </h1>
 
