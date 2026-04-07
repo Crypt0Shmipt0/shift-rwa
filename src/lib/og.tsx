@@ -140,73 +140,89 @@ function OgCard({ eyebrow, title, subtitle, chips, bigNumber, accent }: OgCardPr
         style={{
           marginTop: "auto",
           display: "flex",
-          flexDirection: "column",
-          gap: 24,
+          flexDirection: "row",
+          alignItems: "flex-end",
+          gap: 48,
           position: "relative",
-          maxWidth: 900,
+          width: "100%",
         }}
       >
-        {eyebrow && (
-          <div
-            style={{
-              fontSize: 20,
-              fontWeight: 500,
-              letterSpacing: 2,
-              textTransform: "uppercase",
-              color: mint,
-              display: "flex",
-            }}
-          >
-            {eyebrow}
-          </div>
-        )}
         <div
           style={{
-            fontSize: 88,
-            fontWeight: 700,
-            letterSpacing: -3,
-            lineHeight: 0.95,
-            color: BRAND.offWhite,
             display: "flex",
+            flexDirection: "column",
+            gap: 24,
+            flex: 1,
+            maxWidth: bigNumber ? 620 : 1000,
           }}
         >
-          {title}
-        </div>
-        {subtitle && (
+          {eyebrow && (
+            <div
+              style={{
+                fontSize: 20,
+                fontWeight: 500,
+                letterSpacing: 2,
+                textTransform: "uppercase",
+                color: mint,
+                display: "flex",
+              }}
+            >
+              {eyebrow}
+            </div>
+          )}
           <div
             style={{
-              fontSize: 26,
-              fontWeight: 400,
-              lineHeight: 1.3,
-              color: BRAND.mist,
+              fontSize: bigNumber ? 72 : 88,
+              fontWeight: 700,
+              letterSpacing: -3,
+              lineHeight: 0.95,
+              color: BRAND.offWhite,
               display: "flex",
-              maxWidth: 820,
             }}
           >
-            {subtitle}
+            {title}
+          </div>
+          {subtitle && (
+            <div
+              style={{
+                fontSize: 24,
+                fontWeight: 400,
+                lineHeight: 1.3,
+                color: BRAND.mist,
+                display: "flex",
+              }}
+            >
+              {subtitle}
+            </div>
+          )}
+        </div>
+
+        {/* Big number — right column */}
+        {bigNumber && (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              justifyContent: "flex-end",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 104,
+                fontWeight: 700,
+                letterSpacing: -4,
+                lineHeight: 0.9,
+                color: BRAND.offWhite,
+                fontVariantNumeric: "tabular-nums",
+                display: "flex",
+              }}
+            >
+              {bigNumber}
+            </div>
           </div>
         )}
       </div>
-
-      {/* Big number — right-aligned above content area */}
-      {bigNumber && (
-        <div
-          style={{
-            position: "absolute",
-            right: 64,
-            top: 220,
-            fontSize: 140,
-            fontWeight: 700,
-            letterSpacing: -6,
-            lineHeight: 0.9,
-            color: BRAND.offWhite,
-            fontVariantNumeric: "tabular-nums",
-            display: "flex",
-          }}
-        >
-          {bigNumber}
-        </div>
-      )}
 
       {/* Chip row */}
       {chips && chips.length > 0 && (
