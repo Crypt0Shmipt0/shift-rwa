@@ -10,14 +10,14 @@ export default async function TradeOG({ params }: { params: { symbol: string } }
   const asset = getAsset(params.symbol);
   const positive = asset.change24h >= 0;
   return renderOg({
-    eyebrow: `${asset.underlying} · ${asset.leverage > 0 ? `${asset.leverage}× long` : `${Math.abs(asset.leverage)}× short`}`,
-    title: `${asset.symbol}`,
-    subtitle: `${asset.name} — trade leveraged ${asset.underlying} on-chain. Daily-targeted ${asset.leverage > 0 ? "bull" : "bear"} exposure.`,
+    eyebrow: `${asset.underlying} · ${asset.leverage > 0 ? `${asset.leverage}× long` : `${Math.abs(asset.leverage)}× short`} · no liquidation`,
+    title: asset.symbol,
+    subtitle: `${asset.name}. Professionally tokenized ${asset.underlying} with ${asset.leverage > 0 ? "bi-directional leveraged upside" : "inverse exposure"} and zero liquidation risk.`,
     bigNumber: FORMATTERS.usd(asset.price),
     chips: [
       { label: "24h change", value: FORMATTERS.pct(asset.change24h), positive },
       { label: "Leverage", value: `${asset.leverage > 0 ? "+" : ""}${asset.leverage}×` },
-      { label: "Network", value: "Base" },
+      { label: "Liquidation", value: "None", positive: true },
     ],
   });
 }

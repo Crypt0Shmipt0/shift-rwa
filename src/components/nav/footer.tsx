@@ -24,8 +24,8 @@ export function Footer() {
       <div className="mx-auto max-w-[1440px] px-6 sm:px-[72px] py-12 grid grid-cols-2 md:grid-cols-4 gap-10">
         <div className="col-span-2 md:col-span-1">
           <div className="text-xl font-bold text-white mb-3">SHIFT Finance</div>
-          <p className="text-xs text-muted-foreground leading-relaxed max-w-[240px]">
-            Shifting stocks value on-chain. Permissionless access to tokenized real-world assets.
+          <p className="text-xs text-muted-foreground leading-relaxed max-w-[260px]">
+            Bi-directional 3× & 2× tokenized stocks, ETFs, and ETNs. On-chain. Zero liquidation risk.
           </p>
         </div>
         <FooterCol title="Product" links={PRODUCT} />

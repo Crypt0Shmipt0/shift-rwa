@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Markets",
   description:
-    "Every tokenized real-world asset tradable on SHIFT. Browse Tesla, Nvidia, SPY, and more with live prices and 7-day performance.",
+    "Every 3× and 2× bi-directional tokenized stock on SHIFT. Long or short Tesla, Nvidia, SPY — no liquidation risk, on-chain settlement, 24/7 trading.",
   alternates: { canonical: "/markets" },
 };
 
@@ -32,7 +32,7 @@ export default function MarketsPage() {
       <div className="mb-10">
         <h1 className="text-3xl font-semibold text-white mb-2">Markets</h1>
         <p className="text-sm text-muted-foreground">
-          Every tokenized real-world asset tradable on Shift. Tap a market to trade.
+          Every SHIFT market ships a long and an inverse side — 3× and 2× leveraged, zero liquidation. Tap a market to trade.
         </p>
       </div>
 

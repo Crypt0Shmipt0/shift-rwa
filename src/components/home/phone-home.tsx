@@ -30,10 +30,22 @@ const TOP_MOVERS = ASSETS
 export function PhoneHome() {
   return (
     <div className="mx-auto max-w-md md:max-w-lg px-6 py-10 pb-32 md:pb-10">
-      {/* Greeting */}
+      {/* Hero — UVP */}
       <div className="mb-8">
-        <h1 className="text-3xl font-semibold text-white">Hello Tomer,</h1>
-        <h2 className="text-4xl font-bold text-mint">Welcome Back!</h2>
+        <div className="inline-flex items-center gap-1.5 bg-mint/15 border border-mint/30 text-mint text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full mb-3">
+          <span className="size-1.5 rounded-full bg-mint animate-pulse" />
+          Zero liquidation risk
+        </div>
+        <h1 className="text-3xl font-bold text-white leading-[1.05] tracking-tight">
+          3× & 2× tokenized stocks.
+        </h1>
+        <h2 className="text-3xl font-bold text-mint leading-[1.05] tracking-tight">
+          Long or short. On-chain.
+        </h2>
+        <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+          Boring stocks move 1% a day. Perps liquidate you. SHIFT solves both with bi-directional
+          leveraged tokens — real volatility, zero liquidation.
+        </p>
       </div>
 
       {/* Balance card */}

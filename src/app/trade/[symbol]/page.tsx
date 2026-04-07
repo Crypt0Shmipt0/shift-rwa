@@ -9,7 +9,8 @@ export async function generateMetadata({ params }: { params: Promise<{ symbol: s
   const { symbol } = await params;
   const asset = getAsset(symbol);
   const title = `${asset.symbol} · ${asset.name}`;
-  const description = `Trade ${asset.symbol} (${asset.name}) — ${asset.leverage > 0 ? `${asset.leverage}×` : `${Math.abs(asset.leverage)}× short`} ${asset.underlying} on-chain. Current price: ${FORMATTERS.usd(asset.price)} (${FORMATTERS.pct(asset.change24h)} 24h).`;
+  const dir = asset.leverage > 0 ? `${asset.leverage}× long` : `${Math.abs(asset.leverage)}× short`;
+  const description = `${asset.symbol} — ${dir} ${asset.underlying}, tokenized. Zero liquidation risk, on-chain settlement. ${FORMATTERS.usd(asset.price)} (${FORMATTERS.pct(asset.change24h)} 24h).`;
   return {
     title,
     description,

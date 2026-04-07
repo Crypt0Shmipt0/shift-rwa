@@ -15,28 +15,42 @@ export const metadata: Metadata = {
 const GUIDES = [
   {
     icon: Lightbulb,
-    title: "What is a leveraged token?",
-    body: "A leveraged token delivers a multiple of the daily return of its underlying — 2× Tesla, 3× SPY, or the inverse. No margin, no liquidation risk for the holder.",
+    title: "Why 3× & 2× leveraged tokens?",
+    body: "Spot stocks move too slow for active traders. Perps blow you up on 5% wicks. SHIFT tokens deliver a daily multiple of the underlying — long or short — with no margin account and no liquidation.",
     href: "#",
     read: "4 min read",
   },
   {
     icon: TrendingUp,
-    title: "How daily rebalancing works",
-    body: "Each day, the protocol rebalances exposure to maintain the target multiple. This is why multi-day returns can diverge from the underlying — a behavior called decay.",
+    title: "Bi-directional: long + short, same market",
+    body: "Every SHIFT market ships a long and an inverse side. Buy TSL2s for 2× upside; buy TSLSs to short Tesla. Switch directions without closing positions in a margin account.",
+    href: "#",
+    read: "5 min read",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Zero liquidation risk, explained",
+    body: "Because SHIFT tokens are ERC-20s, not collateralized margin positions, there is no liquidation engine. The worst case is the token's net asset value going to zero — never a forced close with losses beyond your entry.",
+    href: "#",
+    read: "5 min read",
+  },
+  {
+    icon: TrendingUp,
+    title: "Daily rebalancing & decay",
+    body: "The protocol rebalances once a day to reset the leverage target. Over multiple days, compounding means returns can diverge from a simple 2× or 3× calc — this is decay. Understand it before holding long term.",
     href: "#",
     read: "6 min read",
   },
   {
     icon: Wallet,
     title: "Funding your wallet",
-    body: "Bridge USDC to Base, Arbitrum, or Optimism. Any wallet that supports WalletConnect will work — MetaMask, Rainbow, Zerion, Privy-embedded, and more.",
+    body: "Bridge USDC to Base, Arbitrum, or Optimism. Any wallet supporting WalletConnect works — MetaMask, Rainbow, Zerion, Privy-embedded, and more.",
     href: "#",
     read: "3 min read",
   },
   {
-    icon: ShieldCheck,
-    title: "Understanding tax basics",
+    icon: Lightbulb,
+    title: "Tax basics",
     body: "Leveraged token trades are generally treated as taxable events per trade in most jurisdictions. Export your activity for your accountant from the Portfolio page.",
     href: "#",
     read: "8 min read",
@@ -51,6 +65,10 @@ const VIDEOS = [
 ];
 
 const FAQ = [
+  {
+    q: "What problem does SHIFT actually solve?",
+    a: "Two problems Web3 traders hit every day. One: spot stocks move 1% a day — boring for active traders used to crypto volatility. Two: leveraged perps blow you up on routine 5% wicks. SHIFT is the bi-directional leveraged RWA protocol that solves both — 3× and 2× tokenized stocks, ETFs, and ETNs with daily-reset leverage and zero liquidation risk. You can hold a 3× long or a 2× short without ever being forced to close.",
+  },
   {
     q: "Is SHIFT custodial?",
     a: "No. SHIFT is fully non-custodial. Your tokens sit in your wallet; the protocol never takes custody. All trades happen via smart contracts on Base, Arbitrum, or Optimism.",
@@ -91,11 +109,12 @@ export default function LearnPage() {
           Learn hub
         </span>
         <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
-          Know what you&apos;re trading.
+          Why SHIFT, and how it works.
         </h1>
         <p className="text-base text-muted-foreground leading-relaxed">
-          SHIFT is designed for traders who understand leverage. These guides cover the mechanics, the
-          math, and the risks — so you can make informed calls.
+          Stocks are too slow. Perps blow you up. SHIFT is the bi-directional leveraged RWA protocol
+          that solves both — 3× and 2× tokenized stocks, ETFs, and ETNs with zero liquidation risk.
+          These guides cover the mechanics, the math, and the edge cases.
         </p>
       </div>
 

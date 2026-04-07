@@ -22,9 +22,9 @@ const jbMono = JetBrains_Mono({
 
 const SITE_URL = "https://shift-rwa.vercel.app";
 const SITE_NAME = "SHIFT Finance";
-const TITLE = "SHIFT — Trade Tokenized Stocks, 24/7";
+const TITLE = "SHIFT — 3× & 2× Bi-Directional Tokenized Stocks. No Liquidations.";
 const DESCRIPTION =
-  "Experience permissionless access to Stocks & ETFs value across top DEXs & dApps. Trade leveraged real-world assets on-chain — Tesla, Nvidia, SPY, and more.";
+  "SHIFT fixes Web3 stock adoption: boring low-vol stocks and dangerous leveraged liquidations. Trade 3×/2× bi-directional tokenized stocks, ETFs, and ETNs on-chain — long or short — with zero liquidation risk.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -37,16 +37,19 @@ export const metadata: Metadata = {
   generator: "Next.js",
   keywords: [
     "tokenized stocks",
+    "3x leveraged tokens",
+    "2x leveraged tokens",
+    "bi-directional leverage",
+    "no liquidation leveraged trading",
     "RWA",
     "real-world assets",
-    "leveraged tokens",
+    "leveraged ETFs on-chain",
+    "tokenized ETNs",
     "TSLA on-chain",
     "NVDA on-chain",
     "SPY on-chain",
-    "DeFi",
+    "DeFi perpetuals alternative",
     "DEX",
-    "perpetuals alternative",
-    "on-chain trading",
     "SHIFT Finance",
   ],
   authors: [{ name: "SHIFT Finance", url: SITE_URL }],

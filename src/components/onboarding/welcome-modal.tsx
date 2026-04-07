@@ -9,18 +9,18 @@ import { Sparkles, LineChart, ShieldCheck, ArrowRight } from "lucide-react";
 const SLIDES = [
   {
     icon: Sparkles,
-    title: "Welcome to Shift",
-    body: "Trade leveraged tokens tied to real-world assets — stocks, ETFs, commodities — on-chain. No brokerage account, no settlement delays.",
+    title: "Stocks on-chain, finally worth trading.",
+    body: "Spot stocks move 1% a day — boring. Perps liquidate you on a 5% wick — terrifying. SHIFT fixes both: 3× and 2× leveraged tokens that give you real volatility without liquidation risk.",
   },
   {
     icon: LineChart,
-    title: "How it works",
-    body: "Each Shift token tracks a daily leveraged or inverse return against its underlying. TSL2s moves roughly 2× Tesla's daily change. Rebalance is automatic, on-chain.",
+    title: "Bi-directional, professionally tokenized.",
+    body: "Every market ships with a long AND a short side. Buy TSL2s for 2× Tesla upside, or TSLSs to short. No margin account, no funding rate surprises, no liquidation cascades. Professional tokenized ETFs and ETNs, on-chain.",
   },
   {
     icon: ShieldCheck,
-    title: "Know the risks",
-    body: "Leveraged products target daily returns, not long-term returns. Compounding over multiple days can produce outcomes that differ materially from the underlying. Only trade what you can afford to lose.",
+    title: "Daily-targeted, decay-aware.",
+    body: "Returns target the daily move of the underlying. Over many days, compounding can diverge from a simple 2× or 3× calculation. Read the Risk Disclaimer before trading.",
   },
 ];
 
