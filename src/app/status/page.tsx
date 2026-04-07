@@ -1,7 +1,14 @@
 import { Card } from "@/components/ui/card";
 import { CheckCircle2, AlertTriangle, Activity } from "lucide-react";
 
-export const metadata = { title: "Status — SHIFT" };
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Status",
+  description:
+    "SHIFT system status — real-time health of the trading interface, price feeds, smart contracts, and supporting infrastructure.",
+  alternates: { canonical: "/status" },
+};
 
 type Component = {
   name: string;

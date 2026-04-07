@@ -1,0 +1,22 @@
+{
+  "name": "SHIFT Finance",
+  "short_name": "SHIFT",
+  "description": "Trade tokenized stocks, 24/7. Permissionless access to leveraged real-world assets on-chain.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#021C24",
+  "theme_color": "#021C24",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-icon",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

@@ -4,7 +4,14 @@ import { Button } from "@/components/ui/button";
 import { getAsset } from "@/lib/mock";
 import { Download, Filter } from "lucide-react";
 
-export const metadata = { title: "History — SHIFT" };
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "History",
+  description:
+    "Every trade your wallet has executed on SHIFT — timestamps, prices, totals, tx hashes. Export to CSV for accounting.",
+  alternates: { canonical: "/history" },
+};
 
 type Tx = {
   id: string;

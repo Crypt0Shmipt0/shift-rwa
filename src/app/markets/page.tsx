@@ -3,7 +3,14 @@ import Image from "next/image";
 import { ASSETS, FORMATTERS } from "@/lib/mock";
 import { TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
 
-export const metadata = { title: "Markets — Shift" };
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Markets",
+  description:
+    "Every tokenized real-world asset tradable on SHIFT. Browse Tesla, Nvidia, SPY, and more with live prices and 7-day performance.",
+  alternates: { canonical: "/markets" },
+};
 
 const MOCK_VOLUME: Record<string, number> = {
   TSL2s: 8_420_000,

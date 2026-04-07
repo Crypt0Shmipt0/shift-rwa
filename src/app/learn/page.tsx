@@ -3,7 +3,14 @@ import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BookOpen, PlayCircle, FileText, ArrowUpRight, Lightbulb, ShieldCheck, Wallet, TrendingUp } from "lucide-react";
 
-export const metadata = { title: "Learn — SHIFT" };
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Learn",
+  description:
+    "Guides, tutorials, and FAQs on leveraged tokens, daily rebalancing, and on-chain execution. Designed for traders who want to understand the math.",
+  alternates: { canonical: "/learn" },
+};
 
 const GUIDES = [
   {

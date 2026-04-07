@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { Card } from "@/components/ui/card";
 import { Trophy, Medal, Award } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Leaderboard",
+  description:
+    "Top SHIFT traders ranked by realized PnL, trade count, and win rate. Updated every 5 minutes. Connect a wallet to enter.",
+  alternates: { canonical: "/leaderboard" },
+};
 
 const LEADERS = [
   { rank: 1, address: "7xKp...3mN2", pnl: 12450.32, trades: 342, winRate: 78.2 },

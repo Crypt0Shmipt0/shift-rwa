@@ -1,7 +1,36 @@
+import type { Metadata } from "next";
 import { TradingViewChart } from "@/components/trade/trading-view-chart";
 import { SwapCard } from "@/components/trade/swap-card";
 import { EducationCard, MarketNewsCard } from "@/components/trade/info-cards";
 import { IntelligenceCard } from "@/components/trade/intelligence-card";
+import { getAsset, FORMATTERS, ASSETS } from "@/lib/mock";
+
+export async function generateMetadata({ params }: { params: Promise<{ symbol: string }> }): Promise<Metadata> {
+  const { symbol } = await params;
+  const asset = getAsset(symbol);
+  const title = `${asset.symbol} · ${asset.name}`;
+  const description = `Trade ${asset.symbol} (${asset.name}) — ${asset.leverage > 0 ? `${asset.leverage}×` : `${Math.abs(asset.leverage)}× short`} ${asset.underlying} on-chain. Current price: ${FORMATTERS.usd(asset.price)} (${FORMATTERS.pct(asset.change24h)} 24h).`;
+  return {
+    title,
+    description,
+    alternates: { canonical: `/trade/${asset.symbol}` },
+    openGraph: {
+      title: `${title} · SHIFT`,
+      description,
+      url: `/trade/${asset.symbol}`,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} · SHIFT`,
+      description,
+    },
+  };
+}
+
+export function generateStaticParams() {
+  return ASSETS.map((a) => ({ symbol: a.symbol }));
+}
 
 export default async function TradePage({ params }: { params: Promise<{ symbol: string }> }) {
   const { symbol } = await params;
