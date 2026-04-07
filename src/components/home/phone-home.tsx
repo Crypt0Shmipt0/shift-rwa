@@ -43,7 +43,8 @@ export function PhoneHome() {
           alt=""
           width={220}
           height={260}
-          className="absolute -right-6 -top-2 w-[160px] h-auto opacity-95 pointer-events-none select-none"
+          className="absolute -right-6 -top-2 w-[160px] h-auto pointer-events-none select-none"
+          style={{ filter: "brightness(1.1) hue-rotate(150deg) saturate(4)" }}
           priority
         />
       </div>
@@ -62,8 +63,8 @@ export function PhoneHome() {
               alt={a.name}
               width={400}
               height={400}
-              className="absolute -top-6 -right-4 w-[170px] h-[170px] object-contain pointer-events-none select-none"
-              style={{ transform: `rotate(${a.rotate})` }}
+              className="absolute -top-6 -right-4 w-[170px] h-[170px] object-contain pointer-events-none select-none mix-blend-screen"
+              style={{ transform: `rotate(${a.rotate})`, filter: "brightness(1.3) contrast(1.1)" }}
             />
             <div className="relative z-10 flex items-center justify-between text-white">
               <span className="font-bold text-lg">{a.name}</span>
