@@ -134,7 +134,7 @@ export function LandingConnect() {
           <div className="text-xs font-bold uppercase tracking-[0.2em] text-mint mb-4">
             Connect your wallet
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[0.95] mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-1 mb-6">
             Trade leveraged stocks
             <br />
             <span

@@ -24,7 +24,7 @@ export function LandingHero() {
           The first liquidation-free leveraged RWA protocol
         </div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-[112px] font-bold tracking-[-0.04em] leading-[0.92] text-white mb-8">
+        <h1 className="text-[44px] sm:text-5xl md:text-7xl lg:text-[104px] font-bold tracking-[-0.04em] leading-[1.02] text-white mb-8 pb-1">
           Wall Street{" "}
           <span
             className="bg-clip-text text-transparent"
@@ -60,13 +60,13 @@ export function LandingHero() {
         </div>
 
         {/* Trust strip */}
-        <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 text-xs text-muted-foreground">
+        <div className="mt-14 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-muted-foreground max-w-2xl mx-auto">
           <Trust label="Zero liquidation risk" />
-          <span className="hidden sm:block size-1 rounded-full bg-border" />
+          <span className="size-1 rounded-full bg-border" />
           <Trust label="Bi-directional 3× & 2×" />
-          <span className="hidden sm:block size-1 rounded-full bg-border" />
+          <span className="size-1 rounded-full bg-border" />
           <Trust label="Non-custodial" />
-          <span className="hidden sm:block size-1 rounded-full bg-border" />
+          <span className="size-1 rounded-full bg-border" />
           <Trust label="24/7 settlement" />
         </div>
       </div>

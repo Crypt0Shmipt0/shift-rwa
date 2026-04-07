@@ -19,8 +19,8 @@ export function TopNav() {
   const isActive = (match: string[]) => match.some((m) => pathname.startsWith(m));
 
   return (
-    <header className="h-20 border-b border-border sticky top-0 z-30 bg-background/85 backdrop-blur-xl">
-      <div className="mx-auto flex h-full max-w-[1440px] items-center justify-between px-4 sm:px-6 gap-4">
+    <header className="border-b border-border sticky top-0 z-30 bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/85">
+      <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-4 sm:px-6 gap-4">
         <div className="flex items-center gap-6 md:gap-12 min-w-0">
           <Link href="/" aria-label="SHIFT home" className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded">
             <ShiftLogo />

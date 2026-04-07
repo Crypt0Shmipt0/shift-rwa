@@ -26,7 +26,7 @@ export function LandingFarm() {
               <span className="size-1.5 rounded-full bg-mint animate-pulse" />
               Now Live · Farm Incentives
             </div>
-            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[0.95] mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-1 mb-6">
               Trade today.
               <br />
               <span
@@ -60,7 +60,7 @@ export function LandingFarm() {
           </div>
 
           {/* RIGHT — glowing token visualization */}
-          <div className="relative aspect-square max-w-[560px] mx-auto w-full">
+          <div className="relative aspect-square max-w-[420px] sm:max-w-[520px] mx-auto w-full">
             {/* Concentric rings */}
             {[1, 2, 3, 4, 5].map((r) => (
               <div
@@ -91,17 +91,17 @@ export function LandingFarm() {
               </div>
             </div>
 
-            {/* Orbiting tiny token chips */}
+            {/* Orbiting tiny token chips — kept inside the rings */}
             {[
-              { top: "10%", left: "50%", img: "/trade/tsl2s.png" },
-              { top: "30%", left: "92%", img: "/trade/nvd3s.png" },
-              { top: "78%", left: "85%", img: "/trade/spy3s.png" },
-              { top: "90%", left: "30%", img: "/trade/tslss.png" },
-              { top: "55%", left: "5%", img: "/trade/tsl2s.png" },
+              { top: "12%", left: "50%", img: "/trade/tsl2s.png" },
+              { top: "32%", left: "88%", img: "/trade/nvd3s.png" },
+              { top: "75%", left: "82%", img: "/trade/spy3s.png" },
+              { top: "88%", left: "32%", img: "/trade/tslss.png" },
+              { top: "55%", left: "12%", img: "/trade/tsl2s.png" },
             ].map((p, i) => (
               <div
                 key={i}
-                className="absolute -translate-x-1/2 -translate-y-1/2 size-12 rounded-full bg-card border border-mint/40 flex items-center justify-center overflow-hidden shadow-[0_0_24px_rgba(38,200,184,0.4)]"
+                className="absolute -translate-x-1/2 -translate-y-1/2 size-10 sm:size-12 rounded-full bg-card border border-mint/40 flex items-center justify-center overflow-hidden shadow-[0_0_24px_rgba(38,200,184,0.4)]"
                 style={{ top: p.top, left: p.left }}
               >
                 <Image src={p.img} alt="" width={48} height={48} className="size-full object-cover" />

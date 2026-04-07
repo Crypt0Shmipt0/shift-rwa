@@ -19,11 +19,11 @@ export function LandingWhy() {
     <section className="relative mx-auto max-w-[1280px] px-6 py-28">
       {/* Section eyebrow */}
       <div className="text-center mb-3">
-        <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-mint">
+        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
           Permissionless · 24/7 Trade · Pool of Reserves
         </span>
       </div>
-      <h2 className="text-center text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[0.95] mb-16">
+      <h2 className="text-center text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-2 mb-16">
         Two broken extremes.
         <br />
         <span

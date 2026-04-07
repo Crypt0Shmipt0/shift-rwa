@@ -11,7 +11,7 @@ export function LandingMarketsGrid() {
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-mint mb-3">
             Live markets
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.05]">
+          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] pb-1">
             Trade the names
             <br />
             <span className="text-mint">that actually move.</span>
