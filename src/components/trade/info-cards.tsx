@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { INTELLIGENCE } from "@/lib/mock";
 import { ArrowRight } from "lucide-react";
 
 export function EducationCard() {
@@ -42,35 +40,3 @@ export function MarketNewsCard() {
   );
 }
 
-export function IntelligenceCard() {
-  return (
-    <div className="bg-card rounded-3xl p-8 h-full">
-      <h3 className="text-lg text-foreground mb-8">Intelligence</h3>
-      <ul className="space-y-6">
-        {INTELLIGENCE.map((item, i) => (
-          <li key={item.title}>
-            <a href="#" className="flex gap-3 group">
-              <Image
-                src={item.image}
-                alt=""
-                width={68}
-                height={68}
-                className="size-[68px] rounded-lg object-cover shrink-0"
-              />
-              <div className="flex-1 min-w-0">
-                <p className="text-base leading-snug text-white group-hover:text-mint transition-colors">
-                  {item.title}
-                </p>
-                <div className="flex items-center justify-between text-xs text-muted-foreground mt-2">
-                  <span>{item.source}</span>
-                  <span className="uppercase">{item.time}</span>
-                </div>
-              </div>
-            </a>
-            {i < INTELLIGENCE.length - 1 && <div className="h-px bg-border mt-6" />}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
