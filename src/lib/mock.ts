@@ -57,10 +57,10 @@ export function generateSeries(points = 48, base = 50000, vol = 800): { t: numbe
 }
 
 export const INTELLIGENCE = [
-  { title: "Tesla Beats Q4 Delivery Goals After Strong Holiday Demand", source: "Reuters" },
-  { title: "Nvidia Expands Lead in AI Chips, Margins Hit Record High", source: "Bloomberg" },
-  { title: "Uranium Prices Surge as Reactor Restarts Tighten Supply", source: "FT" },
-  { title: "S&P 500 Rallies on Soft Inflation Print, Rate Cut Bets Rise", source: "WSJ" },
+  { title: "Tesla Reveals introduced its latest robot, expanding its long-term robotics.", source: "Forbes",    time: "1 DAY AGO",  image: "/news/news-1.png" },
+  { title: "Nvidia Expands Its Lead in AI Chips, signing agreement with Capitol Hill",     source: "Bloomberg", time: "10 MIN AGO", image: "/news/news-2.png" },
+  { title: "Apple Launches Revolutionary Augmented Reality Glasses",                       source: "Bloomberg", time: "10 MIN AGO", image: "/news/news-3.png" },
+  { title: "Uranium Gains as growing support for nuclear energy driving renewed interest.", source: "Bloomberg", time: "10 MIN AGO", image: "/news/news-4.png" },
 ];
 
 export const FORMATTERS = {

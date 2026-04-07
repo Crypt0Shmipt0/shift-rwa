@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Card } from "@/components/ui/card";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ASSETS, FORMATTERS } from "@/lib/mock";
-import { ArrowDown, ChevronDown } from "lucide-react";
+import { ArrowDown, ChevronDown, Wallet } from "lucide-react";
 import { AssetPicker } from "@/components/trade/asset-picker";
 
 type Side = "buy" | "sell";
@@ -16,85 +14,110 @@ export function SwapCard({ symbol = "TSL2s" }: { symbol?: string }) {
   const [usd, setUsd] = useState("124032.00");
   const tokens = (parseFloat(usd || "0") / asset.price).toFixed(4);
 
+  // Reset on asset change
+  useEffect(() => {
+    setUsd("124032.00");
+  }, [symbol]);
+
   return (
-    <Card className="bg-card border-border p-6 rounded-2xl">
-      <Tabs value={side} onValueChange={(v) => setSide(v as Side)} className="w-full">
-        <TabsList className="bg-transparent p-0 h-auto gap-6 mb-6">
-          <TabsTrigger
-            value="buy"
-            className="data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none text-muted-foreground text-2xl font-semibold px-0 relative data-[state=active]:after:absolute data-[state=active]:after:bottom-[-8px] data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-[2px] data-[state=active]:after:bg-mint"
-          >
-            Buy
-          </TabsTrigger>
-          <TabsTrigger
-            value="sell"
-            className="data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none text-muted-foreground text-2xl font-semibold px-0 relative data-[state=active]:after:absolute data-[state=active]:after:bottom-[-8px] data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-[2px] data-[state=active]:after:bg-mint"
-          >
-            Sell
-          </TabsTrigger>
-        </TabsList>
+    <div className="w-full">
+      {/* Buy / Sell tabs (plain buttons — no Base UI Tabs) */}
+      <div className="flex items-center gap-1 mb-3 ml-3">
+        <button
+          onClick={() => setSide("buy")}
+          className={`px-3 py-1 text-base font-semibold rounded-2xl transition-colors ${
+            side === "buy" ? "text-white" : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Buy
+        </button>
+        <button
+          onClick={() => setSide("sell")}
+          className={`px-3 py-1 text-base font-semibold rounded-2xl transition-colors ${
+            side === "sell" ? "text-white" : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Sell
+        </button>
+      </div>
 
-        <TabsContent value={side} className="mt-2 space-y-3">
-          <FieldRow
-            label="From"
-            symbol={side === "buy" ? "USD" : asset.symbol}
+      {/* From */}
+      <div className="bg-card rounded-3xl px-8 py-6 border-2 border-mint">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs text-muted-foreground">{side === "buy" ? "Sell" : "Sell"}</span>
+          <div className="flex items-center gap-2 text-xs text-mist">
+            <Wallet className="h-3 w-3" />
+            {side === "buy" ? "124,278.92" : "4,278.92"}
+          </div>
+        </div>
+        <div className="flex items-center justify-between gap-4">
+          {side === "buy" ? (
+            <UsdcChip />
+          ) : (
+            <AssetPicker symbol={asset.symbol} />
+          )}
+          <input
             value={side === "buy" ? usd : tokens}
-            onChange={setUsd}
-            editable={side === "buy"}
-            picker={side === "buy" ? null : <AssetPicker symbol={asset.symbol} />}
+            onChange={(e) => setUsd(e.target.value.replace(/[^0-9.]/g, ""))}
+            inputMode="decimal"
+            placeholder="0.00"
+            className="bg-transparent text-right text-3xl font-semibold text-white outline-none w-full max-w-[260px] placeholder:text-muted-foreground tabular-nums"
           />
-          <div className="flex justify-center -my-1 relative z-10">
-            <div className="rounded-full bg-mint/10 border border-mint/30 p-2">
-              <ArrowDown className="h-4 w-4 text-mint" />
-            </div>
-          </div>
-          <FieldRow
-            label="To"
-            symbol={side === "buy" ? asset.symbol : "USD"}
-            value={side === "buy" ? tokens : usd}
-            onChange={setUsd}
-            editable={side === "sell"}
-            picker={side === "buy" ? <AssetPicker symbol={asset.symbol} /> : null}
-          />
+        </div>
+      </div>
 
-          <div className="flex justify-between text-xs text-muted-foreground pt-3">
-            <span>1 {asset.symbol} ≈ {FORMATTERS.usd(asset.price)}</span>
-            <span>Slippage 0.5% · Fee 0.1%</span>
-          </div>
+      {/* Switcher */}
+      <div className="flex justify-center -my-3 relative z-10">
+        <button
+          onClick={() => setSide(side === "buy" ? "sell" : "buy")}
+          className="size-10 rounded-full bg-card border-[3px] border-background flex items-center justify-center hover:bg-secondary transition-colors"
+          aria-label="Switch direction"
+        >
+          <ArrowDown className="h-4 w-4 text-mint" />
+        </button>
+      </div>
 
-          <Button className="w-full h-12 mt-4 bg-mint text-primary-foreground hover:bg-mint/90 text-base font-semibold rounded-xl">
-            {side === "buy" ? "Buy" : "Sell"} {asset.symbol}
-          </Button>
-        </TabsContent>
-      </Tabs>
-    </Card>
+      {/* To */}
+      <div className="bg-card rounded-3xl px-8 py-6 border-2 border-card">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs text-muted-foreground">{side === "buy" ? "Buy" : "Buy"}</span>
+          <div className="flex items-center gap-2 text-xs text-mist">
+            <Wallet className="h-3 w-3" />
+            {side === "buy" ? "4,278.92" : "124,278.92"}
+          </div>
+        </div>
+        <div className="flex items-center justify-between gap-4">
+          {side === "buy" ? (
+            <AssetPicker symbol={asset.symbol} />
+          ) : (
+            <UsdcChip />
+          )}
+          <span className="text-3xl font-semibold text-white tabular-nums">
+            {side === "buy" ? tokens : usd}
+          </span>
+        </div>
+      </div>
+
+      {/* CTA */}
+      <Button className="w-full h-14 mt-2 bg-mint text-primary-foreground hover:bg-mint/90 text-xl font-semibold rounded-2xl">
+        {side === "buy" ? "Buy" : "Sell"} {asset.symbol}
+      </Button>
+
+      {/* Rate */}
+      <div className="flex items-center justify-center gap-2 mt-3 text-xs">
+        <span className="text-mist">Rate</span>
+        <span className="text-foreground/80">{asset.price.toFixed(2)} USDC = 1 {asset.symbol}</span>
+      </div>
+    </div>
   );
 }
 
-function FieldRow({
-  label, symbol, value, onChange, editable, picker,
-}: {
-  label: string; symbol: string; value: string; onChange: (v: string) => void; editable: boolean;
-  picker: React.ReactNode;
-}) {
+function UsdcChip() {
   return (
-    <div className="bg-secondary rounded-xl p-4">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-xs uppercase tracking-wider text-muted-foreground">{label}</span>
-        {picker ?? (
-          <div className="flex items-center gap-1 text-sm bg-background rounded-full px-3 py-1.5">
-            <span className="h-5 w-5 rounded-full bg-foreground/30" />
-            <span className="font-semibold">{symbol}</span>
-            <ChevronDown className="h-3 w-3 opacity-0" />
-          </div>
-        )}
-      </div>
-      <input
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        readOnly={!editable}
-        className="w-full bg-transparent text-3xl font-semibold outline-none tabular-nums"
-      />
+    <div className="flex items-center gap-2 p-1.5 pr-3 rounded-full bg-secondary">
+      <span className="size-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-[10px] font-bold text-white">$</span>
+      <span className="text-base text-foreground">USDC</span>
+      <ChevronDown className="h-3 w-3 text-muted-foreground" />
     </div>
   );
 }
