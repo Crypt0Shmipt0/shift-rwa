@@ -6,8 +6,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Inter", "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --font-sans: var(--font-grotesk), "Space Grotesk", "FK Grotesk", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
   --font-heading: var(--font-sans);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -49,38 +49,47 @@
 }
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #edeeee;
-  --card: #141414;
-  --card-foreground: #edeeee;
-  --popover: #141414;
-  --popover-foreground: #edeeee;
-  --primary: #00cccc;
-  --primary-foreground: #001414;
-  --secondary: #1c1c1c;
-  --secondary-foreground: #edeeee;
-  --muted: #1c1c1c;
-  --muted-foreground: #98a2b3;
-  --accent: #1c1c1c;
-  --accent-foreground: #edeeee;
-  --destructive: #ff4d4f;
-  --border: #1f1f1f;
-  --input: #1f1f1f;
-  --ring: #00cccc;
+  /* Brand palette — SHIFT Condensed Brand Guide, April 2025 */
+  --background: #021C24;            /* Midnight */
+  --foreground: #EDEEEE;             /* Off-White */
+  --card: #0A2730;                   /* card surface — 1 step up from Midnight */
+  --card-foreground: #EDEEEE;
+  --popover: #0A2730;
+  --popover-foreground: #EDEEEE;
+  --primary: #26C8B8;                /* Protocol Mint */
+  --primary-foreground: #021C24;     /* Midnight — for on-mint text */
+  --secondary: #07323F;              /* subtle raised surface */
+  --secondary-foreground: #EDEEEE;
+  --muted: #07323F;
+  --muted-foreground: #98A2B3;
+  --accent: #07323F;
+  --accent-foreground: #EDEEEE;
+  --destructive: #FF4D6A;
+  --border: #123642;                 /* thin line on Midnight */
+  --input: #123642;
+  --ring: #26C8B8;
 
-  --mint: #00cccc;
-  --mint-50: #006666;
-  --mint-20: #365f5f;
-  --off-white: #edeeee;
-  --mist: #98a2b3;
+  /* Brand-specific tokens */
+  --mint: #26C8B8;                   /* Protocol Mint */
+  --mint-fg: #021C24;                /* Midnight (for on-mint text) */
+  --mint-50: #07638C;                /* Tidal Steel (Adjusted) — gradient end */
+  --mint-20: #094058;                /* Tidal Steel — base */
+  --midnight: #021C24;
+  --tidal-steel: #094058;
+  --tidal-steel-adj: #07638C;
+  --off-white: #EDEEEE;
+  --validator-white: #FFFFFF;
+  --mist: #98A2B3;
   --slate: #667085;
-  --positive: #00cccc;
-  --negative: #ff4d4f;
+  --pure-black: #000000;
+  --positive: #26C8B8;
+  --negative: #FF4D6A;
 
-  --chart-1: #00cccc;
-  --chart-2: #006666;
-  --chart-3: #365f5f;
-  --chart-4: #98a2b3;
+  /* Chart palette */
+  --chart-1: #26C8B8;
+  --chart-2: #07638C;
+  --chart-3: #094058;
+  --chart-4: #98A2B3;
   --chart-5: #667085;
 
   --radius: 0.875rem;

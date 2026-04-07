@@ -5,6 +5,8 @@ import { RainbowKitProvider, getDefaultConfig, darkTheme } from "@rainbow-me/rai
 import { WagmiProvider } from "wagmi";
 import { mainnet, base, arbitrum, optimism } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 import { useState } from "react";
 
 const config = getDefaultConfig({
@@ -27,7 +29,21 @@ export function Providers({ children }: { children: React.ReactNode }) {
             overlayBlur: "small",
           })}
         >
-          {children}
+          <TooltipProvider>
+            {children}
+            <Toaster
+              theme="dark"
+              position="top-right"
+              richColors
+              toastOptions={{
+                classNames: {
+                  toast: "bg-card border-border",
+                  title: "text-foreground",
+                  description: "text-muted-foreground",
+                },
+              }}
+            />
+          </TooltipProvider>
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

@@ -1,25 +1,40 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { TopNav } from "@/components/nav/top-nav";
 import { Footer } from "@/components/nav/footer";
 import { Providers } from "@/components/providers";
+import { WelcomeModal } from "@/components/onboarding/welcome-modal";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const grotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-grotesk",
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const jbMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Shift — Trade Tokenized Real-World Assets",
-  description: "Leveraged tokens for stocks, ETFs, and commodities. On-chain.",
+  title: "SHIFT — Trade Tokenized Stocks, 24/7",
+  description:
+    "Experience permissionless access to Stocks & ETFs value across top DEXs & dApps. Trade leveraged real-world assets on-chain.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`dark ${inter.variable}`}>
+    <html lang="en" className={`dark ${grotesk.variable} ${jbMono.variable}`}>
       <body className="min-h-screen flex flex-col">
         <Providers>
           <TopNav />
           <main className="flex-1">{children}</main>
           <Footer />
+          <WelcomeModal />
         </Providers>
       </body>
     </html>
