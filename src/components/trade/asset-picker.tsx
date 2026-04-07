@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
@@ -13,12 +14,12 @@ export function AssetPicker({ symbol }: { symbol: string }) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger className="flex items-center gap-1 text-sm bg-background rounded-full px-3 py-1.5 hover:bg-background/60 transition-colors">
-        <span className="h-5 w-5 rounded-full bg-mint" />
-        <span className="font-semibold">{current.symbol}</span>
-        <ChevronDown className="h-3 w-3" />
+      <PopoverTrigger className="flex items-center gap-2 p-1.5 pr-3 rounded-full bg-[#333] hover:bg-mint/15 hover:border-mint border border-transparent transition-all">
+        <Image src={current.image} alt={current.symbol} width={32} height={32} className="size-8 rounded-full object-cover" />
+        <span className="font-semibold text-base text-foreground">{current.symbol}</span>
+        <ChevronDown className="h-3 w-3 text-[#d9d9d9]" />
       </PopoverTrigger>
-      <PopoverContent className="w-72 p-1 bg-card border-border" align="end">
+      <PopoverContent className="w-72 p-1 bg-[#1a1a1a] border-border" align="end">
         {ASSETS.map((a) => {
           const positive = a.change24h >= 0;
           return (
@@ -28,14 +29,14 @@ export function AssetPicker({ symbol }: { symbol: string }) {
                 setOpen(false);
                 router.push(`/trade/${a.symbol}`);
               }}
-              className="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-secondary transition-colors text-left"
+              className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl hover:bg-[#333] transition-colors text-left ${
+                a.symbol === current.symbol ? "bg-[#333]" : ""
+              }`}
             >
               <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-full bg-mint/15 flex items-center justify-center text-mint text-xs font-bold">
-                  {a.symbol.slice(0, 2)}
-                </div>
+                <Image src={a.image} alt={a.symbol} width={32} height={32} className="size-8 rounded-full object-cover" />
                 <div>
-                  <div className="font-semibold text-sm">{a.symbol}</div>
+                  <div className="font-semibold text-sm text-foreground">{a.symbol}</div>
                   <div className="text-xs text-muted-foreground">{a.name}</div>
                 </div>
               </div>

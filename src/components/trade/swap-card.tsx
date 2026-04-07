@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ASSETS } from "@/lib/mock";
+import { ASSETS, getAsset } from "@/lib/mock";
 import { ChevronDown, Wallet } from "lucide-react";
 
 type Side = "buy" | "sell";
@@ -14,7 +14,7 @@ const MOCK_ASSET_BALANCE = 4278.92;
 
 export function SwapCard({ symbol = "TSL2s" }: { symbol?: string }) {
   const router = useRouter();
-  const asset = ASSETS.find((a) => a.symbol === symbol) ?? ASSETS[0];
+  const asset = getAsset(symbol);
   const [side, setSide] = useState<Side>("buy");
   const [inputAmount, setInputAmount] = useState("");
   const [outputAmount, setOutputAmount] = useState("");
@@ -241,20 +241,23 @@ function AssetChip({ asset, open, hovered, onToggle, onHover, refEl, onPick, oth
           accent ? "border-mint bg-mint/15" : "border-transparent bg-[#333]"
         }`}
       >
-        <Image src="/trade/tsl2s.png" alt={asset.symbol} width={32} height={32} className="size-8 rounded-full object-cover" />
+        <Image src={asset.image} alt={asset.symbol} width={32} height={32} className="size-8 rounded-full object-cover" />
         <span className={`text-base transition-colors ${accent ? "text-mint" : "text-foreground"}`}>{asset.symbol}</span>
         <ChevronDown className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""} ${accent ? "text-mint" : "text-[#d9d9d9]"}`} />
       </button>
       {open && (
-        <div className="absolute top-12 left-0 bg-[#1a1a1a] border border-border rounded-2xl p-2 z-50 min-w-[200px] shadow-lg shadow-black/40">
+        <div className="absolute top-12 left-0 bg-[#1a1a1a] border border-border rounded-2xl p-2 z-50 min-w-[220px] shadow-lg shadow-black/40">
           {others.map((a) => (
             <button
               key={a.symbol}
               onClick={() => onPick(a.symbol)}
               className="flex gap-2.5 items-center p-2 rounded-xl w-full hover:bg-[#333] transition-colors group text-left"
             >
-              <Image src="/trade/tsl2s.png" alt={a.symbol} width={28} height={28} className="size-7 rounded-full object-cover" />
-              <span className="text-foreground text-sm group-hover:text-mint transition-colors">{a.symbol}</span>
+              <Image src={a.image} alt={a.symbol} width={28} height={28} className="size-7 rounded-full object-cover" />
+              <div className="flex-1 min-w-0">
+                <div className="text-foreground text-sm group-hover:text-mint transition-colors">{a.symbol}</div>
+                <div className="text-muted-foreground text-xs truncate">{a.name}</div>
+              </div>
             </button>
           ))}
         </div>

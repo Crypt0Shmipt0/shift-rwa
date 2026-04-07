@@ -84,7 +84,7 @@ export function TradingViewChart({ symbol = "TSL2s" }: { symbol?: string }) {
   }, [tvSymbol]);
 
   return (
-    <div className="bg-card rounded-[32px] w-full h-[583px] overflow-hidden relative">
+    <div className="bg-card rounded-[32px] w-full h-[420px] sm:h-[520px] lg:h-[583px] overflow-hidden relative">
       <div
         id={CONTAINER_ID}
         ref={containerRef}

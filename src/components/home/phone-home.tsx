@@ -13,16 +13,19 @@ import {
   TrendingUp,
 } from "lucide-react";
 
+import { ASSETS, FORMATTERS } from "@/lib/mock";
+
 const ASSET_CARDS = [
-  { name: "Tesla x2", symbol: "TSL2s", img: "/phone/coin-ethereum.png", rotate: "-27.9deg" },
-  { name: "Nvidia x3", symbol: "NVD3s", img: "/phone/coin-cardano.png", rotate: "45deg" },
-  { name: "SPY x3",   symbol: "SPY3s", img: "/phone/coin-bitcoin.png",  rotate: "15deg" },
+  { symbol: "TSL2s", label: "Tesla x2",     img: "/phone/coin-ethereum.png", rotate: "-27.9deg" },
+  { symbol: "NVD3s", label: "Nvidia x3",    img: "/phone/coin-cardano.png",  rotate: "45deg" },
+  { symbol: "SPY3s", label: "SPY x3",       img: "/phone/coin-bitcoin.png",  rotate: "15deg" },
+  { symbol: "TSLSs", label: "Tesla Short",  img: "/phone/coin-cardano.png",  rotate: "8deg" },
 ];
 
-const TOP_MOVERS = [
-  { symbol: "TSL2s", change: "+32.54%", price: "$432.64", chart: "/phone/chart-1.svg" },
-  { symbol: "NVD3s", change: "+84.29%", price: "$135.83", chart: "/phone/chart-2.svg" },
-];
+const TOP_MOVERS = ASSETS
+  .slice()
+  .sort((a, b) => Math.abs(b.change24h) - Math.abs(a.change24h))
+  .slice(0, 2);
 
 export function PhoneHome() {
   return (
@@ -66,14 +69,14 @@ export function PhoneHome() {
           >
             <Image
               src={a.img}
-              alt={a.name}
+              alt={a.label}
               width={400}
               height={400}
               className="absolute -top-4 -right-4 w-[170px] h-[170px] object-contain pointer-events-none select-none drop-shadow-2xl"
               style={{ transform: `rotate(${a.rotate})` }}
             />
             <div className="relative z-10 flex items-center justify-between text-primary-foreground">
-              <span className="font-bold text-lg">{a.name}</span>
+              <span className="font-bold text-lg">{a.label}</span>
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </div>
           </Link>
@@ -83,25 +86,30 @@ export function PhoneHome() {
       {/* Top Movers */}
       <h3 className="text-2xl font-bold text-white mb-4">Top Movers</h3>
       <div className="grid grid-cols-2 gap-4">
-        {TOP_MOVERS.map((m) => (
-          <Link
-            key={m.symbol}
-            href={`/trade/${m.symbol}`}
-            className="bg-secondary rounded-2xl p-4 relative overflow-hidden hover:bg-secondary/80 transition-colors"
-          >
-            <div className="text-mint font-bold text-xl mb-1">{m.change}</div>
-            <div className="text-xs text-muted-foreground">
-              {m.symbol} {m.price}
-            </div>
-            <Image
-              src={m.chart}
-              alt=""
-              width={120}
-              height={40}
-              className="absolute right-2 bottom-2 opacity-80 pointer-events-none"
-            />
-          </Link>
-        ))}
+        {TOP_MOVERS.map((m) => {
+          const positive = m.change24h >= 0;
+          return (
+            <Link
+              key={m.symbol}
+              href={`/trade/${m.symbol}`}
+              className="bg-secondary rounded-2xl p-4 relative overflow-hidden hover:bg-secondary/80 transition-colors"
+            >
+              <div className={`font-bold text-xl mb-1 ${positive ? "text-mint" : "text-destructive"}`}>
+                {FORMATTERS.pct(m.change24h)}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {m.symbol} {FORMATTERS.usd(m.price)}
+              </div>
+              <Image
+                src={positive ? "/phone/chart-1.svg" : "/phone/chart-2.svg"}
+                alt=""
+                width={120}
+                height={40}
+                className="absolute right-2 bottom-2 opacity-80 pointer-events-none"
+              />
+            </Link>
+          );
+        })}
       </div>
 
       {/* Mobile bottom bar */}
