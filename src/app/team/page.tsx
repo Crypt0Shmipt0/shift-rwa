@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { TEAM } from "@/data/team";
 
 export const metadata: Metadata = {
@@ -44,13 +45,25 @@ export default function TeamPage() {
           >
             <div className="absolute -top-16 -right-16 size-40 rounded-full bg-mint/5 blur-3xl group-hover:bg-mint/10 transition-colors" />
             <div className="relative flex gap-5 items-start">
-              {/* Avatar */}
-              <div
-                className="size-16 rounded-2xl flex items-center justify-center text-xl font-bold text-[#021C24] shrink-0 select-none"
-                style={{ background: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-              >
-                {member.initials}
-              </div>
+              {/* Avatar — photo if available, initials fallback */}
+              {member.photo ? (
+                <div className="size-24 rounded-2xl overflow-hidden shrink-0 ring-1 ring-mint/20">
+                  <Image
+                    src={member.photo}
+                    alt={member.name}
+                    width={200}
+                    height={200}
+                    className="size-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div
+                  className="size-24 rounded-2xl flex items-center justify-center text-2xl font-bold text-[#021C24] shrink-0 select-none"
+                  style={{ background: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
+                >
+                  {member.initials}
+                </div>
+              )}
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-mint mb-1">
                   {member.role}
@@ -65,7 +78,7 @@ export default function TeamPage() {
 
       {/* Footer note */}
       <p className="text-center text-foreground/40 text-xs mt-12">
-        Photos and extended bios coming soon. Reach out at{" "}
+        Extended bios coming soon. Reach out at{" "}
         <a
           href="mailto:hello@shift.finance"
           className="text-mint hover:text-mint/80 transition-colors"

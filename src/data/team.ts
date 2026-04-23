@@ -3,6 +3,8 @@ export type TeamMember = {
   initials: string;
   role: string;
   bio: string;
+  /** Optional /public path to headshot. Falls back to initials avatar when absent. */
+  photo?: string;
 };
 
 export const TEAM: readonly TeamMember[] = [
@@ -11,6 +13,7 @@ export const TEAM: readonly TeamMember[] = [
     initials: "MB",
     role: "CEO",
     bio: "Ex-CEO Titan by First DAG (acq. Fireblocks). Serial fintech/Web3 founder.",
+    photo: "/team/michael.jpg",
   },
   {
     name: "Shoham Ben Rubi",
@@ -23,11 +26,13 @@ export const TEAM: readonly TeamMember[] = [
     initials: "TW",
     role: "CTO",
     bio: "Ex-CTO Flow Traders. Deep capital-markets + infrastructure credibility.",
+    photo: "/team/thomas.jpg",
   },
   {
     name: "Daniel Liven",
     initials: "DL",
     role: "COO",
     bio: "Ex-COO Zaisan. EU commercial/antitrust lawyer specializing in Web3.",
+    photo: "/team/daniel.jpg",
   },
 ];

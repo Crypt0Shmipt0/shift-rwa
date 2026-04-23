@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { TEAM } from "@/data/team";
 
@@ -48,13 +49,25 @@ function TeamCard({ member }: { member: (typeof TEAM)[number] }) {
     <div className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-card to-background p-6 hover:border-mint/40 transition-colors group">
       <div className="absolute -top-12 -right-12 size-32 rounded-full bg-mint/5 blur-3xl group-hover:bg-mint/10 transition-colors" />
       <div className="relative">
-        {/* Avatar bubble */}
-        <div
-          className="size-14 rounded-2xl flex items-center justify-center mb-4 text-lg font-bold text-[#021C24] select-none"
-          style={{ background: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-        >
-          {member.initials}
-        </div>
+        {/* Avatar — photo if available, initials fallback */}
+        {member.photo ? (
+          <div className="size-20 rounded-2xl overflow-hidden mb-4 ring-1 ring-mint/20">
+            <Image
+              src={member.photo}
+              alt={member.name}
+              width={160}
+              height={160}
+              className="size-full object-cover"
+            />
+          </div>
+        ) : (
+          <div
+            className="size-20 rounded-2xl flex items-center justify-center mb-4 text-xl font-bold text-[#021C24] select-none"
+            style={{ background: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
+          >
+            {member.initials}
+          </div>
+        )}
         <div className="text-xs font-bold uppercase tracking-wider text-mint mb-1">
           {member.role}
         </div>
