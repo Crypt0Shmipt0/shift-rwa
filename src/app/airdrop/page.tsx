@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Card } from "@/components/ui/card";
-import { Sparkles, ArrowRight, Gift } from "lucide-react";
+import { Sparkles, ArrowRight, CheckCircle2, Layers, ArrowRightCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Airdrop",
@@ -24,7 +24,8 @@ export default function AirdropPage() {
         </h1>
         <p className="text-base md:text-lg text-foreground/70 leading-relaxed mb-8">
           Early traders, farm participants, and community builders will share the $SHFT airdrop at
-          TGE. Eligibility, point multipliers, and claim instructions will publish here shortly.
+          TGE. Eligibility, point multipliers, and claim instructions publish 30 days before TGE —
+          start earning farm points now.
         </p>
         <div className="flex flex-wrap gap-3">
           <Link
@@ -43,28 +44,29 @@ export default function AirdropPage() {
         </div>
       </div>
 
-      {/* Placeholder cards — content arrives from Arpit/Deepak */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <Card className="bg-card border-border rounded-2xl p-6 relative overflow-hidden">
-          <Gift className="h-8 w-8 text-mint mb-4" />
+          <CheckCircle2 className="h-8 w-8 text-mint mb-4" />
           <div className="text-sm font-semibold text-white mb-1">Eligibility</div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Publishing soon. Trading volume, farm points, and community contributions all count
-            toward allocation.
+            Trading volume, farm points, and referrals all count toward $SHFT allocation. Full table
+            publishes 30 days before TGE.
           </p>
         </Card>
         <Card className="bg-card border-border rounded-2xl p-6 relative overflow-hidden">
-          <Gift className="h-8 w-8 text-mint mb-4" />
+          <Layers className="h-8 w-8 text-mint mb-4" />
           <div className="text-sm font-semibold text-white mb-1">Point multipliers</div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Active traders earn 2×–5× multipliers. Final multiplier table announced before TGE.
+            Active traders qualify for 2×–5× multipliers. The earlier your activity, the higher
+            your tier.
           </p>
         </Card>
         <Card className="bg-card border-border rounded-2xl p-6 relative overflow-hidden">
-          <Gift className="h-8 w-8 text-mint mb-4" />
+          <ArrowRightCircle className="h-8 w-8 text-mint mb-4" />
           <div className="text-sm font-semibold text-white mb-1">Claim flow</div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Connect wallet, prove eligibility, claim $SHFT directly. Instructions publish at TGE.
+            At TGE: connect your Solana wallet, verify eligibility, and claim $SHFT directly — no
+            broker, no intermediary.
           </p>
         </Card>
       </div>

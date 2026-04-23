@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { BookOpen, FileText, ArrowUpRight } from "lucide-react";
+import { BookOpen, FileText, ArrowUpRight, ShieldCheck, CircleCheck, Coins, ArrowLeftRight, ArrowUpFromLine } from "lucide-react";
 
 import type { Metadata } from "next";
 
@@ -31,7 +31,7 @@ const FAQ = [
   },
   {
     q: "What happens if the underlying stock market is closed?",
-    a: "Our on-chain markets trade 24/7. During US market closure, prices are set by our oracle and may diverge slightly from the reference underlying until US open.",
+    a: "Our on-chain markets trade 24/7. During US market closure, prices are set by the Chainlink oracle and may diverge slightly from the reference underlying until US open.",
   },
   {
     q: "How is the 2× or 3× multiple maintained?",
@@ -64,8 +64,17 @@ export default function LearnPage() {
           Why SHIFT, and how it works.
         </h1>
         <p className="text-base text-muted-foreground leading-relaxed">
-          Stocks are too slow. Perps blow you up. SHIFT is the bi-directional leveraged RWA protocol
-          that solves both — 3× and 2× tokenized stocks, ETFs, and ETNs with zero liquidation risk.
+          SHIFT tokens are SPL-native, backed by tokenized equities with Chainlink Proof-of-Reserves.
+          No liquidation engine. No KYC. No broker. This page explains the mechanics —{" "}
+          <Link
+            href="https://shift-stocks.gitbook.io/learn"
+            target="_blank"
+            rel="noreferrer"
+            className="text-mint hover:underline"
+          >
+            or jump straight to the Gitbook
+          </Link>{" "}
+          for protocol-level detail.
         </p>
       </div>
 
@@ -88,6 +97,63 @@ export default function LearnPage() {
           ))}
         </Accordion>
       </Card>
+
+      {/* How it works */}
+      <div className="mb-12">
+        <div className="flex items-center gap-2 mb-6">
+          <ArrowLeftRight className="h-4 w-4 text-mint" />
+          <h2 className="text-lg font-semibold text-white">How it works</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          {[
+            {
+              icon: ShieldCheck,
+              title: "Back",
+              body: "Direxion ETF (TSLL) is purchased and custodied via Alpaca Markets.",
+            },
+            {
+              icon: CircleCheck,
+              title: "Verify",
+              body: "Chainlink Proof-of-Reserves confirms 1:1 backing, on-chain.",
+            },
+            {
+              icon: Coins,
+              title: "Mint",
+              body: "SHIFT smart contract mints the SPL token (TSL2L) on Solana.",
+            },
+            {
+              icon: ArrowLeftRight,
+              title: "Trade",
+              body: "Buy / sell / LP / lend TSL2L across Jupiter, Meteora, Kamino, Orca — 24/7, permissionless.",
+            },
+            {
+              icon: ArrowUpFromLine,
+              title: "Redeem",
+              body: "Burn TSL2L on-chain → underlying ETF value is redeemed 24/5 via Alpaca rails → USDC to your wallet.",
+            },
+          ].map((step, i) => (
+            <div key={step.title} className="relative flex flex-col">
+              <Card className="bg-card border-border rounded-2xl p-5 flex-1">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="flex items-center justify-center size-7 rounded-full bg-mint/15 text-mint text-xs font-bold shrink-0">
+                    {i + 1}
+                  </div>
+                  <step.icon className="h-4 w-4 text-mint" />
+                </div>
+                <div className="text-sm font-semibold text-white mb-1">{step.title}</div>
+                <p className="text-xs text-muted-foreground leading-relaxed">{step.body}</p>
+              </Card>
+              {i < 4 && (
+                <div className="hidden md:flex absolute -right-2 top-1/2 -translate-y-1/2 z-10 items-center justify-center size-4">
+                  <svg viewBox="0 0 16 16" className="h-3 w-3 text-mint/50 fill-current">
+                    <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Gitbook CTA */}
       <Card className="bg-gradient-to-br from-mint/10 via-card to-card border-mint/30 rounded-3xl p-8 md:p-10 relative overflow-hidden">

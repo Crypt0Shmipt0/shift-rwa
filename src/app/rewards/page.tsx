@@ -8,10 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Sparkles, Zap, Trophy, Gift, CheckCircle2 } from "lucide-react";
 
 const BADGES = [
-  { name: "Navigator",  min: 0,      perks: ["Basic RFQ", "Standard fees", "1× XP"] },
+  { name: "Navigator",  min: 0,      perks: ["Market execution", "Standard fees", "1× XP"] },
   { name: "Operator",   min: 10_000, perks: ["Tighter spreads", "-10% fees", "2× XP", "Early features"] },
-  { name: "Strategist", min: 50_000, perks: ["Priority RFQ", "-25% fees", "3× XP", "Direct desk access"] },
-  { name: "Sovereign",  min: 250_000, perks: ["VIP execution", "-50% fees", "5× XP", "Custom OTC", "Private chat"] },
+  { name: "Strategist", min: 50_000, perks: ["Priority fills", "-25% fees", "3× XP", "Direct desk access"] },
+  { name: "Sovereign",  min: 250_000, perks: ["VIP fills + OTC desk", "-50% fees", "5× XP", "Custom OTC", "Private chat"] },
 ];
 
 export default function RewardsPage() {
@@ -24,7 +24,7 @@ export default function RewardsPage() {
       return;
     }
     setJoined(true);
-    toast.success("You're on the list", { description: "We'll ping you when rewards go live." });
+    toast.success("You're on the list", { description: "We'll ping you at TGE." });
   };
 
   return (
@@ -34,14 +34,14 @@ export default function RewardsPage() {
         <div>
           <span className="inline-flex items-center gap-1.5 bg-mint/15 border border-mint/30 text-mint text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-5">
             <Sparkles className="h-3 w-3" />
-            Coming soon
+            Now live · Waitlist open
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             Earn from every <span className="text-mint">shift</span>.
           </h1>
           <p className="text-base text-muted-foreground max-w-[520px] leading-relaxed mb-8">
-            Our rewards program converts your trading activity into on-chain XP, fee rebates, and tier
-            upgrades. Trade, hold, and stay active to climb.
+            Every trade earns on-chain XP. XP unlocks fee rebates, tighter spreads, and a bigger
+            $SHFT allocation at TGE. The earlier you start, the more you earn.
           </p>
           {joined ? (
             <div className="flex items-center gap-2 text-mint text-sm font-medium">
@@ -58,7 +58,7 @@ export default function RewardsPage() {
                 className="bg-secondary border-0 h-12"
               />
               <Button onClick={join} className="bg-mint text-primary-foreground hover:bg-mint/90 h-12 px-6">
-                Join waitlist
+                Notify me at TGE
               </Button>
             </div>
           )}
@@ -67,10 +67,11 @@ export default function RewardsPage() {
           <div className="absolute -top-12 -right-12 size-40 rounded-full bg-mint/20 blur-3xl" />
           <div className="relative">
             <Trophy className="h-10 w-10 text-mint mb-4" />
-            <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Estimated launch</div>
-            <div className="text-2xl font-bold text-white mb-4">Q3 2026</div>
+            <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Farm status</div>
+            <div className="text-2xl font-bold text-white mb-4">Points accruing now</div>
             <div className="text-xs text-muted-foreground leading-relaxed">
-              Early waitlist members get 2× launch XP and first access to the OTC desk.
+              Full redemption program launches Q3 2026. Early traders get 2× XP and first access to
+              the OTC desk.
             </div>
           </div>
         </Card>
@@ -85,7 +86,7 @@ export default function RewardsPage() {
         {BADGES.map((t, i) => (
           <Card
             key={t.name}
-            className={`bg-card border rounded-2xl p-6 relative overflow-hidden ${
+            className={`bg-card border rounded-2xl p-4 md:p-6 relative overflow-hidden ${
               i === 0 ? "border-border" : "border-border hover:border-mint/30 transition-colors"
             }`}
           >

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Rewards",
+  title: "Rewards — Earn $SHFT · SHIFT Finance",
   description:
-    "Earn from every shift. Join the waitlist for SHIFT's 4-badge rewards program — fee rebates, XP, and priority execution.",
+    "Trade SHIFT leveraged tokens and earn on-chain XP, fee rebates, and $SHFT allocation. Early traders get a 2× multiplier at TGE.",
   alternates: { canonical: "/rewards" },
 };
 
