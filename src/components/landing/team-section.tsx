@@ -8,7 +8,7 @@ export function LandingTeam() {
     <section className="relative mx-auto max-w-[1200px] px-6 py-20">
       <div className="text-center mb-3">
         <span className="text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
-          The team
+          Leadership
         </span>
       </div>
       <h2 className="text-center text-4xl md:text-5xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-2 mb-4">
@@ -21,8 +21,9 @@ export function LandingTeam() {
           not just builders.
         </span>
       </h2>
-      <p className="text-center text-foreground/60 text-base max-w-xl mx-auto mb-12">
-        Regulation, capital markets, and DeFi infrastructure — covered.
+      <p className="text-center text-foreground/60 text-base max-w-2xl mx-auto mb-12">
+        Capital markets veterans, serial entrepreneurs, and regulatory experts.
+        Built, operated, and exited in both TradFi and Web3.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -45,16 +46,17 @@ export function LandingTeam() {
 }
 
 function TeamCard({ member }: { member: (typeof TEAM)[number] }) {
+  const displayName = member.namePrefix ? `${member.namePrefix} ${member.name}` : member.name;
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-card to-background p-6 hover:border-mint/40 transition-colors group">
+    <div className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-card to-background p-6 hover:border-mint/40 transition-colors group flex flex-col">
       <div className="absolute -top-12 -right-12 size-32 rounded-full bg-mint/5 blur-3xl group-hover:bg-mint/10 transition-colors" />
-      <div className="relative">
+      <div className="relative flex flex-col flex-1">
         {/* Avatar — photo if available, initials fallback */}
         {member.photo ? (
           <div className="size-20 rounded-2xl overflow-hidden mb-4 ring-1 ring-mint/20">
             <Image
               src={member.photo}
-              alt={member.name}
+              alt={displayName}
               width={160}
               height={160}
               className="size-full object-cover"
@@ -71,8 +73,22 @@ function TeamCard({ member }: { member: (typeof TEAM)[number] }) {
         <div className="text-xs font-bold uppercase tracking-wider text-mint mb-1">
           {member.role}
         </div>
-        <div className="font-semibold text-white text-base mb-2">{member.name}</div>
-        <p className="text-sm text-foreground/60 leading-relaxed">{member.bio}</p>
+        <div className="font-semibold text-white text-base mb-2">{displayName}</div>
+        <p className="text-sm text-foreground/60 leading-relaxed mb-4 flex-1">
+          {member.bioShort}
+        </p>
+        {member.credentials.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-auto pt-4 border-t border-border/40">
+            {member.credentials.slice(0, 3).map((c) => (
+              <span
+                key={c}
+                className="text-[10px] font-medium tracking-tight text-foreground/70 bg-white/[0.04] border border-border/60 rounded-full px-2 py-0.5"
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
