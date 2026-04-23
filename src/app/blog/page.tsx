@@ -1,6 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
-import { getAllPosts } from "@/data/blog-posts";
+import { getAllPosts, getThumbnail } from "@/data/blog-posts";
 import type { BlogTag } from "@/data/blog-posts";
 
 const BASE_URL = "https://shift-rwa.vercel.app";
@@ -89,25 +90,21 @@ export default function BlogIndexPage() {
               href={`/blog/${post.slug}`}
               className="group flex flex-col rounded-2xl border border-border/60 bg-[#0A2730] hover:border-mint/40 hover:bg-[#0d2f38] transition-all duration-200 overflow-hidden"
             >
-              {/* Gradient thumbnail */}
-              <div
-                className="h-40 w-full flex-shrink-0"
-                style={{
-                  background:
-                    post.tag === "signal"
-                      ? "linear-gradient(135deg, #0a2730 0%, #0d3d4a 40%, #26C8B820 100%)"
-                      : post.tag === "academy"
-                      ? "linear-gradient(135deg, #0a2730 0%, #07314a 40%, #07638C30 100%)"
-                      : "linear-gradient(135deg, #0a2730 0%, #1a2e30 40%, #26C8B810 100%)",
-                }}
-              >
-                <div className="h-full w-full flex items-end p-4">
-                  <span
-                    className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${TAG_COLORS[post.tag]}`}
-                  >
-                    {TAG_LABELS[post.tag]}
-                  </span>
-                </div>
+              {/* Thumbnail */}
+              <div className="relative h-48 w-full flex-shrink-0 overflow-hidden bg-[#0a2730]">
+                <Image
+                  src={getThumbnail(post)}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A2730] via-[#0A2730]/20 to-transparent" />
+                <span
+                  className={`absolute bottom-3 left-3 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm ${TAG_COLORS[post.tag]}`}
+                >
+                  {TAG_LABELS[post.tag]}
+                </span>
               </div>
 
               {/* Content */}

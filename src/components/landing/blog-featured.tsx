@@ -1,6 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { getFeaturedPosts } from "@/data/blog-posts";
+import { getFeaturedPosts, getThumbnail } from "@/data/blog-posts";
 import type { BlogTag } from "@/data/blog-posts";
 
 const TAG_LABELS: Record<BlogTag, string> = {
@@ -13,12 +14,6 @@ const TAG_COLORS: Record<BlogTag, string> = {
   signal: "bg-mint/15 text-mint border border-mint/30",
   academy: "bg-[#07638C]/20 text-[#4CC8E8] border border-[#07638C]/40",
   general: "bg-white/10 text-white/70 border border-white/20",
-};
-
-const CARD_GRADIENTS: Record<BlogTag, string> = {
-  signal: "linear-gradient(135deg, #0a2730 0%, #0e3d4a 50%, #26C8B825 100%)",
-  academy: "linear-gradient(135deg, #0a2730 0%, #07314a 50%, #07638C30 100%)",
-  general: "linear-gradient(135deg, #0a2730 0%, #1a2e30 50%, #26C8B815 100%)",
 };
 
 function formatDate(iso: string) {
@@ -64,13 +59,18 @@ export function LandingBlogFeatured() {
               href={`/blog/${post.slug}`}
               className="group flex flex-col rounded-2xl border border-border/60 bg-[#0A2730] hover:border-mint/40 hover:bg-[#0d2f38] transition-all duration-200 overflow-hidden"
             >
-              {/* Gradient thumbnail */}
-              <div
-                className="h-32 w-full flex-shrink-0 flex items-end p-4"
-                style={{ background: CARD_GRADIENTS[post.tag] }}
-              >
+              {/* Thumbnail */}
+              <div className="relative h-36 w-full flex-shrink-0 overflow-hidden bg-[#0a2730]">
+                <Image
+                  src={getThumbnail(post)}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A2730] via-[#0A2730]/30 to-transparent" />
                 <span
-                  className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${TAG_COLORS[post.tag]}`}
+                  className={`absolute bottom-3 left-3 text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full backdrop-blur-sm ${TAG_COLORS[post.tag]}`}
                 >
                   {TAG_LABELS[post.tag]}
                 </span>

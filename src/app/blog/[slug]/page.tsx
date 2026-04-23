@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { BLOG_POSTS, getPost } from "@/data/blog-posts";
+import { BLOG_POSTS, getPost, getThumbnail } from "@/data/blog-posts";
 import type { BlogTag } from "@/data/blog-posts";
 
 const BASE_URL = "https://shift-rwa.vercel.app";
@@ -123,9 +124,18 @@ export default async function BlogPostPage({
         </div>
       </header>
 
-      {/* Divider */}
-      <div className="mx-auto max-w-[65ch] px-6">
-        <div className="border-t border-border/60 mb-10" />
+      {/* Hero image */}
+      <div className="mx-auto max-w-[960px] px-6 mb-12">
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border/60 bg-[#0a2730]">
+          <Image
+            src={getThumbnail(post)}
+            alt=""
+            fill
+            priority
+            sizes="(min-width: 1024px) 960px, 100vw"
+            className="object-cover"
+          />
+        </div>
       </div>
 
       {/* Article body */}

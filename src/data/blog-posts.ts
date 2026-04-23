@@ -10,8 +10,13 @@ export type BlogPost = {
   publishedAt: string;
   featured?: boolean;
   draft?: boolean;
+  thumbnail?: string; // optional override; defaults to /blog/{slug}.jpg
   body: string;
 };
+
+export function getThumbnail(post: BlogPost): string {
+  return post.thumbnail ?? `/blog/${post.slug}.jpg`;
+}
 
 const POST_SIGNAL_1: BlogPost = {
   slug: "the-shift-signal-1-wall-street-doesnt-want-you-to-know",
