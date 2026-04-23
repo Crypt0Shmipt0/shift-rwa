@@ -1,106 +1,131 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "sonner";
+import Link from "next/link";
+import { Share2, Users, Coins, CheckCircle2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Share2, Users, Coins, Copy, Check, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+
+const HOW_IT_WORKS = [
+  {
+    Icon: Share2,
+    title: "Share your link",
+    body: "Copy your unique referral link and share it anywhere — X, Telegram, Discord, or in-person.",
+  },
+  {
+    Icon: Users,
+    title: "Friend trades",
+    body: "Your referral connects a wallet and completes at least one trade on SHIFT.",
+  },
+  {
+    Icon: Coins,
+    title: "You both earn $SHFT",
+    body: "You receive 25% of their protocol fees for 90 days. They get a 10% rebate + bonus XP on their first 10 trades.",
+  },
+];
 
 export default function ReferralsPage() {
-  const [link] = useState("https://shift.finance/r/7xKp3mN2");
-  const [copied, setCopied] = useState(false);
+  const [email, setEmail] = useState("");
+  const [joined, setJoined] = useState(false);
 
-  const copy = async () => {
-    await navigator.clipboard.writeText(link);
-    setCopied(true);
-    toast.success("Referral link copied");
-    setTimeout(() => setCopied(false), 2000);
+  const join = () => {
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      toast.error("Enter a valid email");
+      return;
+    }
+    setJoined(true);
+    toast.success("You're on the list", {
+      description: "We'll ping you when referrals go live.",
+    });
   };
-
-  const tweet = () =>
-    window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-        "Trade tokenized stocks 24/7 on @SHIFTfinance — use my link to get a fee rebate on your first trade.",
-      )}&url=${encodeURIComponent(link)}`,
-      "_blank",
-    );
-
-  const mailto = () => (window.location.href = `mailto:?subject=Trade%20on%20SHIFT&body=${encodeURIComponent(link)}`);
 
   return (
     <div className="mx-auto max-w-[1100px] px-6 lg:px-[72px] py-10">
-      <div className="mb-10">
-        <h1 className="text-3xl font-semibold text-white mb-2">Referrals</h1>
-        <p className="text-sm text-muted-foreground">
-          Share SHIFT with a friend. When they trade, you both earn a rebate.
-        </p>
-      </div>
+      {/* Hero */}
+      <div className="mb-16 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-10 items-center">
+        <div>
+          <span className="inline-flex items-center gap-1.5 bg-mint/15 border border-mint/30 text-mint text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-5">
+            <Share2 className="h-3 w-3" />
+            Coming Soon!
+          </span>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+            Earn for every friend<br />
+            <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
+            >
+              you bring.
+            </span>
+          </h1>
+          <p className="text-base text-muted-foreground max-w-[520px] leading-relaxed mb-8">
+            Our referral program rewards you and your friends for growing the SHIFT community.
+            Earn 25% of protocol fees + bonus $SHFT XP for every trade your referrals make.
+          </p>
+          {joined ? (
+            <div className="flex items-center gap-2 text-mint text-sm font-medium">
+              <CheckCircle2 className="h-4 w-4" />
+              You&apos;re on the waitlist.
+            </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row gap-2 max-w-md">
+              <Input
+                type="email"
+                placeholder="you@wallet.io"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="bg-secondary border-0 h-12"
+              />
+              <Button
+                onClick={join}
+                className="bg-mint text-primary-foreground hover:bg-mint/90 h-12 px-6"
+              >
+                Join waitlist
+              </Button>
+            </div>
+          )}
+        </div>
 
-      {/* Your link */}
-      <Card className="bg-card border-border rounded-3xl p-6 md:p-8 mb-8">
-        <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground mb-3">
-          <Share2 className="h-3 w-3" />
-          Your referral link
-        </div>
-        <div className="flex flex-col sm:flex-row gap-2">
-          <Input readOnly value={link} className="bg-secondary border-0 h-12 font-mono text-sm" />
-          <Button onClick={copy} className="bg-mint text-primary-foreground hover:bg-mint/90 h-12 px-6">
-            {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            {copied ? "Copied" : "Copy link"}
-          </Button>
-        </div>
-        <div className="flex items-center gap-3 mt-4">
-          <Button variant="outline" className="border-border bg-secondary" onClick={tweet}>
-            <Share2 className="h-4 w-4" />
-            Share on X
-          </Button>
-          <Button variant="outline" className="border-border bg-secondary" onClick={mailto}>
-            <Mail className="h-4 w-4" />
-            Send via email
-          </Button>
-        </div>
-      </Card>
-
-      {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <StatCard icon={Users} label="Invited" value="12" />
-        <StatCard icon={Users} label="Converted" value="4" />
-        <StatCard icon={Coins} label="Earned (USDC)" value="$284.50" />
-        <StatCard icon={Coins} label="Claimable" value="$42.12" />
+        <Card className="bg-gradient-to-br from-[#07638C]/40 via-card to-card border-mint/30 rounded-3xl p-8 relative overflow-hidden">
+          <div className="absolute -top-12 -right-12 size-40 rounded-full bg-mint/20 blur-3xl" />
+          <div className="relative">
+            <Users className="h-10 w-10 text-mint mb-4" />
+            <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">
+              Estimated launch
+            </div>
+            <div className="text-2xl font-bold text-white mb-4">Q3 2026</div>
+            <div className="text-xs text-muted-foreground leading-relaxed">
+              Early waitlist members unlock higher referral tiers and first access to the bonus XP pool.
+            </div>
+          </div>
+        </Card>
       </div>
 
       {/* How it works */}
-      <Card className="bg-card border-border rounded-3xl p-6 md:p-8">
-        <h2 className="text-lg font-semibold text-white mb-6">How it works</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Step n="01" title="Share your link" body="Copy your unique referral link and post it anywhere — X, Telegram, email, in-person." />
-          <Step n="02" title="They trade" body="Your invitee connects a wallet and completes at least one trade on SHIFT." />
-          <Step n="03" title="You both earn" body="You receive 25% of their protocol fees for 90 days. They get a 10% rebate on their first 10 trades." />
-        </div>
-      </Card>
-    </div>
-  );
-}
-
-function StatCard({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
-  return (
-    <Card className="bg-card border-border rounded-2xl p-5">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-xs uppercase tracking-wider text-muted-foreground">{label}</span>
-        <Icon className="h-4 w-4 text-mint" />
+      <div className="mb-6 flex items-center gap-2">
+        <Share2 className="h-4 w-4 text-mint" />
+        <h2 className="text-xl font-semibold text-white">How it works</h2>
       </div>
-      <div className="text-2xl font-bold text-white tabular-nums">{value}</div>
-    </Card>
-  );
-}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+        {HOW_IT_WORKS.map(({ Icon, title, body }, i) => (
+          <Card
+            key={title}
+            className="bg-card border-border rounded-2xl p-6 relative overflow-hidden"
+          >
+            <div className="text-xs font-mono text-mint mb-3">{String(i + 1).padStart(2, "0")}</div>
+            <div className="flex items-center gap-2 mb-2">
+              <Icon className="h-4 w-4 text-mint" />
+              <div className="font-semibold text-white">{title}</div>
+            </div>
+            <div className="text-sm text-muted-foreground leading-relaxed">{body}</div>
+          </Card>
+        ))}
+      </div>
 
-function Step({ n, title, body }: { n: string; title: string; body: string }) {
-  return (
-    <div>
-      <div className="text-xs font-mono text-mint mb-3">{n}</div>
-      <div className="font-semibold text-white mb-2">{title}</div>
-      <div className="text-sm text-muted-foreground leading-relaxed">{body}</div>
+      <p className="text-xs text-muted-foreground text-center">
+        Program parameters are not final. Referral rates and XP bonuses may change before launch.
+      </p>
     </div>
   );
 }

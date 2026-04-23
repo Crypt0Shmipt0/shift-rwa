@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { HOLDINGS, ASSETS, FORMATTERS } from "@/lib/mock";
-import { Search, ArrowUpDown, TrendingUp, TrendingDown } from "lucide-react";
+import { Search, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 
 type SortKey = "asset" | "price" | "qty" | "change" | "value";
 
@@ -92,7 +92,7 @@ export function HoldingsTable() {
                   <td className="py-5 px-2 tabular-nums">{FORMATTERS.num(r.qty)}</td>
                   <td className="py-5 px-2">
                     <span className={`inline-flex items-center gap-1 text-sm font-medium ${positive ? "text-mint" : "text-destructive"}`}>
-                      {positive ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
+                      {positive ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />}
                       {FORMATTERS.pct(r.change24h)}
                     </span>
                   </td>
@@ -126,7 +126,7 @@ export function HoldingsTable() {
                   <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground mt-1">
                     <span className="truncate">{FORMATTERS.num(r.qty)} @ {FORMATTERS.usd(r.price)}</span>
                     <span className={`flex items-center gap-0.5 shrink-0 ${positive ? "text-mint" : "text-destructive"}`}>
-                      {positive ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
+                      {positive ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />}
                       {FORMATTERS.pct(r.change24h)}
                     </span>
                   </div>

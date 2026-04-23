@@ -2,7 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { Menu } from "lucide-react";
 import { ShiftLogo } from "@/components/nav/shift-logo";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 const LINKS = [
   { href: "/markets", label: "Markets", match: ["/trade", "/markets"] },
@@ -14,6 +22,7 @@ const LINKS = [
 
 export function TopNav() {
   const pathname = usePathname() || "/";
+  const [mobileOpen, setMobileOpen] = useState(false);
   const isActive = (match: string[]) => match.some((m) => pathname.startsWith(m));
 
   return (
@@ -23,13 +32,14 @@ export function TopNav() {
           <Link href="/" aria-label="SHIFT home" className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded">
             <ShiftLogo />
           </Link>
-          <nav className="hidden md:flex items-center gap-1 text-sm">
+          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-1 text-sm">
             {LINKS.map((l) => {
               const active = isActive(l.match);
               return (
                 <Link
                   key={l.href}
                   href={l.href}
+                  aria-current={active ? "page" : undefined}
                   className={`relative px-3 py-1.5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint ${
                     active ? "text-mint" : "text-foreground/75 hover:text-white"
                   }`}
@@ -46,27 +56,63 @@ export function TopNav() {
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <Link
             href="/app"
-            className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-mint text-primary-foreground text-sm font-semibold hover:bg-mint/90 transition-colors"
+            className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-mint text-primary-foreground text-sm font-semibold hover:bg-mint/90 transition-colors"
           >
             Launch App
           </Link>
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden inline-flex items-center justify-center size-9 rounded-lg text-foreground/75 hover:text-white hover:bg-secondary/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+            aria-label="Open navigation menu"
+            onClick={() => setMobileOpen(true)}
+          >
+            <Menu className="h-5 w-5" />
+          </button>
         </div>
       </div>
-      {/* Mobile strip */}
-      <nav className="md:hidden flex items-center justify-around h-10 border-t border-border text-xs">
-        {LINKS.map((l) => {
-          const active = isActive(l.match);
-          return (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`px-3 py-1 transition-colors ${active ? "text-mint" : "text-foreground/75"}`}
-            >
-              {l.label}
+
+      {/* Mobile drawer */}
+      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+        <SheetContent side="right" className="w-full max-w-xs bg-background border-border p-0 flex flex-col">
+          <SheetHeader className="px-6 pt-6 pb-4 border-b border-border">
+            <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+            <Link href="/" onClick={() => setMobileOpen(false)} aria-label="SHIFT home">
+              <ShiftLogo />
             </Link>
-          );
-        })}
-      </nav>
+          </SheetHeader>
+
+          <nav aria-label="Main navigation" className="flex-1 flex flex-col px-4 py-6 gap-1">
+            {LINKS.map((l) => {
+              const active = isActive(l.match);
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setMobileOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                    active
+                      ? "bg-mint/10 text-mint"
+                      : "text-foreground/75 hover:text-white hover:bg-secondary/60"
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="px-4 pb-6">
+            <Link
+              href="/app"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center h-11 w-full rounded-full bg-mint text-primary-foreground text-sm font-semibold hover:bg-mint/90 transition-colors"
+            >
+              Launch App
+            </Link>
+          </div>
+        </SheetContent>
+      </Sheet>
     </header>
   );
 }

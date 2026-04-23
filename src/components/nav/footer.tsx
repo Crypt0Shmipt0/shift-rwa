@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { X, MessageCircle, Send, Video, Globe } from "lucide-react";
 
 const LEGAL = [
   { href: "/disclaimer", label: "Disclaimer" },
@@ -18,15 +19,38 @@ const RESOURCES = [
   { href: "/rewards", label: "Rewards" },
 ];
 
+const SOCIALS = [
+  { href: "https://x.com/shiftfinance", label: "X / Twitter", Icon: X },
+  { href: "https://discord.gg/shift", label: "Discord", Icon: MessageCircle },
+  { href: "https://t.me/shiftfinance", label: "Telegram", Icon: Send },
+  { href: "https://youtube.com/@shiftfinance", label: "YouTube", Icon: Video },
+  { href: "https://linkedin.com/company/shift-finance", label: "LinkedIn", Icon: Globe },
+];
+
 export function Footer() {
   return (
     <footer className="border-t border-border mt-20">
       <div className="mx-auto max-w-[1440px] px-6 sm:px-[72px] py-12 grid grid-cols-2 md:grid-cols-4 gap-10">
         <div className="col-span-2 md:col-span-1">
           <div className="text-xl font-bold text-white mb-3">SHIFT Finance</div>
-          <p className="text-xs text-muted-foreground leading-relaxed max-w-[260px]">
-            Bi-directional 3× & 2× tokenized stocks, ETFs, and ETNs. On-chain. Zero liquidation risk.
+          <p className="text-xs text-muted-foreground leading-relaxed max-w-[260px] mb-6">
+            Bi-directional 3× &amp; 2× tokenized stocks, ETFs, and ETNs. On-chain. Zero liquidation risk.
           </p>
+          {/* Social links */}
+          <div className="flex items-center gap-3 flex-wrap">
+            {SOCIALS.map(({ href, label, Icon }) => (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="size-8 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-mint hover:bg-secondary/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+              >
+                <Icon className="h-3.5 w-3.5" />
+              </a>
+            ))}
+          </div>
         </div>
         <FooterCol title="Product" links={PRODUCT} />
         <FooterCol title="Resources" links={RESOURCES} />

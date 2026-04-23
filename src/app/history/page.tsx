@@ -99,7 +99,7 @@ export default function HistoryPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
                       <span className="flex items-center gap-2">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${isBuy ? "bg-mint/10 text-mint" : "bg-destructive/10 text-destructive"}`}>
+                        <span className={`px-2 py-0.5 rounded text-[12px] font-bold ${isBuy ? "bg-mint/10 text-mint" : "bg-destructive/10 text-destructive"}`}>
                           {t.type.toUpperCase()}
                         </span>
                         <span className="font-semibold text-sm truncate">{a.symbol}</span>

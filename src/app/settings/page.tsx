@@ -50,7 +50,11 @@ export default function SettingsPage() {
                 </button>
               ))}
               <div className="relative">
+                <label htmlFor="slippage-custom" className="sr-only">
+                  Custom slippage tolerance (%)
+                </label>
                 <input
+                  id="slippage-custom"
                   type="number"
                   min="0"
                   max="50"
