@@ -59,7 +59,7 @@ export function LandingWhy() {
       </div>
 
       {/* Concept tile grid — row 2 (token tickers) */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-5">
         {ROW_2.map((tile, i) => (
           <TokenTile key={`${tile.ticker}-${i}`} {...tile} />
         ))}

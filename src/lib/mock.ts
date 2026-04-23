@@ -25,6 +25,7 @@ const MARKET_DATA: Record<
   SOX3S:  { price: 38.45,   change24h:  1.87,  color: "#fc8181" },
   SPX3L:  { price: 563.22,  change24h:  0.84,  color: "#b794f4" },
   SPX3S:  { price: 89.33,   change24h: -0.74,  color: "#fbb6ce" },
+  URA2L:  { price: 28.94,   change24h:  1.62,  color: "#68d391" },
 };
 
 export const ASSETS: Asset[] = TOKENS.map((t) => {

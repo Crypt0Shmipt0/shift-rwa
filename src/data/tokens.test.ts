@@ -1,14 +1,14 @@
 import { describe, it, expect } from "vitest";
 import { TOKENS, getTokenByTicker } from "@/data/tokens";
 
-const KNOWN_UNDERLYINGS = new Set(["TSLL", "TSLS", "SOXL", "SOXS", "SPXL", "SPXS"]);
+const KNOWN_UNDERLYINGS = new Set(["TSLL", "TSLS", "SOXL", "SOXS", "SPXL", "SPXS", "URAA"]);
 const VALID_DIRECTIONS = new Set(["long", "short"]);
 const VALID_LEVERAGES = new Set([1, 2, 3]);
 const ISIN_REGEX = /^US[0-9A-Z]{10}$/;
 
 describe("TOKENS", () => {
-  it("has exactly 6 entries", () => {
-    expect(TOKENS).toHaveLength(6);
+  it("has exactly 7 entries", () => {
+    expect(TOKENS).toHaveLength(7);
   });
 
   it("all entries have non-empty shiftTicker, name, underlying, isin, image", () => {

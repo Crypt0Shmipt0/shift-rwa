@@ -65,6 +65,15 @@ export const TOKENS: readonly Token[] = [
     leverage: 3,
     image: "/trade/spx3s.png",
   },
+  {
+    shiftTicker: "URA2L",
+    name: "Uranium long 2",
+    underlying: "URAA",
+    isin: "US25461A6432",
+    direction: "long",
+    leverage: 2,
+    image: "/trade/ura2l.png",
+  },
 ] as const;
 
 export function getTokenByTicker(ticker: string): Token | undefined {

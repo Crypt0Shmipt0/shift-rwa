@@ -15,7 +15,7 @@ const FAQ = [
   },
   {
     q: "Which assets are tradable today?",
-    a: "Tesla (TSL2L, TSL1S), Semiconductors (SOX3L, SOX3S), and S&amp;P 500 (SPX3L, SPX3S). We publish a new listing roughly every two weeks — the next batch includes ORCL, COIN, and MSTR. Browse the Markets page for the live list.",
+    a: "Tesla (TSL2L, TSL1S), Semiconductors (SOX3L, SOX3S), S&amp;P 500 (SPX3L, SPX3S), and Uranium (URA2L). We publish a new listing roughly every two weeks — the next batch includes ORCL, COIN, and MSTR. Browse the Markets page for the live list.",
   },
   {
     q: "How is the daily 2× or 3× target maintained?",
