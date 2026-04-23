@@ -11,8 +11,14 @@ export type BlogPost = {
   featured?: boolean;
   draft?: boolean;
   thumbnail?: string; // optional override; defaults to /blog/{slug}.jpg
+  author?: string;
   body: string;
 };
+
+/** Returns the display author — falls back to "The SHIFT Team" when unset */
+export function getAuthor(post: BlogPost): string {
+  return post.author ?? "The SHIFT Team";
+}
 
 export function getThumbnail(post: BlogPost): string {
   return post.thumbnail ?? `/blog/${post.slug}.jpg`;
@@ -23,12 +29,14 @@ const POST_SIGNAL_1: BlogPost = {
   title: "The SHIFT Signal #1: Wall Street Doesn't Want You to Know This",
   subtitle: "How We Are Breaking Their Monopoly on Stock Access",
   excerpt:
-    "Legacy finance has always managed to invent an excuse to hold a grip on the industries. The monopoly is cracking — and SHIFT is making sure it doesn't rebuild.",
+    "Legacy finance has always found an excuse to stay in control. The monopoly is cracking — and SHIFT is making sure it doesn't rebuild.",
   tag: "signal",
   readingMinutes: 7,
   publishedAt: "2026-01-14",
   featured: true,
-  body: `Legacy finance has always managed to invent an excuse to hold a grip on the industries. There's a simple reason your broker charges a commission, closes on weekends, and quietly turns away users based on their passports. Call it what it actually is — "market control" — and it has worked beautifully for decades.
+  body: `Legacy finance has always found an excuse to stay in control. There's a simple reason your broker charges a commission, closes on weekends, and quietly turns away users based on their passports. Call it what it actually is — "market control" — and it has worked beautifully for decades.
+
+Until now.
 
 However, history shows many examples of unstoppable innovation. The monopolistic control command center is now cracking. We're here to make sure that the speed of this wind of change will accelerate, and the market will become less about the centralized grip and more about the excitement of the borderless trade. The shift is underway.
 
@@ -508,7 +516,7 @@ Putting them on-chain doesn't alter what they are — it changes who gets to own
 
 const POST_RWA_USES: BlogPost = {
   slug: "the-countless-uses-of-rwa-payments-savings-and-everything-in-between",
-  title: "The Countless Uses of RWA: Payments, Savings, and Everything in Between",
+  title: "The Countless Uses of RWA: From Cross-Border Payments to On-Chain Yield",
   excerpt:
     "Real-World Assets are transforming how we send money, build savings, and invest — from gold-backed cross-border payments to tokenized bonds anyone can buy in fractions.",
   tag: "general",
@@ -643,7 +651,7 @@ Tokenized stocks and bonds are reshaping the financial landscape by providing de
 
 const POST_FINANCIAL_FREEDOM_2026: BlogPost = {
   slug: "how-rwa-defi-can-help-you-achieve-financial-freedom-in-2026",
-  title: "How RWA DeFi Can Help You Achieve Financial Freedom in 2026",
+  title: "What RWA DeFi Actually Unlocks — and What It Can't Do Yet",
   excerpt:
     "By tokenizing stocks, bonds, and real estate on decentralized platforms, RWA DeFi is making financial freedom attainable for retail investors who were previously locked out by high capital requirements and broker gatekeeping.",
   tag: "general",
@@ -901,7 +909,7 @@ Education and awareness about blockchain, RWAs, and ARTs are crucial to ensuring
 
 const POST_WEALTH_MANAGEMENT: BlogPost = {
   slug: "how-tokenized-assets-are-shaping-the-future-of-wealth-management",
-  title: "How Tokenized Assets Are Shaping the Future of Wealth Management",
+  title: "Who Tokenized Assets Actually Serve — and Who They Don't",
   excerpt:
     "Tokenized assets are dismantling the high entry costs and geographic restrictions that once defined wealth management, giving any investor — regardless of location or net worth — access to global portfolios.",
   tag: "general",
@@ -968,7 +976,7 @@ As blockchain technology continues to evolve and more regulatory frameworks are 
 
 const POST_TOKENIZED_COMMODITIES: BlogPost = {
   slug: "why-tokenized-commodities-are-the-future-of-investment-diversification",
-  title: "Why Tokenized Commodities Are the Future of Investment Diversification",
+  title: "Tokenized Commodities: The On-Chain Case for Gold, Oil, and Uranium",
   excerpt:
     "Gold, oil, and carbon credits are moving on-chain — fractional ownership and 24/7 trading are making commodity diversification accessible to retail investors for the first time, without the logistics of holding physical assets.",
   tag: "general",

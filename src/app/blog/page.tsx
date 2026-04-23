@@ -1,8 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { getAllPosts, getThumbnail } from "@/data/blog-posts";
+import { Suspense } from "react";
+import { getAllPosts, getThumbnail, getAuthor } from "@/data/blog-posts";
 import type { BlogTag } from "@/data/blog-posts";
+import { TagFilter } from "@/components/blog/tag-filter";
+import { NewsletterForm } from "@/components/blog/newsletter-form";
 
 const BASE_URL = "https://shift-rwa.vercel.app";
 
@@ -31,6 +34,12 @@ const TAG_COLORS: Record<BlogTag, string> = {
   general: "bg-white/10 text-white/70 border border-white/20",
 };
 
+const TAG_BORDER_ACCENT: Record<BlogTag, string> = {
+  signal: "border-l-mint",
+  academy: "border-l-[#4CC8E8]",
+  general: "border-l-white/30",
+};
+
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
     year: "numeric",
@@ -39,31 +48,38 @@ function formatDate(iso: string) {
   });
 }
 
-export default function BlogIndexPage() {
-  const posts = getAllPosts();
+function isValidTag(value: string | undefined): value is BlogTag {
+  return value === "signal" || value === "academy" || value === "general";
+}
 
-  const blogLd = {
+export default function BlogIndexPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tag?: string }>;
+}) {
+  const allPosts = getAllPosts();
+
+  // JSON-LD structured data — content is internal static data, not user input
+  const blogLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Blog",
     name: "SHIFT Finance Blog",
     description: "The SHIFT Signal, Shift Academy, and long-form coverage of tokenized equities, RWAs, and on-chain finance.",
     url: `${BASE_URL}/blog`,
     publisher: { "@type": "Organization", name: "SHIFT" },
-    blogPost: posts.map((p) => ({
+    blogPost: allPosts.map((p) => ({
       "@type": "BlogPosting",
       headline: p.title,
       description: p.excerpt,
       datePublished: p.publishedAt,
       url: `${BASE_URL}/blog/${p.slug}`,
     })),
-  };
+  });
 
   return (
     <main className="min-h-screen bg-[#021C24]">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogLd) }}
-      />
+      {/* eslint-disable-next-line react/no-danger -- JSON-LD is static internal data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: blogLd }} />
       {/* Header */}
       <div className="border-b border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-20 md:py-28">
@@ -81,54 +97,90 @@ export default function BlogIndexPage() {
         </div>
       </div>
 
-      {/* Posts grid */}
-      <div className="mx-auto max-w-[1200px] px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post) => (
-            <Link
-              key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="group flex flex-col rounded-2xl border border-border/60 bg-[#0A2730] hover:border-mint/40 hover:bg-[#0d2f38] transition-all duration-200 overflow-hidden"
-            >
-              {/* Thumbnail */}
-              <div className="relative h-48 w-full flex-shrink-0 overflow-hidden bg-[#0a2730]">
-                <Image
-                  src={getThumbnail(post)}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A2730] via-[#0A2730]/20 to-transparent" />
-                <span
-                  className={`absolute bottom-3 left-3 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm ${TAG_COLORS[post.tag]}`}
-                >
-                  {TAG_LABELS[post.tag]}
-                </span>
-              </div>
+      {/* Filter + Posts grid */}
+      <Suspense>
+        <BlogContent allPosts={allPosts} searchParams={searchParams} />
+      </Suspense>
 
-              {/* Content */}
-              <div className="flex flex-col flex-1 p-6">
-                <h2 className="text-white font-semibold text-lg leading-snug mb-2 group-hover:text-mint transition-colors line-clamp-2">
-                  {post.title}
-                </h2>
-                {post.subtitle && (
-                  <p className="text-foreground/50 text-sm mb-3 line-clamp-1">{post.subtitle}</p>
-                )}
-                <p className="text-foreground/65 text-sm leading-relaxed mb-5 line-clamp-3 flex-1">
-                  {post.excerpt}
-                </p>
-
-                {/* Footer */}
-                <div className="flex items-center justify-between text-xs text-foreground/40 pt-4 border-t border-border/40">
-                  <span>{formatDate(post.publishedAt)}</span>
-                  <span>{post.readingMinutes} min read</span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+      {/* Newsletter */}
+      <div className="mx-auto max-w-[1200px] px-6 pb-20">
+        <NewsletterForm />
       </div>
     </main>
+  );
+}
+
+async function BlogContent({
+  allPosts,
+  searchParams,
+}: {
+  allPosts: ReturnType<typeof getAllPosts>;
+  searchParams: Promise<{ tag?: string }>;
+}) {
+  const { tag } = await searchParams;
+  const activeTag: BlogTag | "all" = isValidTag(tag) ? tag : "all";
+  const posts = activeTag === "all" ? allPosts : allPosts.filter((p) => p.tag === activeTag);
+
+  return (
+    <div className="mx-auto max-w-[1200px] px-6 py-10">
+      {/* Tag filter row */}
+      <div className="mb-10">
+        <TagFilter active={activeTag} />
+      </div>
+
+      {/* Posts grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map((post) => (
+          <Link
+            key={post.slug}
+            href={`/blog/${post.slug}`}
+            className={`group flex flex-col rounded-2xl border border-border/60 border-l-4 ${TAG_BORDER_ACCENT[post.tag]} bg-[#0A2730] hover:bg-[#0d2f38] transition-all duration-200 overflow-hidden`}
+          >
+            {/* Thumbnail */}
+            <div className="relative h-48 w-full flex-shrink-0 overflow-hidden bg-[#0a2730]">
+              <Image
+                src={getThumbnail(post)}
+                alt={post.title}
+                fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A2730] via-[#0A2730]/20 to-transparent" />
+              <span
+                className={`absolute bottom-3 left-3 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm ${TAG_COLORS[post.tag]}`}
+              >
+                {TAG_LABELS[post.tag]}
+              </span>
+            </div>
+
+            {/* Content */}
+            <div className="flex flex-col flex-1 p-6">
+              <h2 className="text-white font-semibold text-lg leading-snug mb-2 group-hover:text-mint transition-colors line-clamp-2">
+                {post.title}
+              </h2>
+              {post.subtitle && (
+                <p className="text-foreground/50 text-sm mb-3 line-clamp-1">{post.subtitle}</p>
+              )}
+              <p className="text-foreground/65 text-sm leading-relaxed mb-5 line-clamp-3 flex-1">
+                {post.excerpt}
+              </p>
+
+              {/* Footer */}
+              <div className="flex items-center justify-between text-xs text-foreground/40 pt-4 border-t border-border/40">
+                <div className="flex flex-col gap-0.5">
+                  <span>{getAuthor(post)}</span>
+                  <span>{formatDate(post.publishedAt)}</span>
+                </div>
+                <span>{post.readingMinutes} min read</span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <p className="text-foreground/40 text-center py-20">No posts in this category yet.</p>
+      )}
+    </div>
   );
 }
