@@ -14,22 +14,22 @@ export const metadata: Metadata = {
 
 // TODO: real market data
 const MOCK_VOLUME: Record<string, number> = {
-  "TSx2":   8_420_000,
-  "TSS":    1_940_000,
-  "SOXx3":  6_210_000,
-  "SOXx3S": 2_150_000,
-  "S&Px3":  3_870_000,
-  "S&Px3S": 1_480_000,
+  "TSL2L":  8_420_000,
+  "TSL1S":  1_940_000,
+  "SOX3L":  6_210_000,
+  "SOX3S":  2_150_000,
+  "SPX3L":  3_870_000,
+  "SPX3S":  1_480_000,
 };
 
 // TODO: real market data
 const MOCK_7D: Record<string, number> = {
-  "TSx2":   7.84,
-  "TSS":   -5.33,
-  "SOXx3": -4.62,
-  "SOXx3S": 3.41,
-  "S&Px3":  2.18,
-  "S&Px3S":-1.95,
+  "TSL2L":  7.84,
+  "TSL1S": -5.33,
+  "SOX3L": -4.62,
+  "SOX3S":  3.41,
+  "SPX3L":  2.18,
+  "SPX3S": -1.95,
 };
 
 export default function MarketsPage() {

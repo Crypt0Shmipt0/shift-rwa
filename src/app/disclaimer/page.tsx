@@ -13,7 +13,7 @@ export default function DisclaimerPage() {
 
       <h2>1. Daily return targeting</h2>
       <p>
-        SHIFT&apos;s leveraged tokens (TSx2, TSS, SOXx3, SOXx3S, S&amp;Px3, S&amp;Px3S, etc.) target <strong>daily</strong> returns
+        SHIFT&apos;s leveraged tokens (TSL2L, TSL1S, SOX3L, SOX3S, SPX3L, SPX3S, etc.) target <strong>daily</strong> returns
         that are a multiple of the underlying&apos;s daily move. They are not designed to track the
         underlying over periods longer than one day. Because of daily reset and compounding, multi-day
         returns can differ substantially from what you&apos;d expect from a simple 2× or 3× calculation.

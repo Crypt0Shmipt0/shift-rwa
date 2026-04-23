@@ -16,10 +16,10 @@ import {
 import { ASSETS, FORMATTERS } from "@/lib/mock";
 
 const ASSET_CARDS = [
-  { symbol: "TSx2",   label: "Tesla x2",       img: "/phone/coin-ethereum.png", rotate: "-27.9deg" },
-  { symbol: "SOXx3",  label: "Semis x3",       img: "/phone/coin-cardano.png",  rotate: "45deg" },
-  { symbol: "S&Px3",  label: "S&P 500 x3",     img: "/phone/coin-bitcoin.png",  rotate: "15deg" },
-  { symbol: "TSS",    label: "Tesla Short",     img: "/phone/coin-cardano.png",  rotate: "8deg" },
+  { symbol: "TSL2L",  label: "Tesla x2",       img: "/phone/coin-ethereum.png", rotate: "-27.9deg" },
+  { symbol: "SOX3L",  label: "Semis x3",       img: "/phone/coin-cardano.png",  rotate: "45deg" },
+  { symbol: "SPX3L",  label: "S&P 500 x3",     img: "/phone/coin-bitcoin.png",  rotate: "15deg" },
+  { symbol: "TSL1S",  label: "Tesla Short",     img: "/phone/coin-cardano.png",  rotate: "8deg" },
 ];
 
 const TOP_MOVERS = ASSETS

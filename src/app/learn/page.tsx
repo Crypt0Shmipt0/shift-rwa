@@ -23,7 +23,7 @@ const FAQ = [
   },
   {
     q: "Which underlyings are supported?",
-    a: "Currently Tesla (TSx2, TSS), Semiconductors (SOXx3, SOXx3S), and S&P 500 (S&Px3, S&Px3S). We publish new markets monthly — see the Markets page for the current list.",
+    a: "Currently Tesla (TSL2L, TSL1S), Semiconductors (SOX3L, SOX3S), and S&P 500 (SPX3L, SPX3S). We publish new markets monthly — see the Markets page for the current list.",
   },
   {
     q: "How can leverage exist with zero liquidation risk?",

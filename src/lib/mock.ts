@@ -19,12 +19,12 @@ const MARKET_DATA: Record<
   string,
   { price: number; change24h: number; color: string }
 > = {
-  TSx2:   { price: 175.60,  change24h:  2.41,  color: "#00cccc" },
-  TSS:    { price: 42.77,   change24h: -2.41,  color: "#f6ad55" },
-  SOXx3:  { price: 142.18,  change24h: -2.15,  color: "#7cc4ff" },
-  SOXx3S: { price: 38.45,   change24h:  1.87,  color: "#fc8181" },
-  "S&Px3":  { price: 563.22,  change24h:  0.84,  color: "#b794f4" },
-  "S&Px3S": { price: 89.33,   change24h: -0.74,  color: "#fbb6ce" },
+  TSL2L:  { price: 175.60,  change24h:  2.41,  color: "#00cccc" },
+  TSL1S:  { price: 42.77,   change24h: -2.41,  color: "#f6ad55" },
+  SOX3L:  { price: 142.18,  change24h: -2.15,  color: "#7cc4ff" },
+  SOX3S:  { price: 38.45,   change24h:  1.87,  color: "#fc8181" },
+  SPX3L:  { price: 563.22,  change24h:  0.84,  color: "#b794f4" },
+  SPX3S:  { price: 89.33,   change24h: -0.74,  color: "#fbb6ce" },
 };
 
 export const ASSETS: Asset[] = TOKENS.map((t) => {
@@ -54,10 +54,10 @@ export type Holding = {
 };
 
 export const HOLDINGS: Holding[] = [
-  { symbol: "TSx2",   qty: 235.35, totalValue: 41324.55, totalGain:  4871.25 },
-  { symbol: "SOXx3",  qty: 118.50, totalValue: 16848.33, totalGain:  -871.25 },
-  { symbol: "S&Px3",  qty:  18.75, totalValue: 10560.38, totalGain:  1240.00 },
-  { symbol: "TSS",    qty: 432.10, totalValue: 18484.92, totalGain:  -871.25 },
+  { symbol: "TSL2L",  qty: 235.35, totalValue: 41324.55, totalGain:  4871.25 },
+  { symbol: "SOX3L",  qty: 118.50, totalValue: 16848.33, totalGain:  -871.25 },
+  { symbol: "SPX3L",  qty:  18.75, totalValue: 10560.38, totalGain:  1240.00 },
+  { symbol: "TSL1S",  qty: 432.10, totalValue: 18484.92, totalGain:  -871.25 },
 ];
 
 export const NET_WORTH = {

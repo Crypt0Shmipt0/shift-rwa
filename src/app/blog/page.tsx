@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { getAllPosts } from "@/data/blog-posts";
 import type { BlogTag } from "@/data/blog-posts";
 
+const BASE_URL = "https://shift-rwa.vercel.app";
+
 export const metadata: Metadata = {
   title: "Blog — SHIFT Finance",
   description:
@@ -39,8 +41,28 @@ function formatDate(iso: string) {
 export default function BlogIndexPage() {
   const posts = getAllPosts();
 
+  const blogLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "SHIFT Finance Blog",
+    description: "The SHIFT Signal, Shift Academy, and long-form coverage of tokenized equities, RWAs, and on-chain finance.",
+    url: `${BASE_URL}/blog`,
+    publisher: { "@type": "Organization", name: "SHIFT" },
+    blogPost: posts.map((p) => ({
+      "@type": "BlogPosting",
+      headline: p.title,
+      description: p.excerpt,
+      datePublished: p.publishedAt,
+      url: `${BASE_URL}/blog/${p.slug}`,
+    })),
+  };
+
   return (
     <main className="min-h-screen bg-[#021C24]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogLd) }}
+      />
       {/* Header */}
       <div className="border-b border-border/60">
         <div className="mx-auto max-w-[1200px] px-6 py-20 md:py-28">

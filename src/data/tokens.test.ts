@@ -71,9 +71,9 @@ describe("TOKENS", () => {
 
 describe("getTokenByTicker", () => {
   it("returns the matching token for a known shiftTicker", () => {
-    const result = getTokenByTicker("TSx2");
+    const result = getTokenByTicker("TSL2L");
     expect(result).toBeDefined();
-    expect(result?.shiftTicker).toBe("TSx2");
+    expect(result?.shiftTicker).toBe("TSL2L");
     expect(result?.underlying).toBe("TSLL");
     expect(result?.direction).toBe("long");
   });
@@ -82,7 +82,7 @@ describe("getTokenByTicker", () => {
     expect(getTokenByTicker("nonexistent")).toBeUndefined();
   });
 
-  it("is case-sensitive: 'tsx2' returns undefined", () => {
-    expect(getTokenByTicker("tsx2")).toBeUndefined();
+  it("is case-sensitive: 'tsl2l' returns undefined", () => {
+    expect(getTokenByTicker("tsl2l")).toBeUndefined();
   });
 });

@@ -6,6 +6,8 @@ import remarkGfm from "remark-gfm";
 import { BLOG_POSTS, getPost } from "@/data/blog-posts";
 import type { BlogTag } from "@/data/blog-posts";
 
+const BASE_URL = "https://shift-rwa.vercel.app";
+
 export function generateStaticParams() {
   // Only generate pages for published (non-draft) posts
   return BLOG_POSTS.filter((p) => !p.draft).map((p) => ({ slug: p.slug }));
@@ -61,8 +63,27 @@ export default async function BlogPostPage({
 
   if (!post || post.draft) notFound();
 
+  const articleLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.publishedAt,
+    author: { "@type": "Organization", name: "SHIFT" },
+    publisher: {
+      "@type": "Organization",
+      name: "SHIFT",
+      logo: { "@type": "ImageObject", url: `${BASE_URL}/brand/shift-lockup-gradient-light.png` },
+    },
+    mainEntityOfPage: `${BASE_URL}/blog/${post.slug}`,
+  };
+
   return (
     <main className="min-h-screen bg-[#021C24]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
+      />
       {/* Back link */}
       <div className="mx-auto max-w-[1200px] px-6 pt-10">
         <Link
