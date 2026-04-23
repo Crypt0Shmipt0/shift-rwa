@@ -11,7 +11,7 @@ type Range = (typeof RANGES)[number];
 type Point = { t: number; v: number };
 type ApiResponse = { price: number; change24h: number; series: Point[] };
 
-export function PriceChart({ symbol = "TSL2s" }: { symbol?: string }) {
+export function PriceChart({ symbol = "TSx2" }: { symbol?: string }) {
   const [range, setRange] = useState<Range>("24H");
   const [data, setData] = useState<Point[] | null>(null);
   const [meta, setMeta] = useState<{ price: number; change24h: number } | null>(null);

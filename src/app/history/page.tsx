@@ -25,13 +25,13 @@ type Tx = {
 };
 
 const TX: Tx[] = [
-  { id: "1", type: "Buy",  symbol: "TSL2s", amount: 12.5, price: 175.60, total: 2195.00, time: "2 hours ago",  hash: "0x8f2a...3e91" },
-  { id: "2", type: "Sell", symbol: "NVD3s", amount: 5.0,  price: 142.18, total: 710.90,  time: "5 hours ago",  hash: "0x1c6b...9a24" },
-  { id: "3", type: "Buy",  symbol: "SPY3s", amount: 20.0, price: 563.22, total: 11264.40, time: "1 day ago",   hash: "0x74d9...5f08" },
-  { id: "4", type: "Sell", symbol: "TSL2s", amount: 8.25, price: 168.40, total: 1389.30, time: "2 days ago",   hash: "0x3e12...b7c5" },
-  { id: "5", type: "Buy",  symbol: "TSLSs", amount: 50.0, price: 42.77,  total: 2138.50, time: "3 days ago",   hash: "0xae48...2109" },
-  { id: "6", type: "Buy",  symbol: "NVD3s", amount: 14.2, price: 138.42, total: 1965.56, time: "4 days ago",   hash: "0x92af...6e83" },
-  { id: "7", type: "Sell", symbol: "SPY3s", amount: 3.0,  price: 559.10, total: 1677.30, time: "5 days ago",   hash: "0xdc55...7b41" },
+  { id: "1", type: "Buy",  symbol: "TSx2",   amount: 12.5, price: 175.60, total: 2195.00,  time: "2 hours ago", hash: "0x8f2a...3e91" },
+  { id: "2", type: "Sell", symbol: "SOXx3",  amount: 5.0,  price: 142.18, total: 710.90,   time: "5 hours ago", hash: "0x1c6b...9a24" },
+  { id: "3", type: "Buy",  symbol: "S&Px3",  amount: 20.0, price: 563.22, total: 11264.40, time: "1 day ago",   hash: "0x74d9...5f08" },
+  { id: "4", type: "Sell", symbol: "TSx2",   amount: 8.25, price: 168.40, total: 1389.30,  time: "2 days ago",  hash: "0x3e12...b7c5" },
+  { id: "5", type: "Buy",  symbol: "TSS",    amount: 50.0, price: 42.77,  total: 2138.50,  time: "3 days ago",  hash: "0xae48...2109" },
+  { id: "6", type: "Buy",  symbol: "SOXx3S", amount: 14.2, price: 38.45,  total: 545.99,   time: "4 days ago",  hash: "0x92af...6e83" },
+  { id: "7", type: "Sell", symbol: "S&Px3S", amount: 3.0,  price: 89.33,  total: 267.99,   time: "5 days ago",  hash: "0xdc55...7b41" },
 ];
 
 export default function HistoryPage() {

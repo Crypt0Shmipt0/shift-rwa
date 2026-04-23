@@ -21,10 +21,10 @@ const FEATURES = [
 ];
 
 const HOLDINGS = [
-  { sym: "TSL2s", img: "/trade/tsl2s.png", val: "$41,324", pct: "+2.41%", up: true },
-  { sym: "NVD3s", img: "/trade/nvd3s.png", val: "$16,848", pct: "-2.15%", up: false },
-  { sym: "SPY3s", img: "/trade/spy3s.png", val: "$10,560", pct: "+0.84%", up: true },
-  { sym: "TSLSs", img: "/trade/tslss.png", val: "$18,484", pct: "-2.41%", up: false },
+  { sym: "TSx2",   img: "/trade/tsx2.png",   val: "$41,324", pct: "+2.41%", up: true },
+  { sym: "SOXx3",  img: "/trade/soxx3.png",  val: "$16,848", pct: "-2.15%", up: false },
+  { sym: "S&Px3",  img: "/trade/spx3.png",   val: "$10,560", pct: "+0.84%", up: true },
+  { sym: "TSS",    img: "/trade/tss.png",    val: "$18,484", pct: "-2.41%", up: false },
 ];
 
 export function LandingConnect() {

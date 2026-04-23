@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { ShieldOff, Repeat, Layers } from "lucide-react";
+import { TOKENS } from "@/data/tokens";
 
 const ROW_1 = [
   { glyph: "III", label: "Bi-Directional", sub: "Long & short on every market" },
@@ -7,12 +9,11 @@ const ROW_1 = [
   { glyph: "24/7", label: "Always-on",    sub: "Settles in seconds, on-chain" },
 ];
 
-const ROW_2 = [
-  { ticker: "TSLA", img: "/trade/tsl2s.png", sub: "2× & inverse" },
-  { ticker: "NVDA", img: "/trade/nvd3s.png", sub: "3× & inverse" },
-  { ticker: "SPY",  img: "/trade/spy3s.png", sub: "3× & inverse" },
-  { ticker: "TSLA", img: "/trade/tslss.png", sub: "Short" },
-];
+const ROW_2 = TOKENS.map((t) => ({
+  ticker: t.shiftTicker,
+  img: t.image,
+  sub: t.direction === "long" ? `${t.leverage}× long` : `${t.leverage}× short`,
+}));
 
 export function LandingWhy() {
   return (
@@ -58,7 +59,7 @@ export function LandingWhy() {
       </div>
 
       {/* Concept tile grid — row 2 (token tickers) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
         {ROW_2.map((tile, i) => (
           <TokenTile key={`${tile.ticker}-${i}`} {...tile} />
         ))}
@@ -128,8 +129,7 @@ function TokenTile({ ticker, img, sub }: { ticker: string; img: string; sub: str
     <div className="relative aspect-square rounded-3xl border border-mint/20 bg-gradient-to-br from-mint/[0.04] via-card to-card p-6 overflow-hidden hover:border-mint/50 transition-colors group">
       <div className="absolute -bottom-20 -right-20 size-48 rounded-full bg-mint/8 blur-3xl group-hover:bg-mint/15 transition-colors" />
       <div className="relative h-full flex flex-col items-center justify-center text-center gap-4">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={img} alt={ticker} className="size-20 md:size-24 rounded-full object-cover drop-shadow-[0_0_30px_rgba(38,200,184,0.4)]" />
+        <Image src={img} alt={ticker} width={96} height={96} className="size-20 md:size-24 rounded-full object-cover drop-shadow-[0_0_30px_rgba(38,200,184,0.4)]" />
         <div>
           <div className="text-xl font-bold text-white">{ticker}</div>
           <div className="text-[11px] text-mint mt-0.5">{sub}</div>

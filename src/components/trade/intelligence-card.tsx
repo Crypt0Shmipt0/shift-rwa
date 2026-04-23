@@ -19,7 +19,7 @@ const FALLBACK: NewsItem[] = [
   { id: "4", title: "Uranium Gains as growing support for nuclear energy driving renewed interest.", source: "Bloomberg", time: "10 MIN AGO", image: "/news/news-4.png", link: "#" },
 ];
 
-export function IntelligenceCard({ symbol = "TSL2s" }: { symbol?: string }) {
+export function IntelligenceCard({ symbol = "TSx2" }: { symbol?: string }) {
   const [items, setItems] = useState<NewsItem[]>(FALLBACK);
   const [loading, setLoading] = useState(true);
 

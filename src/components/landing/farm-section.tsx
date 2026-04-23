@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { TOKENS } from "@/data/tokens";
 
 export function LandingFarm() {
   return (
@@ -93,11 +94,11 @@ export function LandingFarm() {
 
             {/* Orbiting tiny token chips — kept inside the rings */}
             {[
-              { top: "12%", left: "50%", img: "/trade/tsl2s.png" },
-              { top: "32%", left: "88%", img: "/trade/nvd3s.png" },
-              { top: "75%", left: "82%", img: "/trade/spy3s.png" },
-              { top: "88%", left: "32%", img: "/trade/tslss.png" },
-              { top: "55%", left: "12%", img: "/trade/tsl2s.png" },
+              { top: "12%", left: "50%", img: TOKENS[0].image },
+              { top: "32%", left: "88%", img: TOKENS[1].image },
+              { top: "75%", left: "82%", img: TOKENS[2].image },
+              { top: "88%", left: "32%", img: TOKENS[3].image },
+              { top: "55%", left: "12%", img: TOKENS[4].image },
             ].map((p, i) => (
               <div
                 key={i}

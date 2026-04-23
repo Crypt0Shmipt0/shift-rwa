@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { ASSETS, FORMATTERS } from "@/lib/mock";
 import { TrendingUp, TrendingDown } from "lucide-react";
 
-export function BalanceStrip({ symbol = "TSL2s" }: { symbol?: string }) {
+export function BalanceStrip({ symbol = "TSx2" }: { symbol?: string }) {
   const asset = ASSETS.find((a) => a.symbol === symbol) ?? ASSETS[0];
   const positive = asset.change24h >= 0;
   return (

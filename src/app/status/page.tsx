@@ -29,7 +29,7 @@ const COMPONENTS: Component[] = [
 ];
 
 const INCIDENTS = [
-  { date: "2026-03-28", title: "Brief oracle lag on NVD3s", duration: "14 min", body: "Oracle update frequency dropped during a Nvidia earnings spike. No funds affected. Resolved by switching to backup oracle feed." },
+  { date: "2026-03-28", title: "Brief oracle lag on SOXx3", duration: "14 min", body: "Oracle update frequency dropped during a semiconductor earnings spike. No funds affected. Resolved by switching to backup oracle feed." },
   { date: "2026-02-11", title: "Wallet connect intermittent", duration: "38 min", body: "WalletConnect's upstream service had a partial outage. Direct wallet connections (MetaMask browser extension) remained operational." },
 ];
 

@@ -1,3 +1,5 @@
+import { TOKENS } from "@/data/tokens";
+
 export type Asset = {
   symbol: string;
   name: string;
@@ -12,48 +14,33 @@ export type Asset = {
   image: string;
 };
 
-export const ASSETS: Asset[] = [
-  {
-    symbol: "TSL2s",
-    name: "Tesla x2 SHIFT",
-    price: 175.6,
-    change24h: 2.41,
-    color: "#00cccc",
-    underlying: "TSLA",
-    leverage: 2,
-    image: "/trade/tsl2s.png",
-  },
-  {
-    symbol: "NVD3s",
-    name: "Nvidia x3 SHIFT",
-    price: 142.18,
-    change24h: -2.15,
-    color: "#7cc4ff",
-    underlying: "NVDA",
-    leverage: 3,
-    image: "/trade/nvd3s.png",
-  },
-  {
-    symbol: "SPY3s",
-    name: "SPYx3 SHIFT",
-    price: 563.22,
-    change24h: 0.84,
-    color: "#b794f4",
-    underlying: "SPY",
-    leverage: 3,
-    image: "/trade/spy3s.png",
-  },
-  {
-    symbol: "TSLSs",
-    name: "Tesla Short SHIFT",
-    price: 42.77,
-    change24h: -2.41,
-    color: "#f6ad55",
-    underlying: "TSLA",
-    leverage: -1,
-    image: "/trade/tslss.png",
-  },
-];
+// TODO: real market data
+const MARKET_DATA: Record<
+  string,
+  { price: number; change24h: number; color: string }
+> = {
+  TSx2:   { price: 175.60,  change24h:  2.41,  color: "#00cccc" },
+  TSS:    { price: 42.77,   change24h: -2.41,  color: "#f6ad55" },
+  SOXx3:  { price: 142.18,  change24h: -2.15,  color: "#7cc4ff" },
+  SOXx3S: { price: 38.45,   change24h:  1.87,  color: "#fc8181" },
+  "S&Px3":  { price: 563.22,  change24h:  0.84,  color: "#b794f4" },
+  "S&Px3S": { price: 89.33,   change24h: -0.74,  color: "#fbb6ce" },
+};
+
+export const ASSETS: Asset[] = TOKENS.map((t) => {
+  const md = MARKET_DATA[t.shiftTicker] ?? { price: 100, change24h: 0, color: "#888888" };
+  const leverageNum = t.direction === "short" ? -t.leverage : t.leverage;
+  return {
+    symbol: t.shiftTicker,
+    name: t.name,
+    price: md.price,
+    change24h: md.change24h,
+    color: md.color,
+    underlying: t.underlying,
+    leverage: leverageNum,
+    image: t.image,
+  };
+});
 
 export function getAsset(symbol: string): Asset {
   return ASSETS.find((a) => a.symbol === symbol) ?? ASSETS[0];
@@ -67,10 +54,10 @@ export type Holding = {
 };
 
 export const HOLDINGS: Holding[] = [
-  { symbol: "TSL2s", qty: 235.35, totalValue: 41324.55, totalGain: 4871.25 },
-  { symbol: "NVD3s", qty: 118.50, totalValue: 16848.33, totalGain: -871.25 },
-  { symbol: "SPY3s", qty: 18.75,  totalValue: 10560.38, totalGain: 1240.00 },
-  { symbol: "TSLSs", qty: 432.10, totalValue: 18484.92, totalGain: -871.25 },
+  { symbol: "TSx2",   qty: 235.35, totalValue: 41324.55, totalGain:  4871.25 },
+  { symbol: "SOXx3",  qty: 118.50, totalValue: 16848.33, totalGain:  -871.25 },
+  { symbol: "S&Px3",  qty:  18.75, totalValue: 10560.38, totalGain:  1240.00 },
+  { symbol: "TSS",    qty: 432.10, totalValue: 18484.92, totalGain:  -871.25 },
 ];
 
 export const NET_WORTH = {

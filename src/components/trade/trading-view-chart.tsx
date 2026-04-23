@@ -11,7 +11,7 @@ declare global {
 
 const CONTAINER_ID = "tradingview-widget";
 
-export function TradingViewChart({ symbol = "TSL2s" }: { symbol?: string }) {
+export function TradingViewChart({ symbol = "TSx2" }: { symbol?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const asset = ASSETS.find((a) => a.symbol === symbol) ?? ASSETS[0];
   const tvSymbol = `NASDAQ:${asset.underlying}`;

@@ -8,22 +8,28 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Markets",
   description:
-    "Every 3× and 2× bi-directional tokenized stock on SHIFT. Long or short Tesla, Nvidia, SPY — no liquidation risk, on-chain settlement, 24/7 trading.",
+    "Every 3× and 2× bi-directional tokenized stock on SHIFT. Long or short TSLA, SOX, S&P 500 — no liquidation risk, on-chain settlement, 24/7 trading.",
   alternates: { canonical: "/markets" },
 };
 
+// TODO: real market data
 const MOCK_VOLUME: Record<string, number> = {
-  TSL2s: 8_420_000,
-  NVD3s: 6_210_000,
-  SPY3s: 3_870_000,
-  TSLSs: 1_940_000,
+  "TSx2":   8_420_000,
+  "TSS":    1_940_000,
+  "SOXx3":  6_210_000,
+  "SOXx3S": 2_150_000,
+  "S&Px3":  3_870_000,
+  "S&Px3S": 1_480_000,
 };
 
+// TODO: real market data
 const MOCK_7D: Record<string, number> = {
-  TSL2s: 7.84,
-  NVD3s: -4.62,
-  SPY3s: 2.18,
-  TSLSs: -5.33,
+  "TSx2":   7.84,
+  "TSS":   -5.33,
+  "SOXx3": -4.62,
+  "SOXx3S": 3.41,
+  "S&Px3":  2.18,
+  "S&Px3S":-1.95,
 };
 
 export default function MarketsPage() {

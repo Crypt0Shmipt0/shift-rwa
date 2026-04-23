@@ -15,7 +15,7 @@ const SLIDES = [
   {
     icon: LineChart,
     title: "Bi-directional, professionally tokenized.",
-    body: "Every market ships with a long AND a short side. Buy TSL2s for 2× Tesla upside, or TSLSs to short. No margin account, no funding rate surprises, no liquidation cascades. Professional tokenized ETFs and ETNs, on-chain.",
+    body: "Every market ships with a long AND a short side. Buy TSx2 for 2× Tesla upside, or TSS to short. No margin account, no funding rate surprises, no liquidation cascades. Professional tokenized ETFs and ETNs, on-chain.",
   },
   {
     icon: ShieldCheck,

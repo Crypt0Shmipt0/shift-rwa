@@ -4,7 +4,7 @@ export function EducationCard() {
   return (
     <div className="bg-card rounded-3xl p-8">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-lg text-foreground">What is Direxion TSLL (TSL2s)?</h3>
+        <h3 className="text-lg text-foreground">What is Direxion TSLL (TSx2)?</h3>
         <a href="#" className="flex items-center gap-2 text-mint text-xs hover:opacity-80 transition-opacity">
           Read More <ArrowRight className="h-3 w-3" />
         </a>

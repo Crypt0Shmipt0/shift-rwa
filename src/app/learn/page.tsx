@@ -23,7 +23,7 @@ const GUIDES = [
   {
     icon: TrendingUp,
     title: "Bi-directional: long + short, same market",
-    body: "Every SHIFT market ships a long and an inverse side. Buy TSL2s for 2× upside; buy TSLSs to short Tesla. Switch directions without closing positions in a margin account.",
+    body: "Every SHIFT market ships a long and an inverse side. Buy TSx2 for 2× upside; buy TSS to short Tesla. Switch directions without closing positions in a margin account.",
     href: "#",
     read: "5 min read",
   },
@@ -75,7 +75,7 @@ const FAQ = [
   },
   {
     q: "Which underlyings are supported?",
-    a: "Currently Tesla (TSLA), Nvidia (NVDA), S&P 500 (SPY), and Tesla Short. We publish new markets monthly — see the Markets page for the current list.",
+    a: "Currently Tesla (TSx2, TSS), Semiconductors (SOXx3, SOXx3S), and S&amp;P 500 (S&amp;Px3, S&amp;Px3S). We publish new markets monthly — see the Markets page for the current list.",
   },
   {
     q: "What happens if the underlying stock market is closed?",

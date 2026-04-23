@@ -17,7 +17,7 @@ const MOCK_USDC_BALANCE = 124278.92;
 const MOCK_ASSET_BALANCE = 4278.92;
 const SLIPPAGE_PRESETS = [0.1, 0.5, 1];
 
-export function SwapCard({ symbol = "TSL2s" }: { symbol?: string }) {
+export function SwapCard({ symbol = "TSx2" }: { symbol?: string }) {
   const router = useRouter();
   const asset = getAsset(symbol);
   const [side, setSide] = useState<Side>("buy");

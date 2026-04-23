@@ -11,11 +11,11 @@ const FAQ = [
   },
   {
     q: "What does bi-directional mean?",
-    a: "Every market has both a long and an inverse side. TSL2s gives you 2× Tesla upside; TSLSs is the corresponding short. You don't need a margin account to switch direction — you just trade between two ERC-20s in your wallet.",
+    a: "Every market has both a long and an inverse side. TSx2 gives you 2× Tesla upside; TSS is the corresponding short. You don't need a margin account to switch direction — you just trade between two ERC-20s in your wallet.",
   },
   {
     q: "Which assets are tradable today?",
-    a: "Tesla (TSLA), Nvidia (NVDA), S&P 500 (SPY), and Tesla Short. We publish a new listing roughly every two weeks — the next batch includes ORCL, COIN, and MSTR. Browse the Markets page for the live list.",
+    a: "Tesla (TSx2, TSS), Semiconductors (SOXx3, SOXx3S), and S&amp;P 500 (S&amp;Px3, S&amp;Px3S). We publish a new listing roughly every two weeks — the next batch includes ORCL, COIN, and MSTR. Browse the Markets page for the live list.",
   },
   {
     q: "How is the daily 2× or 3× target maintained?",
