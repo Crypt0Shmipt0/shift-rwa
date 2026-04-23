@@ -3,6 +3,7 @@ import { LandingPartners } from "@/components/landing/partners";
 import { LandingWhy } from "@/components/landing/why-shift";
 import { LandingMarketsGrid } from "@/components/landing/markets-grid";
 import { LandingFarm } from "@/components/landing/farm-section";
+import { LandingBlogFeatured } from "@/components/landing/blog-featured";
 import { LandingConnect } from "@/components/landing/connect-section";
 import { LandingFaq } from "@/components/landing/faq";
 
@@ -14,6 +15,7 @@ export default function LandingPage() {
       <LandingWhy />
       <LandingMarketsGrid />
       <LandingFarm />
+      <LandingBlogFeatured />
       <LandingConnect />
       <LandingFaq />
     </>
