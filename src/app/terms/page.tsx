@@ -22,8 +22,8 @@ export default function TermsPage() {
       <h2>2. Non-custodial service</h2>
       <p>
         SHIFT is a non-custodial interface. We never take custody of your funds. All trades are executed
-        via smart contracts on supported chains (Base, Arbitrum, Optimism, Ethereum mainnet). You
-        retain full control of your wallet and private keys at all times.
+        via smart contracts on Solana. Other chains Coming Soon! You retain full control of your
+        wallet and private keys at all times.
       </p>
 
       <h2>3. No investment advice</h2>

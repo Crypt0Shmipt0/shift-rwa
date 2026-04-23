@@ -23,9 +23,7 @@ const COMPONENTS: Component[] = [
   { name: "TradingView chart",      status: "operational", latency: "220ms" },
   { name: "Wallet connect (WalletConnect)", status: "operational", latency: "—" },
   { name: "News RSS feed",           status: "operational", latency: "142ms" },
-  { name: "Smart contracts — Base",  status: "operational", latency: "—" },
-  { name: "Smart contracts — Arbitrum", status: "operational", latency: "—" },
-  { name: "Smart contracts — Optimism", status: "operational", latency: "—" },
+  { name: "Smart contracts — Solana", status: "operational", latency: "—" },
 ];
 
 const INCIDENTS = [

@@ -1,13 +1,13 @@
 const PARTNERS = [
-  "SNZ",
-  "DekaBank",
   "Chainlink",
-  "Prime",
-  "DappRadar",
   "Solana",
-  "Wallet",
-  "Chainlink",
-  "DappRadar",
+  "Jupiter",
+  "Meteora",
+  "Kamino",
+  "SNZ",
+  "Orca",
+  "BNB",
+  "CT Accelerator",
 ];
 
 export function LandingPartners() {

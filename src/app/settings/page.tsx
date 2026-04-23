@@ -98,7 +98,8 @@ export default function SettingsPage() {
 
         <Section icon={Coins} title="Wallet">
           <p className="text-sm text-muted-foreground">
-            Manage chains, connected wallets, and session in the Connect Wallet menu at the top right.
+            Wallet connection lives inside the trade flow. SHIFT runs on Solana today; other chains
+            Coming Soon!
           </p>
         </Section>
 

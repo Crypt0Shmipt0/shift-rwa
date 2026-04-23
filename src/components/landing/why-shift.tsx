@@ -4,7 +4,7 @@ import { TOKENS } from "@/data/tokens";
 
 const ROW_1 = [
   { glyph: "III", label: "Bi-Directional", sub: "Long & short on every market" },
-  { glyph: "M",   label: "Tokenized",     sub: "ERC-20s, not margin positions" },
+  { glyph: "M",   label: "Tokenized",     sub: "SPL tokens, not margin positions" },
   { glyph: "B",   label: "Brokerage-free", sub: "No KYC, no paperwork, no friction" },
   { glyph: "24/7", label: "Always-on",    sub: "Settles in seconds, on-chain" },
 ];
@@ -21,7 +21,7 @@ export function LandingWhy() {
       {/* Section eyebrow */}
       <div className="text-center mb-3">
         <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
-          Permissionless · 24/7 Trade · Pool of Reserves
+          Permissionless · 24/7 Trade · Fully Transparent
         </span>
       </div>
       <h2 className="text-center text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-2 mb-16">
@@ -65,11 +65,11 @@ export function LandingWhy() {
         ))}
       </div>
 
-      {/* Bottom badges */}
+      {/* Features grid — Long / Short / No liquidation */}
       <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-        <Badge icon={<Repeat className="h-5 w-5" />} title="Bi-directional" body="Long AND inverse on every market — same wallet, same chain." />
-        <Badge icon={<Layers className="h-5 w-5" />} title="Tokenized, not collateralized" body="ERC-20s with NAV — never margin positions, never liquidations." />
-        <Badge icon={<ShieldOff className="h-5 w-5" />} title="Zero forced closes" body="Worst case is the token's net asset value approaching zero." />
+        <FeatureCard icon={<Repeat className="h-5 w-5" />} title="Long" body="2× and 3× tokenized exposure to major indices, sectors, and single names." />
+        <FeatureCard icon={<Layers className="h-5 w-5" />} title="Short" body="Inverse tokens on every market — take the other side without a margin account." />
+        <FeatureCard icon={<ShieldOff className="h-5 w-5" />} title="No liquidation" body="No price feed or oracle dependence, protecting you from liquidation." />
       </div>
     </section>
   );
@@ -139,14 +139,17 @@ function TokenTile({ ticker, img, sub }: { ticker: string; img: string; sub: str
   );
 }
 
-function Badge({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
+function FeatureCard({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-mint/20 bg-mint/5 p-5 backdrop-blur">
-      <div className="size-9 rounded-lg bg-mint/15 border border-mint/30 flex items-center justify-center text-mint mb-3">
-        {icon}
+    <div className="relative overflow-hidden rounded-2xl border border-mint/30 bg-gradient-to-br from-mint/10 via-card to-card p-6 backdrop-blur">
+      <div className="absolute -top-12 -right-12 size-32 rounded-full bg-mint/10 blur-2xl" />
+      <div className="relative">
+        <div className="size-10 rounded-xl bg-mint/20 border border-mint/40 flex items-center justify-center text-mint mb-4">
+          {icon}
+        </div>
+        <div className="font-bold text-white text-2xl mb-2 tracking-tight">{title}</div>
+        <p className="text-sm text-foreground/70 leading-relaxed">{body}</p>
       </div>
-      <div className="font-semibold text-white text-sm mb-1">{title}</div>
-      <p className="text-xs text-foreground/65 leading-relaxed">{body}</p>
     </div>
   );
 }

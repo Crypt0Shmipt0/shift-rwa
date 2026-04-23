@@ -7,11 +7,11 @@ const FAQ = [
   },
   {
     q: "How can leverage exist with zero liquidation risk?",
-    a: "Because SHIFT positions are ERC-20 tokens, not collateralized margin positions. There is literally no liquidation engine in the protocol. The worst case is the token's net asset value approaching zero — you can never lose more than you put in, and you can never be force-closed at the bottom of a wick.",
+    a: "Because SHIFT positions are SPL tokens on Solana, not collateralized margin positions. There is literally no liquidation engine in the protocol. No price feed or oracle dependence, protecting you from liquidation — you can never lose more than you put in, and you can never be force-closed at the bottom of a wick.",
   },
   {
     q: "What does bi-directional mean?",
-    a: "Every market has both a long and an inverse side. TSx2 gives you 2× Tesla upside; TSS is the corresponding short. You don't need a margin account to switch direction — you just trade between two ERC-20s in your wallet.",
+    a: "Every market has both a long and an inverse side. TSx2 gives you 2× Tesla upside; TSS is the corresponding short. You don't need a margin account to switch direction — you just trade between two SPL tokens in your wallet.",
   },
   {
     q: "Which assets are tradable today?",
@@ -27,7 +27,7 @@ const FAQ = [
   },
   {
     q: "What fees do you charge?",
-    a: "0.10% protocol fee per trade. Network gas is paid in the native token of the chain (cents on Base/Arbitrum/Optimism). Rewards-tier holders get up to 50% fee rebates.",
+    a: "0.10% protocol fee per trade. Network gas is paid in SOL (fractions of a cent on Solana). Other chains Coming Soon! Rewards-badge holders get up to 50% fee rebates.",
   },
 ];
 

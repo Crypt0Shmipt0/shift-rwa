@@ -1,68 +1,16 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { BookOpen, PlayCircle, FileText, ArrowUpRight, Lightbulb, ShieldCheck, Wallet, TrendingUp } from "lucide-react";
+import { BookOpen, FileText, ArrowUpRight } from "lucide-react";
 
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Learn",
   description:
-    "Guides, tutorials, and FAQs on leveraged tokens, daily rebalancing, and on-chain execution. Designed for traders who want to understand the math.",
+    "FAQs on leveraged tokens, daily rebalancing, and on-chain execution. For the full docs, see our Gitbook.",
   alternates: { canonical: "/learn" },
 };
-
-const GUIDES = [
-  {
-    icon: Lightbulb,
-    title: "Why 3× & 2× leveraged tokens?",
-    body: "Spot stocks move too slow for active traders. Perps blow you up on 5% wicks. SHIFT tokens deliver a daily multiple of the underlying — long or short — with no margin account and no liquidation.",
-    href: "#",
-    read: "4 min read",
-  },
-  {
-    icon: TrendingUp,
-    title: "Bi-directional: long + short, same market",
-    body: "Every SHIFT market ships a long and an inverse side. Buy TSx2 for 2× upside; buy TSS to short Tesla. Switch directions without closing positions in a margin account.",
-    href: "#",
-    read: "5 min read",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Zero liquidation risk, explained",
-    body: "Because SHIFT tokens are ERC-20s, not collateralized margin positions, there is no liquidation engine. The worst case is the token's net asset value going to zero — never a forced close with losses beyond your entry.",
-    href: "#",
-    read: "5 min read",
-  },
-  {
-    icon: TrendingUp,
-    title: "Daily rebalancing & decay",
-    body: "The protocol rebalances once a day to reset the leverage target. Over multiple days, compounding means returns can diverge from a simple 2× or 3× calc — this is decay. Understand it before holding long term.",
-    href: "#",
-    read: "6 min read",
-  },
-  {
-    icon: Wallet,
-    title: "Funding your wallet",
-    body: "Bridge USDC to Base, Arbitrum, or Optimism. Any wallet supporting WalletConnect works — MetaMask, Rainbow, Zerion, Privy-embedded, and more.",
-    href: "#",
-    read: "3 min read",
-  },
-  {
-    icon: Lightbulb,
-    title: "Tax basics",
-    body: "Leveraged token trades are generally treated as taxable events per trade in most jurisdictions. Export your activity for your accountant from the Portfolio page.",
-    href: "#",
-    read: "8 min read",
-  },
-];
-
-const VIDEOS = [
-  { title: "Your first trade on SHIFT", dur: "2:14" },
-  { title: "Reading the trading view chart", dur: "3:48" },
-  { title: "Portfolio and PnL accounting", dur: "4:22" },
-  { title: "Managing slippage and fees", dur: "2:56" },
-];
 
 const FAQ = [
   {
@@ -71,11 +19,15 @@ const FAQ = [
   },
   {
     q: "Is SHIFT custodial?",
-    a: "No. SHIFT is fully non-custodial. Your tokens sit in your wallet; the protocol never takes custody. All trades happen via smart contracts on Base, Arbitrum, or Optimism.",
+    a: "No. SHIFT is fully non-custodial. Your tokens sit in your wallet; the protocol never takes custody. All trades happen via smart contracts on Solana. Other chains Coming Soon!",
   },
   {
     q: "Which underlyings are supported?",
-    a: "Currently Tesla (TSx2, TSS), Semiconductors (SOXx3, SOXx3S), and S&amp;P 500 (S&amp;Px3, S&amp;Px3S). We publish new markets monthly — see the Markets page for the current list.",
+    a: "Currently Tesla (TSx2, TSS), Semiconductors (SOXx3, SOXx3S), and S&P 500 (S&Px3, S&Px3S). We publish new markets monthly — see the Markets page for the current list.",
+  },
+  {
+    q: "How can leverage exist with zero liquidation risk?",
+    a: "Because SHIFT tokens are SPL tokens on Solana, not collateralized margin positions, there is no liquidation engine. No price feed or oracle dependence, protecting you from liquidation — the worst case is the token's net asset value going to zero, never a forced close with losses beyond your entry.",
   },
   {
     q: "What happens if the underlying stock market is closed?",
@@ -87,11 +39,11 @@ const FAQ = [
   },
   {
     q: "What are the fees?",
-    a: "Protocol fee is 0.10% per trade. Network gas is paid in the native token of the chain. Rewards tier holders get up to 50% fee rebates.",
+    a: "Protocol fee is 0.10% per trade. Network gas is paid in SOL (fractions of a cent on Solana). Rewards-badge holders get up to 50% fee rebates.",
   },
   {
     q: "Is SHIFT available in my country?",
-    a: "SHIFT is geofenced from several restricted jurisdictions including the US, UK, and sanctioned regions. See the Disclaimer for the full list.",
+    a: "SHIFT is geofenced from several restricted jurisdictions. See the Disclaimer for the full list.",
   },
   {
     q: "How do I request a new listing?",
@@ -114,50 +66,7 @@ export default function LearnPage() {
         <p className="text-base text-muted-foreground leading-relaxed">
           Stocks are too slow. Perps blow you up. SHIFT is the bi-directional leveraged RWA protocol
           that solves both — 3× and 2× tokenized stocks, ETFs, and ETNs with zero liquidation risk.
-          These guides cover the mechanics, the math, and the edge cases.
         </p>
-      </div>
-
-      {/* Guides */}
-      <h2 className="text-lg font-semibold text-white mb-4">Guides</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-14">
-        {GUIDES.map((g) => {
-          const Icon = g.icon;
-          return (
-            <Link key={g.title} href={g.href} className="group">
-              <Card className="bg-card border-border rounded-2xl p-6 h-full hover:border-mint/40 transition-colors">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="size-10 rounded-xl bg-mint/10 border border-mint/30 flex items-center justify-center">
-                    <Icon className="h-5 w-5 text-mint" />
-                  </div>
-                  <span className="text-xs text-muted-foreground">{g.read}</span>
-                </div>
-                <h3 className="font-semibold text-white mb-2 group-hover:text-mint transition-colors">
-                  {g.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{g.body}</p>
-                <div className="flex items-center gap-1 text-xs text-mint mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                  Read <ArrowUpRight className="h-3 w-3" />
-                </div>
-              </Card>
-            </Link>
-          );
-        })}
-      </div>
-
-      {/* Videos */}
-      <h2 className="text-lg font-semibold text-white mb-4">Video tutorials</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
-        {VIDEOS.map((v) => (
-          <Card key={v.title} className="bg-card border-border rounded-2xl p-5 hover:border-mint/40 transition-colors cursor-pointer group">
-            <div className="aspect-video bg-secondary rounded-xl mb-3 flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-mint/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <PlayCircle className="h-9 w-9 text-mint relative" />
-            </div>
-            <div className="font-medium text-sm text-white mb-1">{v.title}</div>
-            <div className="text-xs text-muted-foreground">{v.dur}</div>
-          </Card>
-        ))}
       </div>
 
       {/* FAQ */}
@@ -165,7 +74,7 @@ export default function LearnPage() {
         <FileText className="h-4 w-4 text-mint" />
         <h2 className="text-lg font-semibold text-white">Frequently asked</h2>
       </div>
-      <Card className="bg-card border-border rounded-2xl px-6 py-2">
+      <Card className="bg-card border-border rounded-2xl px-6 py-2 mb-12">
         <Accordion className="w-full">
           {FAQ.map((f, i) => (
             <AccordionItem key={f.q} value={`item-${i}`} className="border-border">
@@ -178,6 +87,34 @@ export default function LearnPage() {
             </AccordionItem>
           ))}
         </Accordion>
+      </Card>
+
+      {/* Gitbook CTA */}
+      <Card className="bg-gradient-to-br from-mint/10 via-card to-card border-mint/30 rounded-3xl p-8 md:p-10 relative overflow-hidden">
+        <div className="absolute -top-20 -right-20 size-52 rounded-full bg-mint/15 blur-3xl" />
+        <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="max-w-xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-mint mb-2">
+              Full documentation
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
+              Read the deep-dive docs on Gitbook.
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Protocol mechanics, rebalancing math, oracle architecture, risk disclosures, and
+              builder guides — all kept up to date in our Gitbook.
+            </p>
+          </div>
+          <Link
+            href="https://shift-stocks.gitbook.io/learn"
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-sm px-6 py-3 rounded-full hover:bg-mint/90 transition-colors shrink-0 shadow-[0_0_30px_rgba(38,200,184,0.25)]"
+          >
+            Open Gitbook
+            <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </Link>
+        </div>
       </Card>
     </div>
   );

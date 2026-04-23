@@ -2,10 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ShiftLogo } from "@/components/nav/shift-logo";
-import { CommandPalette } from "@/components/nav/command-palette";
-import { Search } from "lucide-react";
 
 const LINKS = [
   { href: "/markets", label: "Markets", match: ["/trade", "/markets"] },
@@ -47,14 +44,12 @@ export function TopNav() {
           </nav>
         </div>
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          <CmdButton />
           <Link
             href="/app"
-            className="hidden sm:inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-mint text-primary-foreground text-sm font-semibold hover:bg-mint/90 transition-colors"
+            className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-mint text-primary-foreground text-sm font-semibold hover:bg-mint/90 transition-colors"
           >
             Launch App
           </Link>
-          <ConnectButton showBalance={false} chainStatus="icon" accountStatus="address" />
         </div>
       </div>
       {/* Mobile strip */}
@@ -72,23 +67,6 @@ export function TopNav() {
           );
         })}
       </nav>
-      <CommandPalette />
     </header>
-  );
-}
-
-function CmdButton() {
-  return (
-    <button
-      onClick={() => {
-        document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }));
-      }}
-      className="hidden md:flex items-center gap-2 h-9 px-3 rounded-lg bg-secondary border border-border text-xs text-muted-foreground hover:text-foreground hover:border-mint/40 transition-colors"
-      aria-label="Open command palette"
-    >
-      <Search className="h-3.5 w-3.5" />
-      <span>Search</span>
-      <kbd className="hidden lg:inline font-mono bg-card px-1.5 py-0.5 rounded border border-border text-[10px]">⌘K</kbd>
-    </button>
   );
 }

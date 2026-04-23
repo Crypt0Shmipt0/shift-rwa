@@ -34,11 +34,11 @@ export function LandingFarm() {
                 className="bg-clip-text text-transparent"
                 style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
               >
-                Earn SHIFT tomorrow.
+                Earn $SHFT tomorrow.
               </span>
             </h2>
             <p className="text-base md:text-lg text-foreground/70 leading-relaxed mb-8 max-w-[520px]">
-              Every trade, every position, every referral earns farm points that convert to SHIFT
+              Every trade, every position, every referral earns farm points that convert to $SHFT
               tokens at TGE. The earlier you trade, the bigger your allocation in the protocol&apos;s
               foundation.
             </p>

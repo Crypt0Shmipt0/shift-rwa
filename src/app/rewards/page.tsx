@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sparkles, Zap, Trophy, Gift, CheckCircle2 } from "lucide-react";
 
-const TIERS = [
+const BADGES = [
   { name: "Navigator",  min: 0,      perks: ["Basic RFQ", "Standard fees", "1× XP"] },
   { name: "Operator",   min: 10_000, perks: ["Tighter spreads", "-10% fees", "2× XP", "Early features"] },
   { name: "Strategist", min: 50_000, perks: ["Priority RFQ", "-25% fees", "3× XP", "Direct desk access"] },
@@ -76,13 +76,13 @@ export default function RewardsPage() {
         </Card>
       </div>
 
-      {/* Tier ladder */}
+      {/* Badges */}
       <div className="mb-6 flex items-center gap-2">
         <Zap className="h-4 w-4 text-mint" />
-        <h2 className="text-xl font-semibold text-white">Tier ladder</h2>
+        <h2 className="text-xl font-semibold text-white">Badges</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        {TIERS.map((t, i) => (
+        {BADGES.map((t, i) => (
           <Card
             key={t.name}
             className={`bg-card border rounded-2xl p-6 relative overflow-hidden ${
@@ -90,7 +90,7 @@ export default function RewardsPage() {
             }`}
           >
             <div className="flex items-center justify-between mb-4">
-              <div className="text-xs text-muted-foreground font-mono">TIER {String(i + 1).padStart(2, "0")}</div>
+              <div className="text-xs text-muted-foreground font-mono">BADGE {String(i + 1).padStart(2, "0")}</div>
               <Gift className="h-4 w-4 text-mint/60" />
             </div>
             <div className="text-xl font-bold text-white mb-1">{t.name}</div>
@@ -110,7 +110,7 @@ export default function RewardsPage() {
       </div>
 
       <p className="text-xs text-muted-foreground text-center mt-10">
-        Program parameters are not final. Tiers, XP rates, and rebates may change before launch.
+        Program parameters are not final. Badges, XP rates, and rebates may change before launch.
       </p>
     </div>
   );
