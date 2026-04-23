@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { TradingViewChart } from "@/components/trade/trading-view-chart";
 import { SwapCard } from "@/components/trade/swap-card";
 import { EducationCard, MarketNewsCard } from "@/components/trade/info-cards";
@@ -35,11 +36,38 @@ export function generateStaticParams() {
 
 export default async function TradePage({ params }: { params: Promise<{ symbol: string }> }) {
   const { symbol } = await params;
+  const asset = getAsset(symbol);
+  const pos = asset.change24h >= 0;
+
   return (
     <div className="mx-auto max-w-[1440px] px-6 lg:px-[72px] py-10 flex flex-col gap-10">
       {/* Main row: chart + swap */}
       <section className="flex flex-col lg:flex-row gap-10 lg:gap-[60px] justify-center">
-        <div className="flex flex-col items-start lg:shrink-0 w-full lg:w-[700px]">
+        <div className="flex flex-col items-start lg:shrink-0 w-full lg:w-[700px] gap-2">
+          {/* Price / stat strip */}
+          <div className="w-full bg-card border border-border rounded-2xl px-5 py-3 flex items-center gap-4 flex-wrap">
+            <Image
+              src={asset.image}
+              alt={asset.symbol}
+              width={32}
+              height={32}
+              className="size-8 rounded-full object-cover shrink-0"
+            />
+            <span className="font-semibold text-foreground tracking-tight">{asset.symbol}</span>
+            <span className="font-mono tabular-nums text-foreground text-lg leading-none">
+              {FORMATTERS.usd(asset.price)}
+            </span>
+            <span className={`font-mono tabular-nums text-sm font-medium ${pos ? "text-mint" : "text-destructive"}`}>
+              {pos ? "▲" : "▼"} {FORMATTERS.pct(asset.change24h)} 24h
+            </span>
+            <span className="text-xs text-muted-foreground">
+              Underlying: <span className="text-foreground/75">{asset.underlying}</span>
+            </span>
+            <span className="text-xs text-muted-foreground ml-auto">
+              Chainlink oracle
+            </span>
+          </div>
+
           <TradingViewChart symbol={symbol} />
         </div>
         <div className="w-full lg:w-[480px] lg:shrink-0">
@@ -50,7 +78,7 @@ export default async function TradePage({ params }: { params: Promise<{ symbol: 
       {/* Bottom row: education + intelligence */}
       <section className="flex flex-col lg:flex-row gap-10 lg:gap-[60px] justify-center">
         <div className="flex flex-col gap-6 w-full lg:max-w-[700px]">
-          <EducationCard />
+          <EducationCard symbol={symbol} />
           <MarketNewsCard />
         </div>
         <div className="w-full lg:w-[480px] lg:shrink-0">

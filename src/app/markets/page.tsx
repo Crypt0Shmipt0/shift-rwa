@@ -36,9 +36,9 @@ export default function MarketsPage() {
   return (
     <div className="mx-auto max-w-[1440px] px-6 lg:px-[72px] py-10">
       <div className="mb-10">
-        <h1 className="text-3xl font-semibold text-white mb-2">Markets</h1>
+        <h1 className="text-3xl font-semibold text-white mb-2">Every SHIFT market. Long and short.</h1>
         <p className="text-sm text-muted-foreground">
-          Every SHIFT market ships a long and an inverse side — 3× and 2× leveraged, zero liquidation. Tap a market to trade.
+          3× and 2× leveraged, bi-directional, zero liquidation. Tap a market to trade.
         </p>
       </div>
 

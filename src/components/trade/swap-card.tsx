@@ -143,13 +143,13 @@ export function SwapCard({ symbol = "TSL2L" }: { symbol?: string }) {
               <div className="flex gap-2">
                 <button
                   onClick={setHalf}
-                  className="bg-[#333] px-2 py-1 rounded-lg text-mist text-xs border border-transparent hover:border-mint transition-colors"
+                  className="bg-secondary px-2 py-1 rounded-lg text-foreground/75 text-xs border border-border hover:border-mint transition-colors"
                 >
                   Half
                 </button>
                 <button
                   onClick={setMax}
-                  className="bg-[#333] px-2 py-1 rounded-lg text-mist text-xs border border-transparent hover:border-mint transition-colors"
+                  className="bg-secondary px-2 py-1 rounded-lg text-foreground/75 text-xs border border-border hover:border-mint transition-colors"
                 >
                   Max
                 </button>
@@ -257,10 +257,30 @@ export function SwapCard({ symbol = "TSL2L" }: { symbol?: string }) {
               : `${side === "buy" ? "Buy" : "Sell"} ${asset.symbol}`}
         </button>
 
-        {/* Rate */}
-        <div className="flex gap-2 items-center justify-center mt-2">
-          <span className="text-mist text-xs">Rate</span>
-          <span className="text-foreground/80 text-xs tabular-nums">{RATE} USDC = 1 {asset.symbol}</span>
+        {/* Rate + fee details */}
+        <div className="flex flex-col gap-1.5 mt-2 px-1">
+          <div className="flex gap-2 items-center justify-center">
+            <span className="text-mist text-xs">Rate</span>
+            <span className="text-foreground/80 text-xs tabular-nums">{RATE} USDC = 1 {asset.symbol}</span>
+          </div>
+          <div className="flex flex-col gap-1 border-t border-border pt-2 mt-0.5">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-muted-foreground">Fee</span>
+              <span className="tabular-nums text-foreground/75">0.10%</span>
+            </div>
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-muted-foreground">Slippage</span>
+              <span className="tabular-nums text-foreground/75">{slippage}%</span>
+            </div>
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-muted-foreground">Est. receive</span>
+              <span className="tabular-nums text-foreground/75">
+                {outputAmount
+                  ? `${(Number(outputAmount) * (1 - slippage / 100)).toFixed(4)} ${side === "buy" ? asset.symbol : "USDC"}`
+                  : "—"}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -319,7 +339,7 @@ function AssetChip({ asset, open, hovered, onToggle, onHover, refEl, onPick, oth
         onMouseEnter={() => onHover(true)}
         onMouseLeave={() => onHover(false)}
         className={`flex gap-2.5 items-center p-1.5 pr-3 rounded-full transition-all border focus-visible:ring-2 focus-visible:ring-mint focus-visible:outline-none ${
-          accent ? "border-mint bg-mint/15" : "border-transparent bg-[#333]"
+          accent ? "border-mint bg-mint/15" : "border-border bg-secondary"
         }`}
       >
         <Image src={asset.image} alt={asset.symbol} width={32} height={32} className="size-8 rounded-full object-cover" />
@@ -327,12 +347,12 @@ function AssetChip({ asset, open, hovered, onToggle, onHover, refEl, onPick, oth
         <ChevronDown className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""} ${accent ? "text-mint" : "text-[#d9d9d9]"}`} />
       </button>
       {open && (
-        <div className="absolute top-12 left-0 bg-[#1a1a1a] border border-border rounded-2xl p-2 z-50 min-w-[220px] shadow-lg shadow-black/40">
+        <div className="absolute top-12 left-0 bg-card border border-border rounded-2xl p-2 z-50 min-w-[220px] shadow-lg shadow-black/40">
           {others.map((a) => (
             <button
               key={a.symbol}
               onClick={() => onPick(a.symbol)}
-              className="flex gap-2.5 items-center p-2 rounded-xl w-full hover:bg-[#333] transition-colors group text-left"
+              className="flex gap-2.5 items-center p-2 rounded-xl w-full hover:bg-secondary transition-colors group text-left"
             >
               <Image src={a.image} alt={a.symbol} width={28} height={28} className="size-7 rounded-full object-cover" />
               <div className="flex-1 min-w-0">
