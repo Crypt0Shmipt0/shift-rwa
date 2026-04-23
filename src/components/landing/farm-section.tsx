@@ -19,7 +19,7 @@ export function LandingFarm() {
         />
       </div>
 
-      <div className="mx-auto max-w-[1200px] px-6 py-28">
+      <div className="mx-auto max-w-[1200px] px-6 py-24">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-16 items-center">
           {/* LEFT — copy */}
           <div>
@@ -119,7 +119,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <div className="text-2xl font-bold text-white tabular-nums">{value}</div>
-      <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">{label}</div>
+      <div className="text-xs uppercase tracking-wider text-muted-foreground mt-1">{label}</div>
     </div>
   );
 }

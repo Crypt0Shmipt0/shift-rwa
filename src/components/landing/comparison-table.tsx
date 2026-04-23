@@ -36,7 +36,7 @@ export function LandingComparisonTable() {
   return (
     <section className="relative mx-auto max-w-[1000px] px-6 py-16">
       <div className="text-center mb-3">
-        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
+        <span className="text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
           Why not perps?
         </span>
       </div>

@@ -18,10 +18,10 @@ const ROW_2 = TOKENS.map((t) => ({
 
 export function LandingWhy() {
   return (
-    <section className="relative mx-auto max-w-[1280px] px-6 py-28">
+    <section className="relative mx-auto max-w-[1200px] px-6 py-24">
       {/* Section eyebrow */}
       <div className="text-center mb-3">
-        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
+        <span className="text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
           Permissionless · 24/7 Trade · Fully Transparent
         </span>
       </div>
@@ -86,7 +86,7 @@ function ProblemCard({
         <div className="size-10 rounded-xl bg-destructive/15 border border-destructive/30 flex items-center justify-center text-destructive">
           {icon}
         </div>
-        <span className="text-[10px] font-bold uppercase tracking-wider text-destructive/80">
+        <span className="text-xs font-bold uppercase tracking-wider text-destructive/80">
           {tag}
         </span>
       </div>
@@ -109,7 +109,7 @@ function ConceptTile({ icon: Icon, label, sub }: { icon: React.ComponentType<{ c
         </div>
         <div className="mt-4">
           <div className="text-sm font-semibold text-white">{label}</div>
-          <div className="text-[11px] text-muted-foreground mt-1">{sub}</div>
+          <div className="text-xs text-muted-foreground mt-1">{sub}</div>
         </div>
       </div>
       {/* Mint border accent on hover */}
@@ -126,7 +126,7 @@ function TokenTile({ ticker, img, sub }: { ticker: string; img: string; sub: str
         <Image src={img} alt={ticker} width={96} height={96} className="size-20 md:size-24 rounded-full object-cover drop-shadow-[0_0_30px_rgba(38,200,184,0.4)]" />
         <div>
           <div className="text-xl font-bold text-white">{ticker}</div>
-          <div className="text-[11px] text-mint mt-0.5">{sub}</div>
+          <div className="text-xs text-mint mt-0.5">{sub}</div>
         </div>
       </div>
     </div>

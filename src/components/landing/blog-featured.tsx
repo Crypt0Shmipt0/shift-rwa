@@ -30,7 +30,7 @@ export function LandingBlogFeatured() {
 
   return (
     <section className="relative border-t border-border/60">
-      <div className="mx-auto max-w-[1200px] px-6 py-20 md:py-28">
+      <div className="mx-auto max-w-[1200px] px-6 py-20 md:py-24">
         {/* Section header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
@@ -70,7 +70,7 @@ export function LandingBlogFeatured() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A2730] via-[#0A2730]/30 to-transparent" />
                 <span
-                  className={`absolute bottom-3 left-3 text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full backdrop-blur-sm ${TAG_COLORS[post.tag]}`}
+                  className={`absolute bottom-3 left-3 text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded-full backdrop-blur-sm ${TAG_COLORS[post.tag]}`}
                 >
                   {TAG_LABELS[post.tag]}
                 </span>
@@ -84,7 +84,7 @@ export function LandingBlogFeatured() {
                 <p className="text-foreground/55 text-sm leading-relaxed line-clamp-2 flex-1 mb-4">
                   {post.excerpt}
                 </p>
-                <div className="flex items-center justify-between text-[11px] text-foreground/35 pt-3 border-t border-border/40">
+                <div className="flex items-center justify-between text-xs text-foreground/35 pt-3 border-t border-border/40">
                   <span>{formatDate(post.publishedAt)}</span>
                   <span>{post.readingMinutes} min</span>
                 </div>

@@ -29,7 +29,7 @@ const HOLDINGS = [
 
 export function LandingConnect() {
   return (
-    <section className="relative mx-auto max-w-[1200px] px-6 py-28">
+    <section className="relative mx-auto max-w-[1200px] px-6 py-24">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-16 items-center">
         {/* Phone mockup */}
         <div className="relative flex justify-center">
@@ -45,7 +45,7 @@ export function LandingConnect() {
               <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-6 rounded-full bg-black z-10" />
 
               {/* Status bar */}
-              <div className="flex items-center justify-between px-7 pt-3 text-[10px] text-white/80 font-medium">
+              <div className="flex items-center justify-between px-7 pt-3 text-xs text-white/80 font-medium">
                 <span>9:41</span>
                 <span className="flex items-center gap-1">
                   <span className="size-1.5 rounded-full bg-mint animate-pulse" />
@@ -55,18 +55,18 @@ export function LandingConnect() {
 
               {/* App content */}
               <div className="px-6 pt-10">
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1.5">
+                <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1.5">
                   Total Net Worth
                 </div>
                 <div className="text-[36px] font-bold text-white tabular-nums tracking-tight leading-none mb-2">
                   $87,218.18
                 </div>
                 <div className="flex items-center gap-2 mb-6">
-                  <span className="bg-mint/15 border border-mint/30 text-mint text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span className="bg-mint/15 border border-mint/30 text-mint text-xs font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
                     <TrendingUp className="h-2.5 w-2.5" />
                     +2.41%
                   </span>
-                  <span className="text-[10px] text-muted-foreground">+$4,368.75 today</span>
+                  <span className="text-xs text-muted-foreground">+$4,368.75 today</span>
                 </div>
 
                 {/* Mini chart */}
@@ -92,7 +92,7 @@ export function LandingConnect() {
                 </div>
 
                 {/* Holdings list */}
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">
+                <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
                   Holdings
                 </div>
                 <div className="space-y-2">
@@ -114,7 +114,7 @@ export function LandingConnect() {
                       <div className="text-right">
                         <div className="text-xs text-white tabular-nums">{h.val}</div>
                         <div
-                          className={`text-[10px] tabular-nums ${
+                          className={`text-xs tabular-nums ${
                             h.up ? "text-mint" : "text-destructive"
                           }`}
                         >

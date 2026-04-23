@@ -49,6 +49,27 @@
 }
 
 :root {
+  /* ─────────────────────────────────────────────────────────────────
+   * SHIFT Typography Scale — 7 steps (fluid-friendly rem values)
+   *
+   *  step-0  0.75rem  / 12px — meta, timestamps, micro-labels
+   *  step-1  0.875rem / 14px — secondary text, muted copy
+   *  step-2  1rem     / 16px — body default, paragraph copy
+   *  step-3  1.25rem  / 20px — subheadings, lead text
+   *  step-4  1.875rem / 30px — H3 section titles
+   *  step-5  3rem     / 48px — H2 major headings
+   *  step-6  4.5rem   / 72px — H1 hero display (max on-brand size)
+   *
+   * Usage: var(--step-N) in custom CSS; map to Tailwind via @theme.
+   * ───────────────────────────────────────────────────────────────── */
+  --step-0: 0.75rem;
+  --step-1: 0.875rem;
+  --step-2: 1rem;
+  --step-3: 1.25rem;
+  --step-4: 1.875rem;
+  --step-5: 3rem;
+  --step-6: 4.5rem;
+
   /* Brand palette — SHIFT Condensed Brand Guide, April 2025 */
   --background: #021C24;            /* Midnight */
   --foreground: #EDEEEE;             /* Off-White */

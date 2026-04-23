@@ -24,7 +24,7 @@ export function LandingHero() {
           The first liquidation-free leveraged RWA protocol
         </div>
 
-        <h1 className="text-[44px] sm:text-5xl md:text-7xl lg:text-[104px] font-bold tracking-[-0.04em] leading-[1.02] text-white mb-8 pb-1">
+        <h1 className="text-[44px] sm:text-5xl md:text-7xl lg:text-[72px] font-bold tracking-[-0.04em] leading-[1.02] text-white mb-8 pb-1">
           Wall Street{" "}
           <span
             className="bg-clip-text text-transparent"
@@ -61,18 +61,18 @@ export function LandingHero() {
 
         {/* Chain status badge */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <span className="inline-flex items-center gap-1.5 bg-mint/10 border border-mint/30 text-mint text-[11px] font-semibold px-3 py-1 rounded-full">
+          <span className="inline-flex items-center gap-1.5 bg-mint/10 border border-mint/30 text-mint text-xs font-semibold px-3 py-1 rounded-full">
             <span className="size-1.5 rounded-full bg-mint animate-pulse" />
             Live on Solana
           </span>
-          <span className="inline-flex items-center gap-1.5 bg-foreground/5 border border-border text-foreground/50 text-[11px] font-semibold px-3 py-1 rounded-full">
+          <span className="inline-flex items-center gap-1.5 bg-foreground/5 border border-border text-foreground/50 text-xs font-semibold px-3 py-1 rounded-full">
             BNB Chain — coming soon
           </span>
           <Link
             href="https://data.chain.link/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-[#375BD2]/10 border border-[#375BD2]/40 text-[#7B9CF4] text-[11px] font-semibold px-3 py-1 rounded-full hover:border-[#375BD2]/70 transition-colors"
+            className="inline-flex items-center gap-1.5 bg-[#375BD2]/10 border border-[#375BD2]/40 text-[#7B9CF4] text-xs font-semibold px-3 py-1 rounded-full hover:border-[#375BD2]/70 transition-colors"
           >
             <ShieldOff className="h-3 w-3" />
             Chainlink Proof-of-Reserves

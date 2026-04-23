@@ -30,7 +30,7 @@ export function LandingPartners() {
       <div className="mx-auto max-w-[1200px] px-6 py-10 space-y-8">
         {/* Backed by */}
         <div>
-          <div className="text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-5">
+          <div className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-5">
             Backed by
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
@@ -49,7 +49,7 @@ export function LandingPartners() {
 
         {/* Live integrations */}
         <div>
-          <div className="text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-5">
+          <div className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-5">
             Live integrations
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
@@ -62,7 +62,7 @@ export function LandingPartners() {
               </span>
             ))}
           </div>
-          <p className="text-center text-[11px] text-foreground/40 mt-4">
+          <p className="text-center text-xs text-foreground/40 mt-4">
             Custody via Alpaca Markets — 24/5 mint-and-burn rails backing every token.
           </p>
         </div>

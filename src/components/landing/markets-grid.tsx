@@ -42,7 +42,7 @@ export function LandingMarketsGrid() {
                   height={48}
                   className="size-12 rounded-full object-cover"
                 />
-                <span className="text-[10px] font-bold uppercase tracking-wider text-mint bg-mint/10 border border-mint/30 px-2 py-1 rounded-full">
+                <span className="text-xs font-bold uppercase tracking-wider text-mint bg-mint/10 border border-mint/30 px-2 py-1 rounded-full">
                   {a.leverage > 0 ? `${a.leverage}× long` : `${Math.abs(a.leverage)}× short`}
                 </span>
               </div>
