@@ -6,12 +6,12 @@ const FEATURES = [
   {
     icon: Wallet,
     title: "Bring any wallet",
-    body: "MetaMask, Rainbow, Zerion, embedded — anything WalletConnect-compatible. We never custody your funds.",
+    body: "Phantom, Backpack, Solflare, or any Solana wallet. We never custody your funds.",
   },
   {
     icon: Zap,
     title: "Trade in two clicks",
-    body: "Pick a 3× or 2× direction, set the size, sign once. Settled on Base in seconds with sub-cent gas.",
+    body: "Pick a 3× or 2× direction, set the size, sign once. Settled on Solana in seconds with sub-cent gas.",
   },
   {
     icon: ShieldCheck,

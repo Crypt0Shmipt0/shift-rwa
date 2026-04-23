@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ShieldOff } from "lucide-react";
+import { ArrowRight, ShieldOff, ExternalLink } from "lucide-react";
 
 export function LandingHero() {
   return (
@@ -37,9 +37,9 @@ export function LandingHero() {
         </h1>
 
         <p className="text-base md:text-xl text-foreground/80 leading-relaxed max-w-[760px] mx-auto mb-10">
-          Boring spot stocks crawl 1% a day. Perps blow you up on a wick. SHIFT is the
-          revolutionary <span className="text-mint font-semibold">3× & 2× bi-directional leveraged
-          tokenized stocks, ETFs, and ETNs</span> protocol — real volatility, zero liquidation risk,
+          Boring spot stocks crawl 1% a day. Perps blow you up on a wick. SHIFT sits between both:{" "}
+          <span className="text-mint font-semibold">3× & 2× bi-directional leveraged
+          tokenized stocks, ETFs, and ETNs</span> — real volatility, zero liquidation risk,
           long or short, fully on-chain.
         </p>
 
@@ -59,8 +59,29 @@ export function LandingHero() {
           </Link>
         </div>
 
+        {/* Chain status badge */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <span className="inline-flex items-center gap-1.5 bg-mint/10 border border-mint/30 text-mint text-[11px] font-semibold px-3 py-1 rounded-full">
+            <span className="size-1.5 rounded-full bg-mint animate-pulse" />
+            Live on Solana
+          </span>
+          <span className="inline-flex items-center gap-1.5 bg-foreground/5 border border-border text-foreground/50 text-[11px] font-semibold px-3 py-1 rounded-full">
+            BNB Chain — coming soon
+          </span>
+          <Link
+            href="https://data.chain.link/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 bg-[#375BD2]/10 border border-[#375BD2]/40 text-[#7B9CF4] text-[11px] font-semibold px-3 py-1 rounded-full hover:border-[#375BD2]/70 transition-colors"
+          >
+            <ShieldOff className="h-3 w-3" />
+            Chainlink Proof-of-Reserves
+            <ExternalLink className="h-2.5 w-2.5 opacity-60" />
+          </Link>
+        </div>
+
         {/* Trust strip */}
-        <div className="mt-14 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-muted-foreground max-w-2xl mx-auto">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs text-muted-foreground max-w-2xl mx-auto">
           <Trust label="Zero liquidation risk" />
           <span className="size-1 rounded-full bg-border" />
           <Trust label="Bi-directional 3× & 2×" />

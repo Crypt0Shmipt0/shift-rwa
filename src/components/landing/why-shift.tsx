@@ -1,12 +1,13 @@
+import React from "react";
 import Image from "next/image";
-import { ShieldOff, Repeat, Layers } from "lucide-react";
+import { ShieldOff, Repeat, Layers, Wallet, ArrowLeftRight, Clock } from "lucide-react";
 import { TOKENS } from "@/data/tokens";
 
 const ROW_1 = [
-  { glyph: "III", label: "Bi-Directional", sub: "Long & short on every market" },
-  { glyph: "M",   label: "Tokenized",     sub: "SPL tokens, not margin positions" },
-  { glyph: "B",   label: "Brokerage-free", sub: "No KYC, no paperwork, no friction" },
-  { glyph: "24/7", label: "Always-on",    sub: "Settles in seconds, on-chain" },
+  { icon: Wallet,         label: "Wallet-native",     sub: "SPL tokens you hold in any Solana wallet" },
+  { icon: ArrowLeftRight, label: "Bi-directional",    sub: "Long & short on every market" },
+  { icon: Layers,         label: "DeFi composable",   sub: "LP, lend, or transfer — standard SPL" },
+  { icon: Clock,          label: "24/7 permissionless", sub: "Settles in seconds, always on-chain" },
 ];
 
 const ROW_2 = TOKENS.map((t) => ({
@@ -31,7 +32,7 @@ export function LandingWhy() {
           className="bg-clip-text text-transparent"
           style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
         >
-          One revolutionary fix.
+          One product that fixes both.
         </span>
       </h2>
 
@@ -54,7 +55,7 @@ export function LandingWhy() {
       {/* Concept tile grid — row 1 */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
         {ROW_1.map((tile) => (
-          <ConceptTile key={tile.label} {...tile} />
+          <ConceptTile key={tile.label} icon={tile.icon} label={tile.label} sub={tile.sub} />
         ))}
       </div>
 
@@ -69,7 +70,7 @@ export function LandingWhy() {
       <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
         <FeatureCard icon={<Repeat className="h-5 w-5" />} title="Long" body="2× and 3× tokenized exposure to major indices, sectors, and single names." />
         <FeatureCard icon={<Layers className="h-5 w-5" />} title="Short" body="Inverse tokens on every market — take the other side without a margin account." />
-        <FeatureCard icon={<ShieldOff className="h-5 w-5" />} title="No liquidation" body="No price feed or oracle dependence, protecting you from liquidation." />
+        <FeatureCard icon={<ShieldOff className="h-5 w-5" />} title="No liquidation" body="No liquidation engine. No forced close. Your token NAV is your worst case." />
       </div>
     </section>
   );
@@ -95,23 +96,16 @@ function ProblemCard({
   );
 }
 
-function ConceptTile({ glyph, label, sub }: { glyph: string; label: string; sub: string }) {
+function ConceptTile({ icon: Icon, label, sub }: { icon: React.ComponentType<{ className?: string }>; label: string; sub: string }) {
   return (
     <div className="relative aspect-square rounded-3xl border border-border bg-gradient-to-b from-card to-background p-6 overflow-hidden hover:border-mint/40 transition-colors group">
       {/* Mint corner glow */}
       <div className="absolute -bottom-16 -right-16 size-40 rounded-full bg-mint/5 blur-3xl group-hover:bg-mint/10 transition-colors" />
       <div className="relative h-full flex flex-col items-center justify-between text-center">
         <div className="flex-1 flex items-center justify-center w-full">
-          <span
-            className="text-6xl md:text-7xl font-bold text-white tracking-tighter"
-            style={{
-              backgroundImage: "linear-gradient(180deg, #EDEEEE 0%, #98A2B3 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            {glyph}
-          </span>
+          <div className="size-14 rounded-2xl bg-mint/10 border border-mint/30 flex items-center justify-center group-hover:bg-mint/20 transition-colors">
+            <Icon className="h-7 w-7 text-mint" />
+          </div>
         </div>
         <div className="mt-4">
           <div className="text-sm font-semibold text-white">{label}</div>

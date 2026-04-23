@@ -54,9 +54,9 @@ export function LandingFarm() {
 
             {/* Stat row */}
             <div className="grid grid-cols-3 gap-4 max-w-md">
-              <Stat label="Active traders" value="1,284" />
-              <Stat label="Volume traded" value="$48M+" />
-              <Stat label="Avg multiplier" value="2.4×" />
+              <Stat label="Seed raised" value="$2M" />
+              <Stat label="Liquidity raised" value="$40M+" />
+              <Stat label="Network" value="Solana" />
             </div>
           </div>
 
