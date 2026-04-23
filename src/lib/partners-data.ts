@@ -22,6 +22,7 @@ export const BACKERS: readonly Partner[] = [
   { slug: "dappradar", name: "dAppRadar",    logo: "/partners/backers/dappradar.png", url: "https://dappradar.com", label: "Founder" },
   { slug: "hellolabs", name: "Hello Labs",   logo: "/partners/backers/hellolabs.png", url: "https://hellolabs.xyz", label: "Founder" },
   { slug: "cvex",      name: "CVEX",         logo: "/partners/backers/cvex.png",      url: "https://cvex.trade",    label: "Founder" },
+  { slug: "kraken",    name: "Kraken",       logo: "/partners/backers/kraken.png",    url: "https://kraken.com",    label: "US CEO" },
   { slug: "chaingpt",  name: "ChainGPT",     logo: "/partners/backers/chaingpt.png",  url: "https://chaingpt.org" },
 ] as const;
 
@@ -34,8 +35,11 @@ export const INTEGRATIONS: readonly Partner[] = [
   { slug: "kamino",    name: "Kamino",     logo: "/partners/integrations/kamino.png",    url: "https://kamino.finance" },
   { slug: "orca",      name: "Orca",       logo: "/partners/integrations/orca.png",      url: "https://orca.so" },
   { slug: "birdeye",   name: "Birdeye",    logo: "/partners/integrations/birdeye.png",   url: "https://birdeye.so" },
+  { slug: "loopscale", name: "Loopscale",  logo: "/partners/integrations/loopscale.png", url: "https://loopscale.com" },
   { slug: "bnb",       name: "BNB Chain",  logo: "/partners/integrations/bnb.png",       url: "https://bnbchain.org" },
   { slug: "thena",     name: "Thena",      logo: "/partners/integrations/thena.png",     url: "https://thena.fi" },
+  { slug: "ichi",      name: "Ichi",       logo: "/partners/integrations/ichi.png",      url: "https://ichi.org" },
   { slug: "chainlink", name: "Chainlink",  logo: "/partners/integrations/chainlink.png", url: "https://chain.link" },
+  { slug: "near",      name: "NEAR",       logo: "/partners/integrations/near.png",      url: "https://near.org" },
   { slug: "alpaca",    name: "Alpaca",     logo: "/partners/integrations/alpaca.png",    url: "https://alpaca.markets" },
 ] as const;

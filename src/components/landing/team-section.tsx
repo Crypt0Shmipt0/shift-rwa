@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { TEAM } from "@/data/team";
+import { TEAM, type TeamMember } from "@/data/team";
 
 export function LandingTeam() {
   return (
@@ -26,7 +26,7 @@ export function LandingTeam() {
         Built, operated, and exited in both TradFi and Web3.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
         {TEAM.map((member) => (
           <TeamCard key={member.name} member={member} />
         ))}
@@ -37,7 +37,7 @@ export function LandingTeam() {
           href="/team"
           className="inline-flex items-center gap-2 text-sm text-mint hover:text-mint/80 font-semibold transition-colors"
         >
-          View full team
+          Full team + advisors
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
@@ -45,10 +45,10 @@ export function LandingTeam() {
   );
 }
 
-function TeamCard({ member }: { member: (typeof TEAM)[number] }) {
+function TeamCard({ member }: { member: TeamMember }) {
   const displayName = member.namePrefix ? `${member.namePrefix} ${member.name}` : member.name;
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-card to-background p-6 hover:border-mint/40 transition-colors group flex flex-col">
+    <div className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-card to-background p-5 hover:border-mint/40 transition-colors group flex flex-col">
       <div className="absolute -top-12 -right-12 size-32 rounded-full bg-mint/5 blur-3xl group-hover:bg-mint/10 transition-colors" />
       <div className="relative flex flex-col flex-1">
         {/* Avatar — photo if available, initials fallback */}
@@ -73,16 +73,16 @@ function TeamCard({ member }: { member: (typeof TEAM)[number] }) {
         <div className="text-xs font-bold uppercase tracking-wider text-mint mb-1">
           {member.role}
         </div>
-        <div className="font-semibold text-white text-base mb-2">{displayName}</div>
-        <p className="text-sm text-foreground/60 leading-relaxed mb-4 flex-1">
+        <div className="font-semibold text-white text-sm mb-2">{displayName}</div>
+        <p className="text-xs text-foreground/60 leading-relaxed mb-4 flex-1">
           {member.bioShort}
         </p>
         {member.credentials.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-auto pt-4 border-t border-border/40">
-            {member.credentials.slice(0, 3).map((c) => (
+          <div className="flex flex-wrap gap-1 mt-auto pt-3 border-t border-border/40">
+            {member.credentials.slice(0, 2).map((c) => (
               <span
                 key={c}
-                className="text-[10px] font-medium tracking-tight text-foreground/70 bg-white/[0.04] border border-border/60 rounded-full px-2 py-0.5"
+                className="text-[9px] font-medium tracking-tight text-foreground/70 bg-white/[0.04] border border-border/60 rounded-full px-1.5 py-0.5"
               >
                 {c}
               </span>

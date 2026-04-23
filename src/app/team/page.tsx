@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { TEAM } from "@/data/team";
+import { TEAM, ADVISORS, type TeamMember } from "@/data/team";
 
 export const metadata: Metadata = {
   title: "Team | SHIFT",
   description:
-    "Meet the SHIFT team — operators and builders from Fireblocks, Flow Traders, Israel Securities Authority, and the Web3 frontier.",
-  alternates: {
-    canonical: "/team",
-  },
+    "Meet the SHIFT team — operators and builders from Fireblocks, Flow Traders, Israel Securities Authority, PayBase, and the Web3 frontier.",
+  alternates: { canonical: "/team" },
 };
 
 export default function TeamPage() {
@@ -36,62 +34,21 @@ export default function TeamPage() {
         </p>
       </div>
 
-      {/* Team grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {TEAM.map((member) => {
-          const displayName = member.namePrefix
-            ? `${member.namePrefix} ${member.name}`
-            : member.name;
-          return (
-            <div
-              key={member.name}
-              className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-card to-background p-8 hover:border-mint/40 transition-colors group"
-            >
-              <div className="absolute -top-16 -right-16 size-40 rounded-full bg-mint/5 blur-3xl group-hover:bg-mint/10 transition-colors" />
-              <div className="relative flex gap-5 items-start">
-                {/* Avatar — photo if available, initials fallback */}
-                {member.photo ? (
-                  <div className="size-24 rounded-2xl overflow-hidden shrink-0 ring-1 ring-mint/20">
-                    <Image
-                      src={member.photo}
-                      alt={displayName}
-                      width={200}
-                      height={200}
-                      className="size-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div
-                    className="size-24 rounded-2xl flex items-center justify-center text-2xl font-bold text-[#021C24] shrink-0 select-none"
-                    style={{ background: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-                  >
-                    {member.initials}
-                  </div>
-                )}
-                <div className="min-w-0 flex-1">
-                  <div className="text-xs font-bold uppercase tracking-wider text-mint mb-1">
-                    {member.role}
-                  </div>
-                  <div className="font-bold text-white text-lg mb-3">{displayName}</div>
-                  <p className="text-sm text-foreground/65 leading-relaxed mb-4">{member.bioFull}</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {member.credentials.map((c) => (
-                      <span
-                        key={c}
-                        className="text-[10px] font-medium tracking-tight text-foreground/70 bg-white/[0.04] border border-border/60 rounded-full px-2 py-0.5"
-                      >
-                        {c}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      {/* Core team */}
+      <MemberGrid members={TEAM} />
 
-      {/* Philosophy — the 3-pillar pattern from the Strait site, adapted */}
+      {/* Advisors */}
+      <div className="mt-24 mb-8 text-center">
+        <span className="text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint mb-3 block">
+          Advisors & Extended Leadership
+        </span>
+        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-[-0.03em]">
+          The deep bench.
+        </h2>
+      </div>
+      <MemberGrid members={ADVISORS} />
+
+      {/* Philosophy */}
       <div className="mt-24">
         <div className="text-center mb-12">
           <span className="text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint mb-3 block">
@@ -133,7 +90,6 @@ export default function TeamPage() {
         </div>
       </div>
 
-      {/* Footer note */}
       <p className="text-center text-foreground/40 text-xs mt-16">
         Reach out at{" "}
         <a
@@ -144,5 +100,62 @@ export default function TeamPage() {
         </a>
       </p>
     </main>
+  );
+}
+
+function MemberGrid({ members }: { members: readonly TeamMember[] }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {members.map((member) => {
+        const displayName = member.namePrefix
+          ? `${member.namePrefix} ${member.name}`
+          : member.name;
+        return (
+          <div
+            key={member.name}
+            className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-card to-background p-8 hover:border-mint/40 transition-colors group"
+          >
+            <div className="absolute -top-16 -right-16 size-40 rounded-full bg-mint/5 blur-3xl group-hover:bg-mint/10 transition-colors" />
+            <div className="relative flex gap-5 items-start">
+              {member.photo ? (
+                <div className="size-24 rounded-2xl overflow-hidden shrink-0 ring-1 ring-mint/20">
+                  <Image
+                    src={member.photo}
+                    alt={displayName}
+                    width={200}
+                    height={200}
+                    className="size-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div
+                  className="size-24 rounded-2xl flex items-center justify-center text-2xl font-bold text-[#021C24] shrink-0 select-none"
+                  style={{ background: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
+                >
+                  {member.initials}
+                </div>
+              )}
+              <div className="min-w-0 flex-1">
+                <div className="text-xs font-bold uppercase tracking-wider text-mint mb-1">
+                  {member.role}
+                </div>
+                <div className="font-bold text-white text-lg mb-3">{displayName}</div>
+                <p className="text-sm text-foreground/65 leading-relaxed mb-4">{member.bioFull}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {member.credentials.map((c) => (
+                    <span
+                      key={c}
+                      className="text-[10px] font-medium tracking-tight text-foreground/70 bg-white/[0.04] border border-border/60 rounded-full px-2 py-0.5"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 }
