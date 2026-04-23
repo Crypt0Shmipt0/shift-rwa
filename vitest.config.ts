@@ -1,13 +1,11 @@
 import { defineConfig } from "vitest/config";
-import path from "path";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
+  plugins: [tsconfigPaths()],
   test: {
-    environment: "node",
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
+    // Project-wide default: happy-dom gives component tests a real DOM without per-file docblocks.
+    // Pure data/unit tests (e.g. tokens.test.ts) are unaffected — happy-dom is a superset of node.
+    environment: "happy-dom",
   },
 });

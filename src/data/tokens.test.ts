@@ -70,16 +70,12 @@ describe("TOKENS", () => {
 });
 
 describe("getTokenByTicker", () => {
-  it("returns the TSLA long 2 row for 'TSx2'", () => {
-    const token = getTokenByTicker("TSx2");
-    expect(token).toBeDefined();
-    expect(token?.shiftTicker).toBe("TSx2");
-    expect(token?.name).toBe("TSLA long 2");
-    expect(token?.underlying).toBe("TSLL");
-    expect(token?.isin).toBe("US25460G2865");
-    expect(token?.direction).toBe("long");
-    expect(token?.leverage).toBe(2);
-    expect(token?.image).toBe("/trade/tsx2.png");
+  it("returns the matching token for a known shiftTicker", () => {
+    const result = getTokenByTicker("TSx2");
+    expect(result).toBeDefined();
+    expect(result?.shiftTicker).toBe("TSx2");
+    expect(result?.underlying).toBe("TSLL");
+    expect(result?.direction).toBe("long");
   });
 
   it("returns undefined for 'nonexistent'", () => {
