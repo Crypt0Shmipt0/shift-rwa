@@ -27,9 +27,13 @@ export function LandingHero() {
 
         <Reveal delay={0}>
           <h1 className="text-[44px] sm:text-5xl md:text-7xl lg:text-[72px] font-bold tracking-[-0.04em] leading-[1.02] text-white mb-8 pb-1">
-            Wall Street
-            <br />
-            <span className="text-gradient-mint">
+            Wall Street{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)",
+              }}
+            >
               For Crypto.
             </span>
           </h1>
