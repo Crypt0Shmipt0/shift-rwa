@@ -179,6 +179,39 @@
   .shift-orbit-4 { animation: shift-orbit-4 20s linear infinite; }
   .shift-orbit-5 { animation: shift-orbit-5 12s linear infinite; }
 
+  /* ── Farm section — token chip orbits ────────────────────────────────── */
+  @keyframes shift-chip-orbit-0 {
+    from { transform: rotate(0deg) translateX(clamp(120px, 17vw, 180px)) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(clamp(120px, 17vw, 180px)) rotate(-360deg); }
+  }
+  @keyframes shift-chip-orbit-1 {
+    from { transform: rotate(72deg) translateX(clamp(130px, 18vw, 200px)) rotate(-72deg); }
+    to   { transform: rotate(432deg) translateX(clamp(130px, 18vw, 200px)) rotate(-432deg); }
+  }
+  @keyframes shift-chip-orbit-2 {
+    from { transform: rotate(144deg) translateX(clamp(110px, 16vw, 160px)) rotate(-144deg); }
+    to   { transform: rotate(504deg) translateX(clamp(110px, 16vw, 160px)) rotate(-504deg); }
+  }
+  @keyframes shift-chip-orbit-3 {
+    from { transform: rotate(216deg) translateX(clamp(140px, 19vw, 210px)) rotate(-216deg); }
+    to   { transform: rotate(576deg) translateX(clamp(140px, 19vw, 210px)) rotate(-576deg); }
+  }
+  @keyframes shift-chip-orbit-4 {
+    from { transform: rotate(288deg) translateX(clamp(125px, 17.5vw, 190px)) rotate(-288deg); }
+    to   { transform: rotate(648deg) translateX(clamp(125px, 17.5vw, 190px)) rotate(-648deg); }
+  }
+
+  .shift-chip-orbit-0 { animation: shift-chip-orbit-0 22s linear infinite; }
+  .shift-chip-orbit-1 { animation: shift-chip-orbit-1 28s linear infinite reverse; }
+  .shift-chip-orbit-2 { animation: shift-chip-orbit-2 34s linear infinite; }
+  .shift-chip-orbit-3 { animation: shift-chip-orbit-3 25s linear infinite reverse; }
+  .shift-chip-orbit-4 { animation: shift-chip-orbit-4 40s linear infinite; }
+
+  /* ── Traction strip — mobile marquee ─────────────────────────────────── */
+  @keyframes traction-scroll {
+    to { transform: translateX(-50%); }
+  }
+
   /* Chainlink PoR badge — subtle mint-glow pulse */
   @keyframes shift-shield-pulse {
     0%, 100% { filter: drop-shadow(0 0 0px rgba(38,200,184,0)); }

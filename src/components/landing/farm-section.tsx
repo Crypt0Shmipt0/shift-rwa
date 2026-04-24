@@ -116,20 +116,19 @@ export function LandingFarm() {
               </div>
             </div>
 
-            {/* Orbiting tiny token chips — kept inside the rings */}
+            {/* Orbiting tiny token chips — CSS-animated orbits */}
             {[
-              { top: "12%", left: "50%", img: TOKENS[0].image },
-              { top: "32%", left: "88%", img: TOKENS[1].image },
-              { top: "75%", left: "82%", img: TOKENS[2].image },
-              { top: "88%", left: "32%", img: TOKENS[3].image },
-              { top: "55%", left: "12%", img: TOKENS[4].image },
-            ].map((p, i) => (
+              TOKENS[0].image,
+              TOKENS[1].image,
+              TOKENS[2].image,
+              TOKENS[3].image,
+              TOKENS[4].image,
+            ].map((img, i) => (
               <div
                 key={i}
-                className="absolute -translate-x-1/2 -translate-y-1/2 size-10 sm:size-12 rounded-full bg-card border border-mint/40 flex items-center justify-center overflow-hidden shadow-[0_0_24px_rgba(38,200,184,0.4)]"
-                style={{ top: p.top, left: p.left }}
+                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 sm:size-12 rounded-full bg-card border border-mint/40 flex items-center justify-center overflow-hidden shadow-[0_0_24px_rgba(38,200,184,0.4)] shift-chip-orbit-${i}`}
               >
-                <Image src={p.img} alt="" width={48} height={48} className="size-full object-cover" />
+                <Image src={img} alt="" width={48} height={48} className="size-full object-cover" />
               </div>
             ))}
           </div>
