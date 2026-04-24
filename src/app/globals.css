@@ -179,6 +179,17 @@
   .shift-orbit-4 { animation: shift-orbit-4 20s linear infinite; }
   .shift-orbit-5 { animation: shift-orbit-5 12s linear infinite; }
 
+  /* ── Comparison table — row stagger on scroll ───────────────────────── */
+  @keyframes vt-row-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .vt-row-animate {
+    animation: vt-row-in 320ms ease both;
+    animation-delay: calc(var(--row-index, 0) * 60ms);
+  }
+
   /* ── Farm section — token chip orbits ────────────────────────────────── */
   @keyframes shift-chip-orbit-0 {
     from { transform: rotate(0deg) translateX(clamp(120px, 17vw, 180px)) rotate(0deg); }
