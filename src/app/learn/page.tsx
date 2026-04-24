@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { BookOpen, FileText, ArrowUpRight, ShieldCheck, CircleCheck, Coins, ArrowLeftRight, ArrowUpFromLine } from "lucide-react";
+import { BookOpen, FileText, ArrowUpRight } from "lucide-react";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
+import { LearnStepper } from "./learn-stepper";
 
 import type { Metadata } from "next";
 
@@ -101,61 +102,13 @@ export default function LearnPage() {
         </Accordion>
       </Card>
 
-      {/* How it works */}
+      {/* How it works — interactive stepper */}
       <div className="mb-12">
         <div className="flex items-center gap-2 mb-6">
-          <ArrowLeftRight className="h-4 w-4 text-mint" />
+          <ArrowUpRight className="h-4 w-4 text-mint" />
           <h2 className="text-lg font-semibold text-white">How it works</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          {[
-            {
-              icon: ShieldCheck,
-              title: "Back",
-              body: "Direxion ETF (TSLL) is purchased and custodied via Alpaca Markets.",
-            },
-            {
-              icon: CircleCheck,
-              title: "Verify",
-              body: "Chainlink Proof-of-Reserves confirms 1:1 backing, on-chain.",
-            },
-            {
-              icon: Coins,
-              title: "Mint",
-              body: "SHIFT smart contract mints the SPL token (TSL2L) on Solana.",
-            },
-            {
-              icon: ArrowLeftRight,
-              title: "Trade",
-              body: "Buy / sell / LP / lend TSL2L across Jupiter, Meteora, Kamino, Orca — 24/7, permissionless.",
-            },
-            {
-              icon: ArrowUpFromLine,
-              title: "Redeem",
-              body: "Burn TSL2L on-chain → underlying ETF value is redeemed 24/5 via Alpaca rails → USDC to your wallet.",
-            },
-          ].map((step, i) => (
-            <div key={step.title} className="relative flex flex-col">
-              <Card className="bg-card border-border rounded-2xl p-5 flex-1">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="flex items-center justify-center size-7 rounded-full bg-mint/15 text-mint text-xs font-bold shrink-0">
-                    {i + 1}
-                  </div>
-                  <step.icon className="h-4 w-4 text-mint" />
-                </div>
-                <div className="text-sm font-semibold text-white mb-1">{step.title}</div>
-                <p className="text-xs text-muted-foreground leading-relaxed">{step.body}</p>
-              </Card>
-              {i < 4 && (
-                <div className="hidden md:flex absolute -right-2 top-1/2 -translate-y-1/2 z-10 items-center justify-center size-4">
-                  <svg viewBox="0 0 16 16" className="h-3 w-3 text-mint/50 fill-current">
-                    <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        <LearnStepper />
       </div>
 
       {/* Gitbook CTA */}
