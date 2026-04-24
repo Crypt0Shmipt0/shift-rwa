@@ -1,13 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { TOKENS } from "@/data/tokens";
 import { CountUp } from "@/components/motion/count-up";
 import { useRef } from "react";
 import { m, useScroll, useTransform } from "motion/react";
 import { useMotionOk } from "@/hooks/use-motion-ok";
+
+// Lazy-load the WebGL orb client-side only — keeps it out of the initial bundle.
+const LandingTokenOrb = dynamic(
+  () => import("./token-orb").then((m) => m.LandingTokenOrb),
+  { ssr: false },
+);
 
 export function LandingFarm() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -81,57 +86,10 @@ export function LandingFarm() {
             </div>
           </div>
 
-          {/* RIGHT — glowing token visualization */}
+          {/* RIGHT — WebGL 3D token orb (falls back to CSS orbital chips
+              when prefers-reduced-motion or no WebGL) */}
           <div className="relative aspect-square max-w-[420px] sm:max-w-[520px] mx-auto w-full">
-            {/* Concentric rings */}
-            {[1, 2, 3, 4, 5].map((r) => (
-              <div
-                key={r}
-                className={`absolute inset-0 rounded-full border border-mint/15 shift-orbit-${r}`}
-                style={{
-                  transform: `scale(${1 - r * 0.13})`,
-                  opacity: 1 - r * 0.13,
-                  // Concentric orbit rings toned from 0.25 → 0.18 so they
-                  // don't fight the mint CTA in the same viewport.
-                  borderColor: `rgba(38,200,184,${0.18 - r * 0.03})`,
-                }}
-              />
-            ))}
-
-            {/* Center mint orb — the SHIFT token */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative size-48 md:size-56">
-                {/* Outer glow */}
-                <div className="absolute inset-0 rounded-full bg-mint blur-3xl opacity-60" />
-                {/* Inner gradient */}
-                <div className="absolute inset-2 rounded-full bg-gradient-to-br from-mint via-[#1FA79B] to-[#07638C] shadow-[0_0_120px_60px_rgba(38,200,184,0.45),inset_0_-20px_60px_rgba(0,0,0,0.4)]" />
-                {/* SHIFT mark */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/brand/shift-mark-white.png" alt="SHIFT" className="w-3/5 h-auto opacity-95 drop-shadow-2xl" />
-                </div>
-                {/* Surface highlight */}
-                <div className="absolute inset-2 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
-              </div>
-            </div>
-
-            {/* Orbiting tiny token chips — CSS-animated orbits.
-                Anchor: use negative margins (NOT translate) so the keyframe's
-                transform controls rotation around the parent's center cleanly. */}
-            {[
-              TOKENS[0].image,
-              TOKENS[1].image,
-              TOKENS[2].image,
-              TOKENS[3].image,
-              TOKENS[4].image,
-            ].map((img, i) => (
-              <div
-                key={i}
-                className={`absolute top-1/2 left-1/2 -ml-5 -mt-5 sm:-ml-6 sm:-mt-6 size-10 sm:size-12 rounded-full bg-card border border-mint/40 flex items-center justify-center overflow-hidden shadow-[0_0_24px_rgba(38,200,184,0.4)] shift-chip-orbit-${i}`}
-              >
-                <Image src={img} alt="" width={48} height={48} className="size-full object-cover" />
-              </div>
-            ))}
+            <LandingTokenOrb />
           </div>
         </div>
       </div>

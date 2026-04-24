@@ -1,4 +1,5 @@
 import { LandingHero } from "@/components/landing/hero";
+import { LandingMarketPulse } from "@/components/landing/market-pulse";
 import { LandingTractionStrip } from "@/components/landing/traction-strip";
 import { LandingPartners } from "@/components/landing/partners";
 import { LandingWhy } from "@/components/landing/why-shift";
@@ -14,6 +15,7 @@ export default function LandingPage() {
   return (
     <>
       <LandingHero />
+      <LandingMarketPulse />
       <LandingTractionStrip />
       <LandingPartners />
       <LandingWhy />
