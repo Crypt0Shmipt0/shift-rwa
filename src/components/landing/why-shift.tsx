@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { ShieldOff, Repeat, Layers, Wallet, ArrowLeftRight, Clock } from "lucide-react";
 import { TOKENS } from "@/data/tokens";
+import { TiltCard } from "@/components/motion/tilt-card";
 
 const ROW_1 = [
   { icon: Wallet,         label: "Wallet-native",     sub: "SPL tokens you hold in any Solana wallet" },
@@ -55,14 +56,18 @@ export function LandingWhy() {
       {/* Concept tile grid — row 1 */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
         {ROW_1.map((tile) => (
-          <ConceptTile key={tile.label} icon={tile.icon} label={tile.label} sub={tile.sub} />
+          <TiltCard key={tile.label} maxTilt={6} glare={false}>
+            <ConceptTile icon={tile.icon} label={tile.label} sub={tile.sub} />
+          </TiltCard>
         ))}
       </div>
 
       {/* Concept tile grid — row 2 (token tickers) */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-5">
         {ROW_2.map((tile, i) => (
-          <TokenTile key={`${tile.ticker}-${i}`} {...tile} />
+          <TiltCard key={`${tile.ticker}-${i}`} maxTilt={8} glare={true}>
+            <TokenTile {...tile} />
+          </TiltCard>
         ))}
       </div>
 

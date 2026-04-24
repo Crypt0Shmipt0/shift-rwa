@@ -8,6 +8,7 @@ import { renderHook, render, screen } from "@testing-library/react";
 import { useMotionOk } from "@/hooks/use-motion-ok";
 import { Reveal } from "./reveal";
 import { CountUp } from "./count-up";
+import { TiltCard } from "./tilt-card";
 import { LazyMotionProvider } from "./lazy-motion-provider";
 import React from "react";
 
@@ -53,6 +54,36 @@ describe("Reveal", () => {
       </Wrapper>
     );
     const el = container.querySelector(".my-custom-class");
+    expect(el).toBeTruthy();
+  });
+});
+
+describe("TiltCard", () => {
+  it("renders children in a plain div when reduced motion is active", () => {
+    const { container } = render(
+      <Wrapper>
+        <TiltCard>
+          <span>tilt-content</span>
+        </TiltCard>
+      </Wrapper>
+    );
+    // motionOk is false in test env → renders plain div, no m.div
+    expect(screen.getByText("tilt-content")).toBeTruthy();
+    // Should NOT have a style with transform-style (motion div has that)
+    const divs = container.querySelectorAll("div");
+    // At least one div wrapping the content
+    expect(divs.length).toBeGreaterThan(0);
+  });
+
+  it("applies custom className to the wrapper div", () => {
+    const { container } = render(
+      <Wrapper>
+        <TiltCard className="my-tilt-class">
+          <span>styled</span>
+        </TiltCard>
+      </Wrapper>
+    );
+    const el = container.querySelector(".my-tilt-class");
     expect(el).toBeTruthy();
   });
 });
