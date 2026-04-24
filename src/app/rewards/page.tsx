@@ -6,6 +6,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sparkles, Zap, Trophy, Gift, CheckCircle2 } from "lucide-react";
+import { Reveal } from "@/components/motion/reveal";
+import { StaggerChildren, RevealChild } from "@/components/motion/stagger-children";
 
 const BADGES = [
   { name: "Navigator",  min: 0,      perks: ["Market execution", "Standard fees", "1× XP"] },
@@ -36,9 +38,11 @@ export default function RewardsPage() {
             <Sparkles className="h-3 w-3" />
             Now live · Waitlist open
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-            Earn from every <span className="text-mint">shift</span>.
-          </h1>
+          <Reveal>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+              Earn from every <span className="text-mint">shift</span>.
+            </h1>
+          </Reveal>
           <p className="text-base text-muted-foreground max-w-[520px] leading-relaxed mb-8">
             Every trade earns on-chain XP. XP unlocks fee rebates, tighter spreads, and a bigger
             $SHFT allocation at TGE. The earlier you start, the more you earn.
@@ -82,33 +86,34 @@ export default function RewardsPage() {
         <Zap className="h-4 w-4 text-mint" />
         <h2 className="text-xl font-semibold text-white">Badges</h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <StaggerChildren staggerDelay={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {BADGES.map((t, i) => (
-          <Card
-            key={t.name}
-            className={`bg-card border rounded-2xl p-4 md:p-6 relative overflow-hidden ${
-              i === 0 ? "border-border" : "border-border hover:border-mint/30 transition-colors"
-            }`}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-xs text-muted-foreground font-mono">BADGE {String(i + 1).padStart(2, "0")}</div>
-              <Gift className="h-4 w-4 text-mint/60" />
-            </div>
-            <div className="text-xl font-bold text-white mb-1">{t.name}</div>
-            <div className="text-xs text-muted-foreground mb-5">
-              {t.min === 0 ? "Start here" : `${t.min.toLocaleString()}+ XP`}
-            </div>
-            <ul className="space-y-2">
-              {t.perks.map((p) => (
-                <li key={p} className="flex items-start gap-2 text-xs text-foreground/80">
-                  <CheckCircle2 className="h-3 w-3 text-mint mt-0.5 shrink-0" />
-                  {p}
-                </li>
-              ))}
-            </ul>
-          </Card>
+          <RevealChild key={t.name}>
+            <Card
+              className={`bg-card border rounded-2xl p-4 md:p-6 relative overflow-hidden h-full ${
+                i === 0 ? "border-border" : "border-border hover:border-mint/30 transition-colors"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-xs text-muted-foreground font-mono">BADGE {String(i + 1).padStart(2, "0")}</div>
+                <Gift className="h-4 w-4 text-mint/60" />
+              </div>
+              <div className="text-xl font-bold text-white mb-1">{t.name}</div>
+              <div className="text-xs text-muted-foreground mb-5">
+                {t.min === 0 ? "Start here" : `${t.min.toLocaleString()}+ XP`}
+              </div>
+              <ul className="space-y-2">
+                {t.perks.map((p) => (
+                  <li key={p} className="flex items-start gap-2 text-xs text-foreground/80">
+                    <CheckCircle2 className="h-3 w-3 text-mint mt-0.5 shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          </RevealChild>
         ))}
-      </div>
+      </StaggerChildren>
 
       <p className="text-xs text-muted-foreground text-center mt-10">
         Program parameters are not final. Badges, XP rates, and rebates may change before launch.

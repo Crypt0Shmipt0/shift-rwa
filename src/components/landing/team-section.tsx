@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { TEAM, type TeamMember } from "@/data/team";
+import { StaggerChildren, RevealChild } from "@/components/motion/stagger-children";
 
 export function LandingTeam() {
   return (
@@ -26,11 +29,13 @@ export function LandingTeam() {
         Built, operated, and exited in both TradFi and Web3.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+      <StaggerChildren staggerDelay={0.06} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
         {TEAM.map((member) => (
-          <TeamCard key={member.name} member={member} />
+          <RevealChild key={member.name}>
+            <TeamCard member={member} />
+          </RevealChild>
         ))}
-      </div>
+      </StaggerChildren>
 
       <div className="mt-10 text-center">
         <Link

@@ -11,6 +11,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { m } from "motion/react";
+import { useMotionOk } from "@/hooks/use-motion-ok";
 
 const LINKS = [
   { href: "/markets", label: "Markets", match: ["/trade", "/markets"] },
@@ -23,6 +25,7 @@ const LINKS = [
 export function TopNav() {
   const pathname = usePathname() || "/";
   const [mobileOpen, setMobileOpen] = useState(false);
+  const motionOk = useMotionOk();
   const isActive = (match: string[]) => match.some((m) => pathname.startsWith(m));
 
   return (
@@ -45,9 +48,17 @@ export function TopNav() {
                   }`}
                 >
                   {l.label}
-                  {active && (
+                  {active && motionOk ? (
+                    <m.span
+                      className="absolute left-3 right-3 -bottom-[22px] h-0.5 bg-mint rounded-full"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      style={{ transformOrigin: "left" }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                    />
+                  ) : active ? (
                     <span className="absolute left-3 right-3 -bottom-[22px] h-0.5 bg-mint rounded-full" />
-                  )}
+                  ) : null}
                 </Link>
               );
             })}

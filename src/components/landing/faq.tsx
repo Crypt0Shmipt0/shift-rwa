@@ -1,4 +1,7 @@
+"use client";
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Reveal } from "@/components/motion/reveal";
 
 const FAQ = [
   {
@@ -34,14 +37,16 @@ const FAQ = [
 export function LandingFaq() {
   return (
     <section className="mx-auto max-w-[860px] px-6 py-24">
-      <div className="text-center mb-12">
-        <div className="text-xs font-semibold uppercase tracking-[0.2em] text-mint mb-3">
-          FAQ
+      <Reveal>
+        <div className="text-center mb-12">
+          <div className="text-xs font-semibold uppercase tracking-[0.2em] text-mint mb-3">
+            FAQ
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+            Frequently asked.
+          </h2>
         </div>
-        <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-          Frequently asked.
-        </h2>
-      </div>
+      </Reveal>
       <div className="rounded-3xl border border-border bg-card px-8 py-2">
         <Accordion className="w-full">
           {FAQ.map((f, i) => (

@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { TOKENS } from "@/data/tokens";
+import { CountUp } from "@/components/motion/count-up";
 
 export function LandingFarm() {
   return (
@@ -54,8 +57,8 @@ export function LandingFarm() {
 
             {/* Stat row */}
             <div className="grid grid-cols-3 gap-4 max-w-md">
-              <Stat label="Seed raised" value="$2M" />
-              <Stat label="Liquidity raised" value="$40M+" />
+              <StatAnimated label="Seed raised" prefix="$" to={2} suffix="M" />
+              <StatAnimated label="Liquidity raised" prefix="$" to={40} suffix="M+" />
               <Stat label="Network" value="Solana" />
             </div>
           </div>
@@ -66,7 +69,7 @@ export function LandingFarm() {
             {[1, 2, 3, 4, 5].map((r) => (
               <div
                 key={r}
-                className="absolute inset-0 rounded-full border border-mint/15"
+                className={`absolute inset-0 rounded-full border border-mint/15 shift-orbit-${r}`}
                 style={{
                   transform: `scale(${1 - r * 0.13})`,
                   opacity: 1 - r * 0.13,
@@ -119,6 +122,27 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <div className="text-2xl font-bold text-white tabular-nums">{value}</div>
+      <div className="text-xs uppercase tracking-wider text-muted-foreground mt-1">{label}</div>
+    </div>
+  );
+}
+
+function StatAnimated({
+  label,
+  prefix,
+  to,
+  suffix,
+}: {
+  label: string;
+  prefix?: string;
+  to: number;
+  suffix?: string;
+}) {
+  return (
+    <div>
+      <div className="text-2xl font-bold text-white tabular-nums">
+        <CountUp to={to} prefix={prefix} suffix={suffix} duration={1.5} />
+      </div>
       <div className="text-xs uppercase tracking-wider text-muted-foreground mt-1">{label}</div>
     </div>
   );

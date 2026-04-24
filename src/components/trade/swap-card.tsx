@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { m, AnimatePresence } from "motion/react";
+import { useMotionOk } from "@/hooks/use-motion-ok";
 import { ASSETS, getAsset } from "@/lib/mock";
 import { useLocalStorage } from "@/lib/use-local-storage";
 import { ChevronDown, Wallet, Settings, Info } from "lucide-react";
@@ -28,6 +30,7 @@ export function SwapCard({ symbol = "TSL2L" }: { symbol?: string }) {
   const [tslHovered, setTslHovered] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const motionOk = useMotionOk();
 
   useEffect(() => {
     const handle = (e: MouseEvent) => {
@@ -70,23 +73,50 @@ export function SwapCard({ symbol = "TSL2L" }: { symbol?: string }) {
       <div className="w-full relative">
         {/* Buy / Sell + Settings gear */}
         <div className="flex items-center justify-between ml-2.5 mb-3">
-          <div className="flex items-center">
-            <button
-              onClick={() => { setSide("buy"); setInputAmount(""); }}
-              className={`px-3 py-1 rounded-2xl text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-mint focus-visible:outline-none ${
-                side === "buy" ? "text-white" : "text-[#797979] hover:text-[#b0b0b0]"
-              }`}
-            >
-              Buy
-            </button>
-            <button
-              onClick={() => { setSide("sell"); setInputAmount(""); }}
-              className={`px-3 py-1 rounded-2xl text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-mint focus-visible:outline-none ${
-                side === "sell" ? "text-white" : "text-[#797979] hover:text-[#b0b0b0]"
-              }`}
-            >
-              Sell
-            </button>
+          <div className="flex items-center relative">
+            {/* Sliding active pill */}
+            <div className="relative flex items-center">
+              {motionOk && (
+                <AnimatePresence initial={false}>
+                  {side === "buy" && (
+                    <m.div
+                      key="buy-pill"
+                      layoutId="buy-sell-pill"
+                      className="absolute inset-0 rounded-2xl bg-mint/10 border border-mint/30"
+                      transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                    />
+                  )}
+                </AnimatePresence>
+              )}
+              <button
+                onClick={() => { setSide("buy"); setInputAmount(""); }}
+                className={`relative z-10 px-3 py-1 rounded-2xl text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-mint focus-visible:outline-none ${
+                  side === "buy" ? "text-white" : "text-[#797979] hover:text-[#b0b0b0]"
+                }`}
+              >
+                Buy
+              </button>
+              {motionOk && (
+                <AnimatePresence initial={false}>
+                  {side === "sell" && (
+                    <m.div
+                      key="sell-pill"
+                      layoutId="buy-sell-pill"
+                      className="absolute inset-0 rounded-2xl bg-mint/10 border border-mint/30"
+                      transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                    />
+                  )}
+                </AnimatePresence>
+              )}
+              <button
+                onClick={() => { setSide("sell"); setInputAmount(""); }}
+                className={`relative z-10 px-3 py-1 rounded-2xl text-base font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-mint focus-visible:outline-none ${
+                  side === "sell" ? "text-white" : "text-[#797979] hover:text-[#b0b0b0]"
+                }`}
+              >
+                Sell
+              </button>
+            </div>
           </div>
 
           <Popover>

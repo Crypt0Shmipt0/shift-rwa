@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { TradingViewChart } from "@/components/trade/trading-view-chart";
 import { SwapCard } from "@/components/trade/swap-card";
 import { EducationCard, MarketNewsCard } from "@/components/trade/info-cards";
 import { IntelligenceCard } from "@/components/trade/intelligence-card";
+import { PriceStrip } from "@/components/trade/price-strip";
 import { getAsset, FORMATTERS, ASSETS } from "@/lib/mock";
 
 export async function generateMetadata({ params }: { params: Promise<{ symbol: string }> }): Promise<Metadata> {
@@ -45,28 +45,16 @@ export default async function TradePage({ params }: { params: Promise<{ symbol: 
       <section className="flex flex-col lg:flex-row gap-10 lg:gap-[60px] justify-center">
         <div className="flex flex-col items-start lg:shrink-0 w-full lg:w-[700px] gap-2">
           {/* Price / stat strip */}
-          <div className="w-full bg-card border border-border rounded-2xl px-5 py-3 flex items-center gap-4 flex-wrap">
-            <Image
-              src={asset.image}
-              alt={asset.symbol}
-              width={32}
-              height={32}
-              className="size-8 rounded-full object-cover shrink-0"
-            />
-            <span className="font-semibold text-foreground tracking-tight">{asset.symbol}</span>
-            <span className="font-mono tabular-nums text-foreground text-lg leading-none">
-              {FORMATTERS.usd(asset.price)}
-            </span>
-            <span className={`font-mono tabular-nums text-sm font-medium ${pos ? "text-mint" : "text-destructive"}`}>
-              {pos ? "▲" : "▼"} {FORMATTERS.pct(asset.change24h)} 24h
-            </span>
-            <span className="text-xs text-muted-foreground">
-              Underlying: <span className="text-foreground/75">{asset.underlying}</span>
-            </span>
-            <span className="text-xs text-muted-foreground ml-auto">
-              Chainlink oracle
-            </span>
-          </div>
+          <PriceStrip
+            image={asset.image}
+            symbol={asset.symbol}
+            price={asset.price}
+            change24h={asset.change24h}
+            underlying={asset.underlying}
+            formattedPrice={FORMATTERS.usd(asset.price)}
+            formattedChange={FORMATTERS.pct(asset.change24h)}
+            positive={pos}
+          />
 
           <TradingViewChart symbol={symbol} />
         </div>

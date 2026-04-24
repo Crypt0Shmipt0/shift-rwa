@@ -128,3 +128,57 @@
     color-scheme: dark;
   }
 }
+
+/* ─── SHIFT Motion keyframes ────────────────────────────────────────────────
+ * All motion effects are gated behind prefers-reduced-motion: no-preference
+ * so users who prefer reduced motion see the static state.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Farm section — concentric orbit rings */
+  @keyframes shift-orbit-1 {
+    from { transform: scale(0.87) rotate(0deg); }
+    to   { transform: scale(0.87) rotate(360deg); }
+  }
+  @keyframes shift-orbit-2 {
+    from { transform: scale(0.74) rotate(0deg); }
+    to   { transform: scale(0.74) rotate(-360deg); }
+  }
+  @keyframes shift-orbit-3 {
+    from { transform: scale(0.61) rotate(0deg); }
+    to   { transform: scale(0.61) rotate(360deg); }
+  }
+  @keyframes shift-orbit-4 {
+    from { transform: scale(0.48) rotate(0deg); }
+    to   { transform: scale(0.48) rotate(-360deg); }
+  }
+  @keyframes shift-orbit-5 {
+    from { transform: scale(0.35) rotate(0deg); }
+    to   { transform: scale(0.35) rotate(360deg); }
+  }
+
+  .shift-orbit-1 { animation: shift-orbit-1 60s linear infinite; }
+  .shift-orbit-2 { animation: shift-orbit-2 45s linear infinite; }
+  .shift-orbit-3 { animation: shift-orbit-3 30s linear infinite; }
+  .shift-orbit-4 { animation: shift-orbit-4 20s linear infinite; }
+  .shift-orbit-5 { animation: shift-orbit-5 12s linear infinite; }
+
+  /* Chainlink PoR badge — subtle mint-glow pulse */
+  @keyframes shift-shield-pulse {
+    0%, 100% { filter: drop-shadow(0 0 0px rgba(38,200,184,0)); }
+    50%       { filter: drop-shadow(0 0 4px rgba(38,200,184,0.8)); }
+  }
+  .shift-shield-pulse { animation: shift-shield-pulse 3s ease-in-out infinite; }
+
+  /* Trade page — price flash animations */
+  @keyframes flash-up {
+    0%   { background: rgba(38,200,184,0.18); }
+    100% { background: transparent; }
+  }
+  @keyframes flash-down {
+    0%   { background: rgba(239,68,68,0.18); }
+    100% { background: transparent; }
+  }
+  .flash-up   { animation: flash-up   300ms ease-out forwards; }
+  .flash-down { animation: flash-down 300ms ease-out forwards; }
+}

@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { BACKERS, INTEGRATIONS, type Partner } from "@/lib/partners-data";
+import { StaggerChildren, RevealChild } from "@/components/motion/stagger-children";
 
 export function LandingPartners() {
   return (
@@ -48,11 +51,13 @@ function LogoWall({
       </div>
 
       {/* Logo grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
+      <StaggerChildren staggerDelay={0.04} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
         {partners.map((p) => (
-          <PartnerCard key={`${p.slug}-${p.name}`} partner={p} />
+          <RevealChild key={`${p.slug}-${p.name}`}>
+            <PartnerCard partner={p} />
+          </RevealChild>
         ))}
-      </div>
+      </StaggerChildren>
 
       {footnote && (
         <p className="text-center text-sm text-foreground/55 mt-8 max-w-xl mx-auto">

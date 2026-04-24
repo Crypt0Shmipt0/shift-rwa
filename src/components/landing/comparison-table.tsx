@@ -1,4 +1,7 @@
+"use client";
+
 import { Check, X } from "lucide-react";
+import { Reveal } from "@/components/motion/reveal";
 
 const ROWS = [
   { label: "Leverage", spot: "1×", perps: "Up to 100×", shift: "2× & 3×" },
@@ -35,21 +38,23 @@ function Cell({ value, highlight }: { value: CellValue; highlight?: boolean }) {
 export function LandingComparisonTable() {
   return (
     <section className="relative mx-auto max-w-[1000px] px-6 py-16">
-      <div className="text-center mb-3">
-        <span className="text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
-          Why not perps?
-        </span>
-      </div>
-      <h2 className="text-center text-3xl md:text-4xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-2 mb-10">
-        Three ways to get leverage.
-        <br />
-        <span
-          className="bg-clip-text text-transparent"
-          style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-        >
-          Only one keeps you in the trade.
-        </span>
-      </h2>
+      <Reveal>
+        <div className="text-center mb-3">
+          <span className="text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
+            Why not perps?
+          </span>
+        </div>
+        <h2 className="text-center text-3xl md:text-4xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-2 mb-10">
+          Three ways to get leverage.
+          <br />
+          <span
+            className="bg-clip-text text-transparent"
+            style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
+          >
+            Only one keeps you in the trade.
+          </span>
+        </h2>
+      </Reveal>
 
       <div className="overflow-x-auto rounded-2xl border border-border">
         <table className="w-full text-sm">

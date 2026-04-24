@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, ShieldOff, ExternalLink } from "lucide-react";
+import { ArrowRight, ShieldCheck, ExternalLink } from "lucide-react";
+import { Reveal } from "@/components/motion/reveal";
 
 export function LandingHero() {
   return (
@@ -20,29 +21,34 @@ export function LandingHero() {
 
       <div className="mx-auto max-w-[1200px] px-6 pt-24 pb-20 md:pt-32 md:pb-28 text-center">
         <div className="inline-flex items-center gap-2 bg-mint/10 border border-mint/30 text-mint text-xs font-semibold uppercase tracking-[0.18em] px-4 py-1.5 rounded-full mb-8">
-          <ShieldOff className="h-3 w-3" />
+          <ShieldCheck className="h-3 w-3" />
           The first liquidation-free leveraged RWA protocol
         </div>
 
-        <h1 className="text-[44px] sm:text-5xl md:text-7xl lg:text-[72px] font-bold tracking-[-0.04em] leading-[1.02] text-white mb-8 pb-1">
-          Wall Street{" "}
-          <span
-            className="bg-clip-text text-transparent"
-            style={{
-              backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)",
-            }}
-          >
-            For Crypto.
-          </span>
-        </h1>
+        <Reveal delay={0}>
+          <h1 className="text-[44px] sm:text-5xl md:text-7xl lg:text-[72px] font-bold tracking-[-0.04em] leading-[1.02] text-white mb-8 pb-1">
+            Wall Street{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)",
+              }}
+            >
+              For Crypto.
+            </span>
+          </h1>
+        </Reveal>
 
-        <p className="text-base md:text-xl text-foreground/80 leading-relaxed max-w-[760px] mx-auto mb-10">
-          Boring spot stocks crawl 1% a day. Perps blow you up on a wick. SHIFT sits between both:{" "}
-          <span className="text-mint font-semibold">3× & 2× bi-directional leveraged
-          tokenized stocks, ETFs, and ETNs</span> — real volatility, zero liquidation risk,
-          long or short, fully on-chain.
-        </p>
+        <Reveal delay={0.1}>
+          <p className="text-base md:text-xl text-foreground/80 leading-relaxed max-w-[760px] mx-auto mb-10">
+            Boring spot stocks crawl 1% a day. Perps blow you up on a wick. SHIFT sits between both:{" "}
+            <span className="text-mint font-semibold">3× & 2× bi-directional leveraged
+            tokenized stocks, ETFs, and ETNs</span> — real volatility, zero liquidation risk,
+            long or short, fully on-chain.
+          </p>
+        </Reveal>
 
+        <Reveal delay={0.2}>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/app"
@@ -58,6 +64,7 @@ export function LandingHero() {
             How it works
           </Link>
         </div>
+        </Reveal>
 
         {/* Chain status badge */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -74,7 +81,7 @@ export function LandingHero() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 bg-[#375BD2]/10 border border-[#375BD2]/40 text-[#7B9CF4] text-xs font-semibold px-3 py-1 rounded-full hover:border-[#375BD2]/70 transition-colors"
           >
-            <ShieldOff className="h-3 w-3" />
+            <ShieldCheck className="h-3 w-3 shift-shield-pulse" />
             Chainlink Proof-of-Reserves
             <ExternalLink className="h-2.5 w-2.5 opacity-60" />
           </Link>

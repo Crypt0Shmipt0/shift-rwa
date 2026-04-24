@@ -1,6 +1,6 @@
 "use client";
 
-import { m } from "motion/react";
+import { m, type Variants } from "motion/react";
 import { useMotionOk } from "@/hooks/use-motion-ok";
 
 type ContainerTag = "div" | "section" | "ul";
@@ -15,7 +15,7 @@ interface StaggerChildrenProps {
   as?: ContainerTag;
 }
 
-const containerVariants = (staggerDelay: number, initialDelay: number) => ({
+const containerVariants = (staggerDelay: number, initialDelay: number): Variants => ({
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -26,9 +26,9 @@ const containerVariants = (staggerDelay: number, initialDelay: number) => ({
   },
 });
 
-const childVariants = (y: number) => ({
+const childVariants = (y: number): Variants => ({
   hidden: { opacity: 0, y },
-  show: { opacity: 1, y: 0, transition: { ease: "easeOut", duration: 0.4 } },
+  show: { opacity: 1, y: 0, transition: { ease: "easeOut" as const, duration: 0.4 } },
 });
 
 /**
