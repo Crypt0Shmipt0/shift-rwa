@@ -43,6 +43,15 @@ export function TiltCard({
   const rotateX = useSpring(useTransform(rawY, [-1, 1], [maxTilt, -maxTilt]), springCfg);
   const springScale = useSpring(1, springCfg);
 
+  // Glare background MotionValue — MUST be defined above the early return
+  // to keep hook order stable when motionOk flips from false (SSR) → true (post-mount).
+  // React error #310 otherwise.
+  const glareBackground = useTransform(
+    [glareX, glareY],
+    ([gx, gy]: number[]) =>
+      `radial-gradient(circle at ${gx}% ${gy}%, rgba(38,200,184,0.18) 0%, transparent 60%)`,
+  );
+
   if (!motionOk) {
     return <div className={className}>{children}</div>;
   }
@@ -90,13 +99,7 @@ export function TiltCard({
       {glare && (
         <m.div
           className="pointer-events-none absolute inset-0 rounded-[inherit] overflow-hidden"
-          style={{
-            background: useTransform(
-              [glareX, glareY],
-              ([gx, gy]) =>
-                `radial-gradient(circle at ${gx}% ${gy}%, rgba(38,200,184,0.18) 0%, transparent 60%)`,
-            ),
-          }}
+          style={{ background: glareBackground }}
         />
       )}
     </m.div>
