@@ -60,6 +60,7 @@ export const TEAM: readonly TeamMember[] = [
     bioFull:
       "Led the International Department at the Israel Securities Authority, shaping cross-border securities policy and regulatory cooperation. Held senior positions at Deloitte and the Tel Aviv Stock Exchange, with extensive expertise in financial regulation and compliance across domestic and international frameworks.",
     credentials: ["Israel Securities Authority", "Deloitte", "TASE", "Cross-Border Regulation"],
+    photo: "/team/shoham.jpg",
   },
   {
     name: "Bar Elkis",
