@@ -3,6 +3,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ── Brand gradient utility (UI audit P0 — WCAG)
+ * Replaces the previous inline `linear-gradient(135deg,#26C8B8,#07638C)`
+ * used on headings. The original tail #07638C sits at 2.66:1 on the
+ * Midnight background and fails WCAG AA even for large text. The new
+ * tail #14A6C8 preserves the teal-to-steel read while lifting the
+ * darkest pixels above 4.5:1 against #021C24.
+ * Usage: <span className="text-gradient-mint">…</span>
+ */
+@utility text-gradient-mint {
+  background-image: linear-gradient(135deg, #26C8B8 0%, #14A6C8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -46,6 +61,25 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
   --radius-2xl: calc(var(--radius) * 1.8);
+
+  /* ── Canonical radii tokens (UI audit P0)
+   * Three-step scale expressed in absolute px so component authors can
+   * reach for a stable value without computing off the base 0.875rem.
+   *   --radius-control  12px  — data chips, small controls, pills
+   *   --radius-card     16px  — default card radius
+   *   --radius-feature  24px  — feature cards with media / imagery
+   */
+  --radius-control: 12px;
+  --radius-card: 16px;
+  --radius-feature: 24px;
+
+  /* ── Section rhythm tokens (UI audit P0)
+   * Exposed as tokens; not mass-applied. Opt-in per section.
+   *   --section-y        standard content section vertical padding
+   *   --section-y-hero   hero / above-the-fold vertical padding
+   */
+  --section-y: clamp(4rem, 8vw, 7rem);
+  --section-y-hero: clamp(6rem, 12vw, 10rem);
 }
 
 :root {
@@ -126,6 +160,25 @@
   html {
     @apply font-sans;
     color-scheme: dark;
+  }
+
+  /* ── Global focus-visible treatment (UI audit P0 — a11y)
+   * Mint pill on Midnight had a 1:1 focus outline; this lifts the ring
+   * against any surface so keyboard users can see it. Components that
+   * want a tighter inner ring can override `outline` on themselves.
+   */
+  :where(button, a, [role="button"], input, select, textarea):focus-visible {
+    outline: 2px solid var(--mint);
+    outline-offset: 3px;
+    border-radius: inherit;
+  }
+
+  /* Mint-filled CTAs need an additional halo because the outline color
+   * matches the button fill; the box-shadow ring separates the outline
+   * from the fill against the dark background. */
+  .bg-mint:focus-visible,
+  .bg-primary:focus-visible {
+    box-shadow: 0 0 0 4px rgba(38, 200, 184, 0.25);
   }
 
   /* ── View Transitions — Next.js 16 native ─────────────────────────────── */

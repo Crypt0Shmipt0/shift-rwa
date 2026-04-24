@@ -76,9 +76,13 @@ function PartnerCard({ partner }: { partner: Partner }) {
       target="_blank"
       rel="noreferrer noopener"
       aria-label={label ? `${label} of ${name}` : name}
-      className="group relative flex flex-col items-center justify-center gap-3 rounded-2xl border border-border/60 bg-white/[0.03] hover:bg-white/[0.06] hover:border-mint/40 transition-all duration-200 px-5 py-7 min-h-[140px]"
+      className="group relative flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/25 transition-all duration-200 px-5 py-7 min-h-[140px]"
     >
-      {/* Logo (or text fallback) */}
+      {/* Logo (or text fallback).
+       * Partner PNGs are raw-color marks (Chainlink blue, Alpaca orange, Solana
+       * magenta, etc.). Knocking them out to monochrome white via brightness/invert
+       * keeps the wall reading as a cohesive row on dark instead of a carnival of
+       * brand primaries fighting the mint CTAs. */}
       <div className="relative h-12 w-full flex items-center justify-center">
         {logo ? (
           <Image
@@ -86,7 +90,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
             alt={name}
             height={48}
             width={160}
-            className="h-12 w-auto max-w-[140px] object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+            className="h-12 w-auto max-w-[140px] object-contain opacity-70 group-hover:opacity-100 transition-opacity [filter:brightness(0)_invert(1)]"
           />
         ) : (
           <span className="text-xl font-bold tracking-tight text-foreground/70 group-hover:text-white transition-colors">
@@ -101,7 +105,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
           {name}
         </span>
         {label && (
-          <span className="text-[10px] uppercase tracking-[0.15em] text-mint/80 font-bold">
+          <span className="text-[10px] uppercase tracking-[0.15em] text-foreground/60 font-bold">
             {label}
           </span>
         )}

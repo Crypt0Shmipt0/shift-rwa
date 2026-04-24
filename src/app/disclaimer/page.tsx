@@ -1,6 +1,6 @@
 import { LegalPage } from "@/components/legal/legal-page";
 
-export const metadata = { title: "Disclaimer — SHIFT" };
+export const metadata = { title: "Disclaimer" };
 
 export default function DisclaimerPage() {
   return (

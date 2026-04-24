@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+// lucide-react v1.x lacks brand icons; reuse Globe (LinkedIn) and X (Twitter/X)
+// for the same visual treatment we use in the site footer.
+import { Globe, X } from "lucide-react";
 import { TEAM, ADVISORS, type TeamMember } from "@/data/team";
 
 export const metadata: Metadata = {
-  title: "Team | SHIFT",
+  title: "Team",
   description:
     "Meet the SHIFT team — operators and builders from Fireblocks, Flow Traders, Israel Securities Authority, PayBase, and the Web3 frontier.",
   alternates: { canonical: "/team" },
@@ -11,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function TeamPage() {
   return (
-    <main className="mx-auto max-w-[1100px] px-6 py-24 md:py-32">
+    <div className="mx-auto max-w-[1100px] px-6 py-24 md:py-32">
       {/* Header */}
       <div className="text-center mb-16">
         <span className="text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint mb-4 block">
@@ -20,10 +23,7 @@ export default function TeamPage() {
         <h1 className="text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] mb-6">
           The team behind
           <br />
-          <span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-          >
+          <span className="text-gradient-mint">
             the technology.
           </span>
         </h1>
@@ -99,7 +99,7 @@ export default function TeamPage() {
           hello@shift.finance
         </a>
       </p>
-    </main>
+    </div>
   );
 }
 
@@ -130,7 +130,7 @@ function MemberGrid({ members }: { members: readonly TeamMember[] }) {
               ) : (
                 <div
                   className="size-24 rounded-2xl flex items-center justify-center text-2xl font-bold text-[#021C24] shrink-0 select-none"
-                  style={{ background: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
+                  style={{ background: "linear-gradient(135deg, #26C8B8 0%, #14A6C8 100%)" }}
                 >
                   {member.initials}
                 </div>
@@ -139,7 +139,10 @@ function MemberGrid({ members }: { members: readonly TeamMember[] }) {
                 <div className="text-xs font-bold uppercase tracking-wider text-mint mb-1">
                   {member.role}
                 </div>
-                <div className="font-bold text-white text-lg mb-3">{displayName}</div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="font-bold text-white text-lg">{displayName}</div>
+                  <MemberSocials member={member} />
+                </div>
                 <p className="text-sm text-foreground/65 leading-relaxed mb-4">{member.bioFull}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {member.credentials.map((c) => (
@@ -156,6 +159,37 @@ function MemberGrid({ members }: { members: readonly TeamMember[] }) {
           </div>
         );
       })}
+    </div>
+  );
+}
+
+function MemberSocials({ member }: { member: TeamMember }) {
+  const displayName = member.namePrefix ? `${member.namePrefix} ${member.name}` : member.name;
+  if (!member.linkedin && !member.x) return null;
+  return (
+    <div className="flex items-center gap-2">
+      {member.linkedin && (
+        <a
+          href={member.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${displayName} on LinkedIn`}
+          className="text-foreground/40 hover:text-mint transition-colors"
+        >
+          <Globe className="h-4 w-4" />
+        </a>
+      )}
+      {member.x && (
+        <a
+          href={member.x}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${displayName} on X`}
+          className="text-foreground/40 hover:text-mint transition-colors"
+        >
+          <X className="h-4 w-4" />
+        </a>
+      )}
     </div>
   );
 }

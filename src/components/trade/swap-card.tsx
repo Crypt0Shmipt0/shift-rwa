@@ -15,9 +15,15 @@ import { TradeConfirmModal } from "@/components/trade/trade-confirm-modal";
 type Side = "buy" | "sell";
 
 const RATE = 21.53;
+// Placeholder balances used only once a wallet is connected. Pre-wallet, the
+// UI renders em-dashes so we never imply a user has funds they don't have.
 const MOCK_USDC_BALANCE = 124278.92;
 const MOCK_ASSET_BALANCE = 4278.92;
 const SLIPPAGE_PRESETS = [0.1, 0.5, 1];
+
+// Wallet connect is not wired up yet — keep this false so the trade panel shows
+// the unconnected zero-state until a real wallet adapter is integrated.
+const hasWallet = false;
 
 export function SwapCard({ symbol = "TSL2L" }: { symbol?: string }) {
   const router = useRouter();
@@ -53,11 +59,18 @@ export function SwapCard({ symbol = "TSL2L" }: { symbol?: string }) {
 
   const inputBalance = side === "buy" ? MOCK_USDC_BALANCE : MOCK_ASSET_BALANCE;
   const parsedInput = Number(inputAmount) || 0;
-  const insufficient = parsedInput > inputBalance;
+  // Pre-wallet we never flag "insufficient" — there's no balance to exceed.
+  const insufficient = hasWallet && parsedInput > inputBalance;
   const invalid = parsedInput <= 0;
 
-  const setHalf = () => setInputAmount((inputBalance / 2).toFixed(2));
-  const setMax = () => setInputAmount(inputBalance.toFixed(2));
+  const setHalf = () => {
+    if (!hasWallet) return;
+    setInputAmount((inputBalance / 2).toFixed(2));
+  };
+  const setMax = () => {
+    if (!hasWallet) return;
+    setInputAmount(inputBalance.toFixed(2));
+  };
   const handleSwitch = () => {
     setSide(side === "buy" ? "sell" : "buy");
     setInputAmount("");
@@ -168,18 +181,22 @@ export function SwapCard({ symbol = "TSL2L" }: { symbol?: string }) {
             <div className="flex gap-3 items-center">
               <div className="flex gap-2 items-center text-mist">
                 <Wallet className="h-3 w-3" />
-                <span className="text-xs tabular-nums">{inputBalance.toLocaleString()}</span>
+                <span className="text-xs tabular-nums">
+                  {hasWallet ? inputBalance.toLocaleString() : "—"}
+                </span>
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={setHalf}
-                  className="bg-secondary px-2 py-1 rounded-lg text-foreground/75 text-xs border border-border hover:border-mint transition-colors"
+                  disabled={!hasWallet}
+                  className="bg-secondary px-2 py-1 rounded-lg text-foreground/75 text-xs border border-border hover:border-mint transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-border"
                 >
                   Half
                 </button>
                 <button
                   onClick={setMax}
-                  className="bg-secondary px-2 py-1 rounded-lg text-foreground/75 text-xs border border-border hover:border-mint transition-colors"
+                  disabled={!hasWallet}
+                  className="bg-secondary px-2 py-1 rounded-lg text-foreground/75 text-xs border border-border hover:border-mint transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-border"
                 >
                   Max
                 </button>
@@ -245,7 +262,9 @@ export function SwapCard({ symbol = "TSL2L" }: { symbol?: string }) {
             <div className="flex gap-2 items-center text-mist">
               <Wallet className="h-3 w-3" />
               <span className="text-xs tabular-nums">
-                {(side === "buy" ? MOCK_ASSET_BALANCE : MOCK_USDC_BALANCE).toLocaleString()}
+                {hasWallet
+                  ? (side === "buy" ? MOCK_ASSET_BALANCE : MOCK_USDC_BALANCE).toLocaleString()
+                  : "—"}
               </span>
             </div>
           </div>
@@ -277,15 +296,23 @@ export function SwapCard({ symbol = "TSL2L" }: { symbol?: string }) {
         {/* CTA */}
         <button
           onClick={() => setConfirmOpen(true)}
-          disabled={invalid || insufficient}
+          disabled={invalid || insufficient || !hasWallet}
           className="bg-mint w-full h-14 rounded-2xl mt-2 text-primary-foreground text-xl font-semibold hover:bg-mint/90 active:-translate-y-px transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-mint"
         >
-          {insufficient
-            ? "Insufficient balance"
-            : invalid
-              ? "Enter an amount"
-              : `${side === "buy" ? "Buy" : "Sell"} ${asset.symbol}`}
+          {!hasWallet
+            ? "Connect wallet"
+            : insufficient
+              ? "Insufficient balance"
+              : invalid
+                ? "Enter an amount"
+                : `${side === "buy" ? "Buy" : "Sell"} ${asset.symbol}`}
         </button>
+
+        {!hasWallet && (
+          <p className="text-xs text-muted-foreground text-center mt-2">
+            Connect wallet to see balances.
+          </p>
+        )}
 
         {/* Rate + fee details */}
         <div className="flex flex-col gap-1.5 mt-2 px-1">

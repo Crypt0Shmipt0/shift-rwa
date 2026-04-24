@@ -12,6 +12,10 @@ export type TeamMember = {
   credentials: readonly string[];
   /** Optional /public path to headshot. Falls back to initials avatar when absent. */
   photo?: string;
+  /** Optional LinkedIn profile URL */
+  linkedin?: string;
+  /** Optional X / Twitter profile URL */
+  x?: string;
 };
 
 /** Core leadership per pitch deck slide 10 — 5 members */
@@ -27,6 +31,8 @@ export const TEAM: readonly TeamMember[] = [
       "European commercial and antitrust lawyer, former COO at Zaisan, a digital asset advisory firm. Specializes in regulatory frameworks governing Web3 and financial markets across European jurisdictions, focused on the practical challenges of operating compliant financial businesses in evolving regulatory environments.",
     credentials: ["Former COO, Zaisan", "EU Regulatory & Antitrust", "Web3 Compliance"],
     photo: "/team/daniel.jpg",
+    linkedin: "https://www.linkedin.com/in/dliven/",
+    x: "https://x.com/livan_daniel",
   },
   {
     name: "Michael Bar Zeev",
@@ -38,6 +44,8 @@ export const TEAM: readonly TeamMember[] = [
       "Serial entrepreneur in fintech and Web3 with three successful exits. Former CEO of Titan, a digital asset infrastructure company under First DAG that was acquired by Fireblocks. Deep operational experience building and scaling financial technology companies from inception through acquisition.",
     credentials: ["3× Exit Founder", "Fireblocks (via Titan)", "Fintech & Web3"],
     photo: "/team/michael.jpg",
+    linkedin: "https://www.linkedin.com/in/michael-bar-zeev-1020a97/",
+    x: "https://x.com/micobz",
   },
   {
     name: "Thomas Wolff",
@@ -61,6 +69,7 @@ export const TEAM: readonly TeamMember[] = [
       "Led the International Department at the Israel Securities Authority, shaping cross-border securities policy and regulatory cooperation. Held senior positions at Deloitte and the Tel Aviv Stock Exchange, with extensive expertise in financial regulation and compliance across domestic and international frameworks.",
     credentials: ["Israel Securities Authority", "Deloitte", "TASE", "Cross-Border Regulation"],
     photo: "/team/shoham.jpg",
+    linkedin: "https://www.linkedin.com/in/shoham-ben-rubi/",
   },
   {
     name: "Bar Elkis",
@@ -87,6 +96,7 @@ export const ADVISORS: readonly TeamMember[] = [
       "CMO at Kima Network, advisor to ChainGPT Labs, Web3 investor and contributing writer for Cointelegraph and Forbes. Brings deep market perspective across DeFi, AI, and RWA sectors.",
     credentials: ["Kima Network CMO", "ChainGPT Advisor", "Cointelegraph / Forbes"],
     photo: "/team/tomer.jpg",
+    linkedin: "https://www.linkedin.com/in/tomernuni/",
   },
   {
     name: "Alon Zusman",
@@ -98,6 +108,7 @@ export const ADVISORS: readonly TeamMember[] = [
       "Software Engineer and Architect with 10+ years across fintech and defense sectors. Former IDC and Utila engineer. Deep experience shipping resilient production systems under hard performance and security constraints.",
     credentials: ["ex-IDC", "ex-Utila", "Fintech + Defense"],
     photo: "/team/alon.jpg",
+    linkedin: "https://il.linkedin.com/in/alonzusman",
   },
   {
     name: "Omri Perl",
@@ -109,6 +120,7 @@ export const ADVISORS: readonly TeamMember[] = [
       "Former Software Engineer at Securitize. Previously at CheckPoint and Elbit. 15+ years of engineering experience with 8+ years focused on blockchain infrastructure and smart contract systems.",
     credentials: ["ex-Securitize", "ex-CheckPoint", "ex-Elbit", "8+ yrs Blockchain"],
     photo: "/team/omri.jpg",
+    linkedin: "https://www.linkedin.com/in/omri-perl-27870b35/",
   },
   {
     name: "Rhett Oudkerk-Pool",
@@ -120,6 +132,8 @@ export const ADVISORS: readonly TeamMember[] = [
       "Serial entrepreneur with two successful exits. Currently CEO at Zaisan (digital asset advisory). Founded and sold Kahuna, one of the Netherlands' largest cybersecurity firms. Brings applied security expertise to SHIFT's smart contract and operational risk posture.",
     credentials: ["CEO, Zaisan", "Founded Kahuna (exit)", "Cybersecurity"],
     photo: "/team/rhett.jpg",
+    linkedin: "https://www.linkedin.com/in/rhettoudkerkpool/",
+    x: "https://x.com/rhettop",
   },
   {
     name: "Sudip Banerjee",

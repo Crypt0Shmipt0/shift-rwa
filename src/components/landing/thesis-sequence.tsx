@@ -96,10 +96,7 @@ function Beat3() {
       <div className="text-center mb-6">
         <div className="text-xs font-bold uppercase tracking-[0.2em] text-mint mb-4">SHIFT</div>
         <h3 className="text-4xl md:text-6xl font-bold tracking-[-0.04em] mb-2">
-          <span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-          >
+          <span className="text-gradient-mint">
             SHIFT fixes both.
           </span>
         </h3>
@@ -243,10 +240,7 @@ function StaticSequence() {
         <div className="relative">
           <div className="text-xs font-bold uppercase tracking-wider text-mint mb-3">SHIFT</div>
           <div className="text-4xl font-bold mb-3">
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-            >
+            <span className="text-gradient-mint">
               Fixes both.
             </span>
           </div>

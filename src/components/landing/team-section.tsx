@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+// lucide-react (v1.x here) doesn't ship brand icons — we reuse Globe for
+// LinkedIn and X (the close-mark) for Twitter/X, matching the footer pattern.
+import { ArrowRight, Globe, X } from "lucide-react";
 import { TEAM, type TeamMember } from "@/data/team";
 import { StaggerChildren, RevealChild } from "@/components/motion/stagger-children";
 
@@ -17,10 +19,7 @@ export function LandingTeam() {
       <h2 className="text-center text-4xl md:text-5xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-2 mb-4">
         Built by operators,
         <br />
-        <span
-          className="bg-clip-text text-transparent"
-          style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-        >
+        <span className="text-gradient-mint">
           not just builders.
         </span>
       </h2>
@@ -70,7 +69,7 @@ function TeamCard({ member }: { member: TeamMember }) {
         ) : (
           <div
             className="size-20 rounded-2xl flex items-center justify-center mb-4 text-xl font-bold text-[#021C24] select-none"
-            style={{ background: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
+            style={{ background: "linear-gradient(135deg, #26C8B8 0%, #14A6C8 100%)" }}
           >
             {member.initials}
           </div>
@@ -78,7 +77,10 @@ function TeamCard({ member }: { member: TeamMember }) {
         <div className="text-xs font-bold uppercase tracking-wider text-mint mb-1">
           {member.role}
         </div>
-        <div className="font-semibold text-white text-sm mb-2">{displayName}</div>
+        <div className="flex items-center gap-2 mb-2">
+          <div className="font-semibold text-white text-sm">{displayName}</div>
+          <TeamSocials member={member} />
+        </div>
         <p className="text-xs text-foreground/60 leading-relaxed mb-4 flex-1">
           {member.bioShort}
         </p>
@@ -95,6 +97,37 @@ function TeamCard({ member }: { member: TeamMember }) {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function TeamSocials({ member }: { member: TeamMember }) {
+  const displayName = member.namePrefix ? `${member.namePrefix} ${member.name}` : member.name;
+  if (!member.linkedin && !member.x) return null;
+  return (
+    <div className="flex items-center gap-1.5">
+      {member.linkedin && (
+        <a
+          href={member.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${displayName} on LinkedIn`}
+          className="text-foreground/40 hover:text-mint transition-colors"
+        >
+          <Globe className="h-4 w-4" />
+        </a>
+      )}
+      {member.x && (
+        <a
+          href={member.x}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${displayName} on X`}
+          className="text-foreground/40 hover:text-mint transition-colors"
+        >
+          <X className="h-4 w-4" />
+        </a>
+      )}
     </div>
   );
 }

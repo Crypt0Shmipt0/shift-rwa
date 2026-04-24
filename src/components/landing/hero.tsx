@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, ExternalLink } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 
 export function LandingHero() {
@@ -27,14 +27,10 @@ export function LandingHero() {
 
         <Reveal delay={0}>
           <h1 className="text-[44px] sm:text-5xl md:text-7xl lg:text-[72px] font-bold tracking-[-0.04em] leading-[1.02] text-white mb-8 pb-1">
-            Wall Street{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)",
-              }}
-            >
-              For Crypto.
+            Leveraged tokenized stocks.
+            <br />
+            <span className="text-gradient-mint">
+              No liquidation engine.
             </span>
           </h1>
         </Reveal>
@@ -75,16 +71,10 @@ export function LandingHero() {
           <span className="inline-flex items-center gap-1.5 bg-foreground/5 border border-border text-foreground/50 text-xs font-semibold px-3 py-1 rounded-full">
             BNB Chain — coming soon
           </span>
-          <Link
-            href="https://data.chain.link/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-[#375BD2]/10 border border-[#375BD2]/40 text-[#7B9CF4] text-xs font-semibold px-3 py-1 rounded-full hover:border-[#375BD2]/70 transition-colors"
-          >
+          <span className="inline-flex items-center gap-1.5 bg-[#375BD2]/5 border border-[#375BD2]/25 text-[#7B9CF4]/70 text-xs font-semibold px-3 py-1 rounded-full">
             <ShieldCheck className="h-3 w-3 shift-shield-pulse" />
-            Chainlink Proof-of-Reserves
-            <ExternalLink className="h-2.5 w-2.5 opacity-60" />
-          </Link>
+            Proof-of-Reserves: coming with mainnet
+          </span>
         </div>
 
         {/* Trust strip */}
@@ -95,7 +85,7 @@ export function LandingHero() {
           <span className="size-1 rounded-full bg-border" />
           <Trust label="Non-custodial" />
           <span className="size-1 rounded-full bg-border" />
-          <Trust label="24/7 settlement" />
+          <Trust label="24/7 trade · 24/5 mint" />
         </div>
       </div>
     </section>

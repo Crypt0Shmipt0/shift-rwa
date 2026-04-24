@@ -110,21 +110,21 @@ The monopoly was just never seriously challenged until now. It's coming down to 
 
 const POST_ACADEMY_1: BlogPost = {
   slug: "shift-academy-1-breaking-down-tokenized-stocks",
-  title: "Shift Academy #1: Breaking Down The Tokenized Stocks",
+  title: "SHIFT Academy #1: Breaking Down The Tokenized Stocks",
   subtitle: "How to Trade the S&P 500 Without a Broker",
   excerpt:
-    "Welcome to Shift Academy — clean explanations of RWAs, real numbers, and honest context. We start with the most important term in Shift's product vocabulary: the Stock.",
+    "Welcome to SHIFT Academy — clean explanations of RWAs, real numbers, and honest context. We start with the most important term in SHIFT's product vocabulary: the Stock.",
   tag: "academy",
   readingMinutes: 8,
   publishedAt: "2026-01-28",
   featured: true,
-  body: `Welcome to Shift Academy — a series built for anyone who wants to understand what's actually happening at the intersection of traditional finance and on-chain infrastructure. You won't find fluff or crypto jargon walls here. Enjoy clean explanations, real numbers, and honest context.
+  body: `Welcome to SHIFT Academy — a series built for anyone who wants to understand what's actually happening at the intersection of traditional finance and on-chain infrastructure. You won't find fluff or crypto jargon walls here. Enjoy clean explanations, real numbers, and honest context.
 
-We start with the most important term in Shift's entire product vocabulary: the Stock.
+We start with the most important term in SHIFT's entire product vocabulary: the Stock.
 
 ## First, What Is an RWA?
 
-Before Shift Stocks make sense, you need to wrap your mind around the very basics of Real-World Assets — or RWAs. You might have heard about it many times.
+Before SHIFT Stocks make sense, you need to wrap your mind around the very basics of Real-World Assets — or RWAs. You might have heard about it many times.
 
 An RWA is exactly what it sounds like: a real-world asset — a stock, a bond, a commodity, a piece of real estate — that has been represented as a digital token on a blockchain. Instead of the asset living in a brokerage system, a custodian's database, or a clearinghouse, it exists on-chain as a token that anyone with a wallet can hold, transfer, trade, or build on.
 
@@ -138,17 +138,17 @@ The SHIFT platform issues token series backed by tokenized stocks, designed to c
 
 Every SHIFT Stocks token is backed by its respective tokenized backing asset (for example, MSTRs is backed by MicroStrategy stock). Proof-of-reserve shall be made publicly available on the token Issuer Platform.
 
-Meanwhile, $SHFT is the native utility token of the Shift ecosystem, used to drive adoption of Shift Stocks and designed to support the SHIFT Ecosystem's growth, with incentives and rewards for early adopters.
+Meanwhile, $SHFT is the native utility token of the SHIFT ecosystem, used to drive adoption of SHIFT Stocks and designed to support the SHIFT Ecosystem's growth, with incentives and rewards for early adopters.
 
-## Shift Stocks Are Not Securities — and That Distinction Matters
+## SHIFT Stocks Are Not Securities — and That Distinction Matters
 
 Here's where a lot of readers get tripped up. A security token — sometimes called an STO — represents a legal right in the underlying asset and confers ownership, voting rights, or entitlement to dividends. Because of that, it falls under securities law, which means issuing it requires regulatory approval, restricts who can hold it, limits where it can trade, and introduces the same jurisdictional gatekeeping that traditional brokerage has always used to filter out retail investors in "unsophisticated" markets.
 
-SHIFT Stocks are not securities. Currently, they are classified as Digital Assets under the Marshall Islands' regulatory framework. While security tokens represent rights to the underlying securities, Shift Stocks do not confer any rights to the backing assets.
+SHIFT Stocks are not securities. Currently, they are classified as Digital Assets under the Marshall Islands' regulatory framework. While security tokens represent rights to the underlying securities, SHIFT Stocks do not confer any rights to the backing assets.
 
 The investment experience of owning a stock — the price movement, the exposure — without the legal wrapper that makes securities so difficult to distribute across jurisdictions.
 
-That distinction is the architectural decision that makes Shift's tokens permissionless: no broker is required, and no jurisdiction filter is applied. And you won't need to be afraid of the weekday-only window anymore.
+That distinction is the architectural decision that makes SHIFT's tokens permissionless: no broker is required, and no jurisdiction filter is applied. And you won't need to be afraid of the weekday-only window anymore.
 
 ## SHIFT Stock vs The Alternatives: A Plain Comparison
 
@@ -156,7 +156,7 @@ To better realize how SHIFT Stocks are different from other token types, it's be
 
 ## How a SHIFT Stock Works: Step by Step
 
-Let's break it down to a step-by-step experience. Here is what happens when you hold a Shift Stock:
+Let's break it down to a step-by-step experience. Here is what happens when you hold a SHIFT Stock:
 
 **1. Backing is purchased**
 
@@ -168,7 +168,7 @@ SHIFT Stock's smart contracts are powered by Chainlink Proof of Reserves — ind
 
 **3. The token trades freely on DeFi**
 
-Shift Stocks are designed for 24/7 permissionless trading across decentralized exchanges, lending markets, and DeFi applications — with reserves continuously verified by Chainlink. The token is live on Solana, integrated with Jupiter Exchange.
+SHIFT Stocks are designed for 24/7 permissionless trading across decentralized exchanges, lending markets, and DeFi applications — with reserves continuously verified by Chainlink. The token is live on Solana, integrated with Jupiter Exchange.
 
 **4. Users can earn $SHFT**
 
@@ -188,7 +188,7 @@ SHIFT Stocks holders can redeem assets 24/5 on the issuer platform, receiving cr
 
 ## The Bigger Shifting Picture
 
-Shift Stocks are not a niche instrument, as one might think. Imagine them as the infrastructure layer that makes global, permissionless, 24/7 access to real financial assets structurally possible for the first time.
+SHIFT Stocks are not a niche instrument, as one might think. Imagine them as the infrastructure layer that makes global, permissionless, 24/7 access to real financial assets structurally possible for the first time.
 
 Projections by McKinsey and Standard Chartered put the RWA tokenization market between $2 trillion by 2030 and $30 trillion by 2034. The category is moving from pilot programs to production infrastructure, and while the tokenized treasuries led the first wave, equities — the asset class with the deepest retail demand globally — are the next.
 
@@ -235,15 +235,15 @@ The structural barriers that prevent an unbanked adult in Jakarta from participa
 
 Emerging market economies face compounding friction in capital formation: restricted access to foreign investment products, currency volatility that erodes savings, and financial intermediary networks that were never designed for their markets. So, there you have a population that has phone connectivity, digital wallet access, and genuine capital to invest — but nowhere to put it that isn't either locally constrained, opaque, or exploitative.
 
-This is where tokenized RWAs enter, and where the architecture of platforms like Shift matters.
+This is where tokenized RWAs enter, and where the architecture of platforms like SHIFT matters.
 
 ## The Structure That Changes Everything
 
-Shift Stocks are backed by real, tokenized equities and ETFs: Tesla, MicroStrategy, the S&P 500 via SPY, and more — where every token carries full economic exposure to the underlying asset.
+SHIFT Stocks are backed by real, tokenized equities and ETFs: Tesla, MicroStrategy, the S&P 500 via SPY, and more — where every token carries full economic exposure to the underlying asset.
 
-The classification of these tokens is the key architectural decision. Shift Stocks tokens are Digital Assets — not securities, so they don't require a brokerage relationship or a U.S. bank account. You won't need a Western-compliant KYC process to trade on a DEX. All you'll need is a wallet — the same infrastructure piece that the mobile-first emerging market population already has or can access in minutes.
+The classification of these tokens is the key architectural decision. SHIFT Stocks tokens are Digital Assets — not securities, so they don't require a brokerage relationship or a U.S. bank account. You won't need a Western-compliant KYC process to trade on a DEX. All you'll need is a wallet — the same infrastructure piece that the mobile-first emerging market population already has or can access in minutes.
 
-This is the bridge that has been missing. Now, in 2026, someone in Lagos with a Solana wallet can hold a stock backed by NVIDIA. A person in Karachi with a stablecoin balance can get 24/7 exposure to the S&P 500. The jurisdictional walls that traditional brokerages use to filter their customer base — are structurally irrelevant to how Shift's Stocks function.
+This is the bridge that has been missing. Now, in 2026, someone in Lagos with a Solana wallet can hold a stock backed by NVIDIA. A person in Karachi with a stablecoin balance can get 24/7 exposure to the S&P 500. The jurisdictional walls that traditional brokerages use to filter their customer base — are structurally irrelevant to how SHIFT's Stocks function.
 
 ## Leapfrogging Is Not a Theory Anymore
 
@@ -261,7 +261,7 @@ Most tokenized RWAs today live in walled gardens, issued and traded inside close
 
 A retail investor in a financially underserved market doesn't just get exposure to U.S. equities — they get the full yield infrastructure of DeFi applied to that position.
 
-Holders can redeem Shift Stocks 24/5 on the issuer's platform, receiving crypto, cash, or the backing assets directly. The exit is clean, the backing is verifiable, and the infrastructure is live.
+Holders can redeem SHIFT Stocks 24/5 on the issuer's platform, receiving crypto, cash, or the backing assets directly. The exit is clean, the backing is verifiable, and the infrastructure is live.
 
 ## Opening the Billion+ Opportunities
 
@@ -275,7 +275,7 @@ The phone is already in their hand. The SHIFT team is there to build what goes o
 
 const POST_ACADEMY_2: BlogPost = {
   slug: "shift-academy-2-legacy-vs-innovation-evolution-of-tokenized-stocks",
-  title: "Shift Academy #2: Legacy vs Innovation: Breaking Down The Evolution of Tokenized Stocks",
+  title: "SHIFT Academy #2: Legacy vs Innovation: Breaking Down The Evolution of Tokenized Stocks",
   excerpt:
     "Not all tokenized stocks are created equal. The leap from first-generation synthetic tokens to today's fully-backed SHIFT Stocks marks one of the most consequential structural upgrades in on-chain finance.",
   tag: "academy",
@@ -303,7 +303,7 @@ The next generation of tokenized equities is built on a fundamentally different 
 
 This is the architecture behind SHIFT Stocks. Where Mirror Protocol minted tokens backed by algorithmic stablecoins, ours are backed by the underlying equity itself — held in custody, verified in real time, redeemable for cash. Holders aren't creditors to a crypto protocol; they have a legally enforceable contractual claim on a real asset.
 
-The comparison to CFDs is instructive — they are leveraged bets with counterparty exposure to the broker. Shift Stocks are positions in the underlying, held via smart contract infrastructure. The risk profile is categorically different.
+The comparison to CFDs is instructive — they are leveraged bets with counterparty exposure to the broker. SHIFT Stocks are positions in the underlying, held via smart contract infrastructure. The risk profile is categorically different.
 
 SHIFT operates under the Marshall Islands Digital Assets Business Act — a purpose-built regulatory framework for on-chain asset issuance covering issuance, redemption, and investor rights. This is not an offshore gray zone.
 
@@ -337,7 +337,7 @@ In a market forecast to reach trillions by 2030, the structural quality of the t
 
 const POST_SIGNAL_3: BlogPost = {
   slug: "shift-signal-3-imagining-rwa-industry-2030",
-  title: "The Shift Signal #3: Imagining the RWA Industry in Year 2030",
+  title: "The SHIFT Signal #3: Imagining the RWA Industry in Year 2030",
   subtitle: "Stocks, ETFs, Commodities, Real Estate? Blockchain it All!",
   excerpt:
     "Close your eyes. It's 2030. Your portfolio rebalances at 3 AM: smart contracts sell tokenized S&P 500, buy Thai real estate, hedge into gold, settle in under a second. This isn't sci-fi — every component already exists.",
@@ -1188,7 +1188,7 @@ In contrast to the EU, the U.S. regulatory framework for tokenized assets is sti
 
 Although recent activity from U.S. agencies (especially the SEC) suggests a shift toward clearer regulations, the environment remains uncertain compared to the EU's unified approach.
 
-## Shift's Compliance & Mission
+## SHIFT's Compliance & Mission
 
 While some companies are still figuring out their regulatory strategies, **SHIFT has been preparing for the tokenized asset landscape from day one**.
 
@@ -1206,7 +1206,7 @@ That's why SHIFT isn't just focused on compliance — it's focused on education 
 // conflicts with the Marshall Islands legal structure. Awaiting Shoham's sign-off.)
 const POST_SIGNAL_4: BlogPost = {
   slug: "shift-signal-4-rwa-most-desired-trend-stocks-always-fashionable",
-  title: "Shift Signal #4: RWA is the Most Desired Trend No Matter the Market",
+  title: "SHIFT Signal #4: RWA is the Most Desired Trend No Matter the Market",
   subtitle: "And Why Stocks Will Always Be Fashionable",
   excerpt:
     "Bear market? RWA grows. Bull market? RWA grows faster. Sideways chop? RWA doesn't care. This is more than a narrative — the smartest money in the room has already repositioned.",

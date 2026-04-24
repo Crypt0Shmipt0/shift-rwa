@@ -1,7 +1,7 @@
 import { LegalPage } from "@/components/legal/legal-page";
 import type { TocEntry } from "@/components/legal/legal-page";
 
-export const metadata = { title: "Privacy Policy — SHIFT" };
+export const metadata = { title: "Privacy Policy" };
 
 const TOC: TocEntry[] = [
   { id: "what-we-collect",      label: "1. What we collect" },

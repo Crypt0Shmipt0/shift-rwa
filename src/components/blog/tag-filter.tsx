@@ -7,7 +7,7 @@ const FILTERS: { label: string; value: BlogTag | "all" }[] = [
   { label: "All", value: "all" },
   { label: "Signal", value: "signal" },
   { label: "Academy", value: "academy" },
-  { label: "General", value: "general" },
+  { label: "RWA Market", value: "general" },
 ];
 
 const PILL_ACTIVE: Record<BlogTag | "all", string> = {

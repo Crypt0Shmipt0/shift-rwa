@@ -1,7 +1,7 @@
 import { LegalPage } from "@/components/legal/legal-page";
 import type { TocEntry } from "@/components/legal/legal-page";
 
-export const metadata = { title: "Terms of Use — SHIFT" };
+export const metadata = { title: "Terms of Use" };
 
 const TOC: TocEntry[] = [
   { id: "eligibility",         label: "1. Eligibility" },

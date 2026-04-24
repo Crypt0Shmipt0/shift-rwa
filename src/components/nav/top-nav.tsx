@@ -73,8 +73,12 @@ export function TopNav() {
           </Link>
           {/* Mobile hamburger */}
           <button
+            type="button"
             className="md:hidden inline-flex items-center justify-center size-9 rounded-lg text-foreground/75 hover:text-white hover:bg-secondary/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
-            aria-label="Open navigation menu"
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
+            aria-haspopup="dialog"
             onClick={() => setMobileOpen(true)}
           >
             <Menu className="h-5 w-5" />
@@ -84,7 +88,7 @@ export function TopNav() {
 
       {/* Mobile drawer */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetContent side="right" className="w-full max-w-xs bg-background border-border p-0 flex flex-col">
+        <SheetContent id="mobile-nav" side="right" className="w-full max-w-xs bg-background border-border p-0 flex flex-col">
           <SheetHeader className="px-6 pt-6 pb-4 border-b border-border">
             <SheetTitle className="sr-only">Navigation menu</SheetTitle>
             <Link href="/" onClick={() => setMobileOpen(false)} aria-label="SHIFT home">
@@ -92,7 +96,7 @@ export function TopNav() {
             </Link>
           </SheetHeader>
 
-          <nav aria-label="Main navigation" className="flex-1 flex flex-col px-4 py-6 gap-1">
+          <nav aria-label="Mobile navigation" className="flex-1 flex flex-col px-4 py-6 gap-1">
             {LINKS.map((l) => {
               const active = isActive(l.match);
               return (

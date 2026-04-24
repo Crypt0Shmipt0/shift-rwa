@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const reactId = useId();
+  const emailId = `newsletter-email-${reactId}`;
+  const helpId = `newsletter-help-${reactId}`;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -41,14 +44,22 @@ export function NewsletterForm() {
           onSubmit={handleSubmit}
           className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
         >
+          <label htmlFor={emailId} className="sr-only">
+            Email address
+          </label>
           <Input
+            id={emailId}
             type="email"
             placeholder="your@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            aria-describedby={helpId}
             required
             className="flex-1 bg-white/5 border-border/60 text-white placeholder:text-foreground/40 focus-visible:ring-mint/40"
           />
+          <p id={helpId} className="sr-only">
+            Subscribe to The SHIFT Signal newsletter. We will email new signals and analysis — no spam.
+          </p>
           <Button
             type="submit"
             disabled={status === "loading"}

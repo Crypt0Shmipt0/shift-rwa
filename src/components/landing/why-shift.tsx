@@ -30,10 +30,7 @@ export function LandingWhy() {
       <h2 className="text-center text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-2 mb-16">
         Two broken extremes.
         <br />
-        <span
-          className="bg-clip-text text-transparent"
-          style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-        >
+        <span className="text-gradient-mint">
           One product that fixes both.
         </span>
       </h2>

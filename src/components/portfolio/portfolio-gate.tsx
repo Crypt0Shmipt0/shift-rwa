@@ -40,10 +40,7 @@ function ConnectGate() {
           <h1 className="text-4xl md:text-5xl font-bold text-white tracking-[-0.02em] leading-[1.05] pb-1 mb-5">
             Connect a wallet to
             <br />
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-            >
+            <span className="text-gradient-mint">
               see your portfolio.
             </span>
           </h1>

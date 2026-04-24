@@ -12,20 +12,22 @@ const BASE_URL = "https://shift-rwa.vercel.app";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "The SHIFT Signal, Shift Academy, and long-form coverage of tokenized equities, RWAs, and the future of on-chain finance.",
+    "The SHIFT Signal, SHIFT Academy, and long-form coverage of tokenized equities, RWAs, and the future of on-chain finance.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Blog — SHIFT Finance",
+    title: "Blog · SHIFT",
     description:
-      "The SHIFT Signal, Shift Academy, and long-form coverage of tokenized equities, RWAs, and the future of on-chain finance.",
+      "The SHIFT Signal, SHIFT Academy, and long-form coverage of tokenized equities, RWAs, and the future of on-chain finance.",
     url: "/blog",
   },
 };
 
 const TAG_LABELS: Record<BlogTag, string> = {
   signal: "The SHIFT Signal",
-  academy: "Shift Academy",
-  general: "General",
+  academy: "SHIFT Academy",
+  // NOTE: internal slug remains "general" to preserve frontmatter + query params;
+  // user-facing label is "RWA Market" per the Apr 2026 audit.
+  general: "RWA Market",
 };
 
 const TAG_COLORS: Record<BlogTag, string> = {
@@ -64,7 +66,7 @@ export default function BlogIndexPage({
     "@context": "https://schema.org",
     "@type": "Blog",
     name: "SHIFT Finance Blog",
-    description: "The SHIFT Signal, Shift Academy, and long-form coverage of tokenized equities, RWAs, and on-chain finance.",
+    description: "The SHIFT Signal, SHIFT Academy, and long-form coverage of tokenized equities, RWAs, and on-chain finance.",
     url: `${BASE_URL}/blog`,
     publisher: { "@type": "Organization", name: "SHIFT" },
     blogPost: allPosts.map((p) => ({
@@ -77,7 +79,7 @@ export default function BlogIndexPage({
   });
 
   return (
-    <main className="min-h-screen bg-[#021C24]">
+    <div className="min-h-screen bg-[#021C24]">
       {/* eslint-disable-next-line react/no-danger -- JSON-LD is static internal data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: blogLd }} />
       {/* Header */}
@@ -106,7 +108,7 @@ export default function BlogIndexPage({
       <div className="mx-auto max-w-[1200px] px-6 pb-20">
         <NewsletterForm />
       </div>
-    </main>
+    </div>
   );
 }
 

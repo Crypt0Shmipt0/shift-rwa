@@ -102,10 +102,7 @@ export function LandingComparisonTable() {
         <h2 className="text-center text-3xl md:text-4xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-2 mb-10">
           Three ways to get leverage.
           <br />
-          <span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-          >
+          <span className="text-gradient-mint">
             Only one keeps you in the trade.
           </span>
         </h2>
@@ -137,10 +134,16 @@ export function LandingComparisonTable() {
                   className={`border-b border-border/60 last:border-0 ${i % 2 === 0 ? "bg-background" : "bg-card/40"} ${inView ? "vt-row-animate" : "opacity-0"}`}
                   style={{ "--row-index": i } as React.CSSProperties}
                 >
-                  <td className="px-5 py-3.5 text-foreground/80 font-medium">
+                  <th
+                    scope="row"
+                    className="px-5 py-3.5 text-foreground/80 font-medium text-left font-normal"
+                  >
                     {row.tooltip ? (
                       <Tooltip>
-                        <TooltipTrigger className="underline decoration-dotted decoration-foreground/30 cursor-help text-left">
+                        <TooltipTrigger
+                          aria-label={`${row.label} — ${row.tooltip}`}
+                          className="underline decoration-dotted decoration-foreground/30 cursor-help text-left inline-flex bg-transparent border-0 p-0 font-inherit text-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded-sm"
+                        >
                           {row.label}
                         </TooltipTrigger>
                         <TooltipContent>
@@ -150,7 +153,7 @@ export function LandingComparisonTable() {
                     ) : (
                       row.label
                     )}
-                  </td>
+                  </th>
                   <td className="px-5 py-3.5 text-center">
                     <div className="flex justify-center"><Cell value={row.spot} /></div>
                   </td>

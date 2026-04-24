@@ -137,10 +137,7 @@ export function LandingConnect() {
           <h2 className="text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-1 mb-6">
             Trade leveraged stocks
             <br />
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-            >
+            <span className="text-gradient-mint">
               like a crypto native.
             </span>
           </h2>
@@ -154,8 +151,11 @@ export function LandingConnect() {
               const Icon = f.icon;
               return (
                 <li key={f.title} className="flex gap-4">
-                  <div className="size-10 rounded-xl bg-mint/10 border border-mint/30 flex items-center justify-center shrink-0">
-                    <Icon className="h-4 w-4 text-mint" />
+                  {/* Feature-list bullets desaturated from mint — mint reserved for
+                   * brand signal (eyebrow badge, "Live" dot, CTA) so these body-copy
+                   * icons read as neutral supporting marks on the dark surface. */}
+                  <div className="size-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center shrink-0">
+                    <Icon className="h-4 w-4 text-foreground/70" />
                   </div>
                   <div>
                     <div className="font-semibold text-white mb-0.5">{f.title}</div>

@@ -54,10 +54,7 @@ export function LandingFarm() {
             <h2 className="text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-1 mb-6">
               Trade today.
               <br />
-              <span
-                className="bg-clip-text text-transparent"
-                style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-              >
+              <span className="text-gradient-mint">
                 Earn $SHFT tomorrow.
               </span>
             </h2>
@@ -94,7 +91,9 @@ export function LandingFarm() {
                 style={{
                   transform: `scale(${1 - r * 0.13})`,
                   opacity: 1 - r * 0.13,
-                  borderColor: `rgba(38,200,184,${0.25 - r * 0.04})`,
+                  // Concentric orbit rings toned from 0.25 → 0.18 so they
+                  // don't fight the mint CTA in the same viewport.
+                  borderColor: `rgba(38,200,184,${0.18 - r * 0.03})`,
                 }}
               />
             ))}

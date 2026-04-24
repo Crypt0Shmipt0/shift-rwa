@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { toast } from "sonner";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,9 @@ const BADGES = [
 export default function RewardsPage() {
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState(false);
+  const reactId = useId();
+  const emailId = `rewards-email-${reactId}`;
+  const helpId = `rewards-email-help-${reactId}`;
 
   const join = () => {
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
@@ -54,13 +57,21 @@ export default function RewardsPage() {
             </div>
           ) : (
             <div className="flex flex-col sm:flex-row gap-2 max-w-md">
+              <label htmlFor={emailId} className="sr-only">
+                Email address
+              </label>
               <Input
+                id={emailId}
                 type="email"
                 placeholder="you@wallet.io"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                aria-describedby={helpId}
                 className="bg-secondary border-0 h-12"
               />
+              <p id={helpId} className="sr-only">
+                We&apos;ll notify you at TGE about your $SHFT allocation and rewards program access.
+              </p>
               <Button onClick={join} className="bg-mint text-primary-foreground hover:bg-mint/90 h-12 px-6">
                 Notify me at TGE
               </Button>

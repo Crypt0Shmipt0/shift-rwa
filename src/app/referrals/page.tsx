@@ -52,10 +52,7 @@ export default function ReferralsPage() {
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             Earn for every friend<br />
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "linear-gradient(135deg, #26C8B8 0%, #07638C 100%)" }}
-            >
+            <span className="text-gradient-mint">
               you bring.
             </span>
           </h1>

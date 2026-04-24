@@ -25,7 +25,7 @@ export async function generateMetadata({
   const post = getPost(slug);
   if (!post || post.draft) return {};
   return {
-    title: `${post.title} — SHIFT Finance`,
+    title: post.title,
     description: post.excerpt,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
@@ -93,7 +93,7 @@ export default async function BlogPostPage({
   });
 
   return (
-    <main className="min-h-screen bg-[#021C24]">
+    <div className="min-h-screen bg-[#021C24]">
       <ScrollProgress />
       {/* eslint-disable-next-line react/no-danger -- JSON-LD is static internal data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleLd }} />
@@ -117,13 +117,14 @@ export default async function BlogPostPage({
       </div>
 
       {/* Article header */}
-      <header className="mx-auto max-w-[680px] px-6 pt-10 pb-10">
+      <section aria-labelledby="blog-post-title" className="mx-auto max-w-[680px] px-6 pt-10 pb-10">
         <span
           className={`inline-flex items-center text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-6 ${TAG_COLORS[post.tag]}`}
         >
           {TAG_LABELS[post.tag]}
         </span>
         <h1
+          id="blog-post-title"
           className="text-3xl md:text-[2.5rem] font-bold text-white tracking-tight leading-[1.15] mb-4"
           style={{ viewTransitionName: `blog-title-${post.slug}` }}
         >
@@ -139,7 +140,7 @@ export default async function BlogPostPage({
           <span className="w-px h-3 bg-foreground/20" />
           <span>{post.readingMinutes} min read</span>
         </div>
-      </header>
+      </section>
 
       {/* Hero image */}
       <div className="mx-auto max-w-[960px] px-6 mb-12">
@@ -299,6 +300,6 @@ export default async function BlogPostPage({
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

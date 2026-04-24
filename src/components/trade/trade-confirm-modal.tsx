@@ -42,7 +42,7 @@ export function TradeConfirmModal({
       description: `Settled ${FORMATTERS.usd(usdAmount)} at ${FORMATTERS.usd(rate)} / ${asset.symbol}`,
       action: {
         label: "View tx",
-        onClick: () => window.open("https://basescan.org", "_blank"),
+        onClick: () => window.open("https://solscan.io", "_blank"),
       },
     });
   };
@@ -96,7 +96,7 @@ export function TradeConfirmModal({
             {FORMATTERS.num(minReceived)} {side === "buy" ? asset.symbol : "USDC"}
           </Row>
           <Row label="Protocol fee">{FORMATTERS.usd(feeUsd)} ({feePct}%)</Row>
-          <Row label="Network">Base</Row>
+          <Row label="Network">Solana</Row>
         </div>
 
         {priceImpactPct > 1 && (
