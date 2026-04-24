@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import { useMotionValue, useTransform, animate, useInView } from "motion/react";
+import { useEffect } from "react";
+import { useMotionValue, useTransform, animate } from "motion/react";
 import { m } from "motion/react";
 import { useMotionOk } from "@/hooks/use-motion-ok";
 
@@ -32,19 +32,21 @@ export function CountUp({
   formatter,
 }: CountUpProps) {
   const motionOk = useMotionOk();
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
   const motionValue = useMotionValue(from);
   const rounded = useTransform(motionValue, (v) => {
     const fixed = v.toFixed(decimals);
     return formatter ? formatter(Number(fixed)) : `${prefix}${fixed}${suffix}`;
   });
 
+  // Animate on mount once motion is permitted.
+  // Previously gated on useInView — but useInView never fired reliably for
+  // above-the-fold stats (already intersecting at mount), leaving counters
+  // stuck at `from`. Dropping the gate: a 1.5s animate is cheap and correct.
   useEffect(() => {
-    if (!motionOk || !isInView) return;
+    if (!motionOk) return;
     const controls = animate(motionValue, to, { duration, ease: "easeOut" });
     return controls.stop;
-  }, [motionOk, isInView, motionValue, to, duration]);
+  }, [motionOk, motionValue, to, duration]);
 
   const formatFinal = () => {
     const fixed = to.toFixed(decimals);
@@ -55,9 +57,5 @@ export function CountUp({
     return <span className={className}>{formatFinal()}</span>;
   }
 
-  return (
-    <m.span ref={ref} className={className}>
-      {rounded}
-    </m.span>
-  );
+  return <m.span className={className}>{rounded}</m.span>;
 }

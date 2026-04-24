@@ -179,17 +179,26 @@ function AnimatedSequence() {
         style={{ top: "20vh", height: "60vh" }}
       >
         {/* Beat 1 */}
-        <m.div style={{ opacity: beat1Opacity, y: beat1Y }}>
+        <m.div
+          className="absolute inset-0"
+          style={{ opacity: beat1Opacity, y: beat1Y }}
+        >
           <Beat1 />
         </m.div>
 
         {/* Beat 2 */}
-        <m.div style={{ opacity: beat2Opacity, y: beat2Y }}>
+        <m.div
+          className="absolute inset-0"
+          style={{ opacity: beat2Opacity, y: beat2Y }}
+        >
           <Beat2 />
         </m.div>
 
         {/* Beat 3 */}
-        <m.div style={{ opacity: beat3Opacity, y: beat3Y }}>
+        <m.div
+          className="absolute inset-0"
+          style={{ opacity: beat3Opacity, y: beat3Y }}
+        >
           <Beat3 />
         </m.div>
       </div>

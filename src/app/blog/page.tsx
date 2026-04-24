@@ -10,7 +10,7 @@ import { NewsletterForm } from "@/components/blog/newsletter-form";
 const BASE_URL = "https://shift-rwa.vercel.app";
 
 export const metadata: Metadata = {
-  title: "Blog — SHIFT Finance",
+  title: "Blog",
   description:
     "The SHIFT Signal, Shift Academy, and long-form coverage of tokenized equities, RWAs, and the future of on-chain finance.",
   alternates: { canonical: "/blog" },

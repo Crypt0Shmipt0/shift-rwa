@@ -116,7 +116,9 @@ export function LandingFarm() {
               </div>
             </div>
 
-            {/* Orbiting tiny token chips — CSS-animated orbits */}
+            {/* Orbiting tiny token chips — CSS-animated orbits.
+                Anchor: use negative margins (NOT translate) so the keyframe's
+                transform controls rotation around the parent's center cleanly. */}
             {[
               TOKENS[0].image,
               TOKENS[1].image,
@@ -126,7 +128,7 @@ export function LandingFarm() {
             ].map((img, i) => (
               <div
                 key={i}
-                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 sm:size-12 rounded-full bg-card border border-mint/40 flex items-center justify-center overflow-hidden shadow-[0_0_24px_rgba(38,200,184,0.4)] shift-chip-orbit-${i}`}
+                className={`absolute top-1/2 left-1/2 -ml-5 -mt-5 sm:-ml-6 sm:-mt-6 size-10 sm:size-12 rounded-full bg-card border border-mint/40 flex items-center justify-center overflow-hidden shadow-[0_0_24px_rgba(38,200,184,0.4)] shift-chip-orbit-${i}`}
               >
                 <Image src={img} alt="" width={48} height={48} className="size-full object-cover" />
               </div>
