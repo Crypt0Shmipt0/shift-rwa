@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ShieldOff, Repeat, Layers, Wallet, ArrowLeftRight, Clock } from "lucide-react";
 import { TOKENS } from "@/data/tokens";
 import { TiltCard } from "@/components/motion/tilt-card";
+import { ThesisSequence } from "@/components/landing/thesis-sequence";
 
 const ROW_1 = [
   { icon: Wallet,         label: "Wallet-native",     sub: "SPL tokens you hold in any Solana wallet" },
@@ -37,20 +38,9 @@ export function LandingWhy() {
         </span>
       </h2>
 
-      {/* The problem strip (red) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-16">
-        <ProblemCard
-          icon={<ShieldOff className="h-5 w-5" />}
-          tag="1× spot stocks"
-          title="Boring"
-          body="Tesla moves 1.4% on a typical day. SPY moves 0.8%. For traders coming from crypto volatility, that's not a market — that's a savings account."
-        />
-        <ProblemCard
-          icon={<ShieldOff className="h-5 w-5" />}
-          tag="Perps & margin"
-          title="Liquidating"
-          body="A 3× perp on TSLA gets blown out by a routine 5% wick. Funding rates eat your edge. The brokerage equivalent margin-calls you at the worst moment."
-        />
+      {/* 3-beat thesis sequence — sticky scrollytelling on motion-ok, static on reduced */}
+      <div className="mb-16">
+        <ThesisSequence />
       </div>
 
       {/* Concept tile grid — row 1 */}
@@ -81,25 +71,6 @@ export function LandingWhy() {
   );
 }
 
-function ProblemCard({
-  icon, tag, title, body,
-}: { icon: React.ReactNode; tag: string; title: string; body: string }) {
-  return (
-    <div className="relative overflow-hidden rounded-3xl border border-destructive/25 bg-gradient-to-br from-destructive/10 via-card to-card p-8">
-      <div className="absolute -top-20 -right-20 size-60 rounded-full bg-destructive/10 blur-3xl" />
-      <div className="relative flex items-center gap-3 mb-5">
-        <div className="size-10 rounded-xl bg-destructive/15 border border-destructive/30 flex items-center justify-center text-destructive">
-          {icon}
-        </div>
-        <span className="text-xs font-bold uppercase tracking-wider text-destructive/80">
-          {tag}
-        </span>
-      </div>
-      <div className="relative text-3xl font-bold text-white mb-3">{title}</div>
-      <p className="relative text-sm text-foreground/65 leading-relaxed">{body}</p>
-    </div>
-  );
-}
 
 function ConceptTile({ icon: Icon, label, sub }: { icon: React.ComponentType<{ className?: string }>; label: string; sub: string }) {
   return (
