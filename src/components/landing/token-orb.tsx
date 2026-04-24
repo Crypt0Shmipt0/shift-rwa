@@ -17,59 +17,74 @@ import * as THREE from "three";
 import { TOKENS } from "@/data/tokens";
 import { useMotionOk } from "@/hooks/use-motion-ok";
 
-/** SHIFT token at the center — metallic mint sphere with a subtle emissive core. */
+/** SHIFT mark at the center — transparent-PNG texture on a billboarded plane,
+ * wrapped in additive-blended mint halos so the "orb" glow still reads. */
 function ShiftCore({ pointer }: { pointer: { x: number; y: number } }) {
   const ref = useRef<THREE.Mesh>(null);
+  const logoTexture = useLoader(THREE.TextureLoader, "/brand/shift-mark-white.png");
+  logoTexture.colorSpace = THREE.SRGBColorSpace;
+  logoTexture.anisotropy = 8;
 
-  useFrame((_, delta) => {
+  useFrame(() => {
     if (!ref.current) return;
-    // Constant y-axis rotation + subtle parallax toward the pointer
-    ref.current.rotation.y += delta * 0.35;
-    ref.current.rotation.x = THREE.MathUtils.lerp(
-      ref.current.rotation.x,
-      pointer.y * 0.18,
+    // Subtle parallax tilt toward the pointer — no continuous spin so the
+    // logo stays legible while still feeling "alive".
+    ref.current.rotation.y = THREE.MathUtils.lerp(
+      ref.current.rotation.y,
+      pointer.x * 0.35,
       0.06,
     );
-    ref.current.rotation.z = THREE.MathUtils.lerp(
-      ref.current.rotation.z,
-      -pointer.x * 0.1,
+    ref.current.rotation.x = THREE.MathUtils.lerp(
+      ref.current.rotation.x,
+      -pointer.y * 0.25,
       0.06,
     );
   });
 
   return (
     <group>
-      {/* Volumetric glow — additive sprite halos */}
+      {/* Volumetric glow halos — three nested additive spheres replace the
+       * former solid mint orb, keeping the "energy core" feel without the
+       * cyan ball that read as an unbranded placeholder. */}
       <mesh>
-        <sphereGeometry args={[1.7, 32, 32]} />
+        <sphereGeometry args={[2.0, 32, 32]} />
         <meshBasicMaterial
           color="#26C8B8"
           transparent
-          opacity={0.08}
+          opacity={0.05}
           depthWrite={false}
           blending={THREE.AdditiveBlending}
         />
       </mesh>
       <mesh>
-        <sphereGeometry args={[1.32, 32, 32]} />
+        <sphereGeometry args={[1.55, 32, 32]} />
         <meshBasicMaterial
           color="#26C8B8"
           transparent
-          opacity={0.14}
+          opacity={0.11}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+      <mesh>
+        <sphereGeometry args={[1.2, 32, 32]} />
+        <meshBasicMaterial
+          color="#26C8B8"
+          transparent
+          opacity={0.2}
           depthWrite={false}
           blending={THREE.AdditiveBlending}
         />
       </mesh>
 
-      {/* Core metallic mint sphere */}
-      <mesh ref={ref} castShadow receiveShadow>
-        <sphereGeometry args={[1, 96, 96]} />
-        <meshStandardMaterial
-          color="#26C8B8"
-          metalness={0.85}
-          roughness={0.22}
-          emissive="#0A4A44"
-          emissiveIntensity={0.55}
+      {/* SHIFT mark plane — billboarded to camera, parallax-tilted */}
+      <mesh ref={ref}>
+        <planeGeometry args={[2.2, 2.2]} />
+        <meshBasicMaterial
+          map={logoTexture}
+          transparent
+          depthWrite={false}
+          toneMapped={false}
         />
       </mesh>
     </group>
@@ -226,20 +241,19 @@ function CssFallback() {
         />
       ))}
 
-      {/* Center mint orb */}
+      {/* Center SHIFT mark — mint glow halos behind, no solid orb */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative size-48 md:size-56">
-          <div className="absolute inset-0 rounded-full bg-mint blur-3xl opacity-60" />
-          <div className="absolute inset-2 rounded-full bg-gradient-to-br from-mint via-[#1FA79B] to-[#07638C] shadow-[0_0_120px_60px_rgba(38,200,184,0.45),inset_0_-20px_60px_rgba(0,0,0,0.4)]" />
+          <div className="absolute inset-0 rounded-full bg-mint/50 blur-3xl" />
+          <div className="absolute inset-4 rounded-full bg-mint/25 blur-2xl" />
           <div className="absolute inset-0 flex items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/shift-mark-white.png"
               alt="SHIFT"
-              className="w-3/5 h-auto opacity-95 drop-shadow-2xl"
+              className="w-3/4 h-auto drop-shadow-[0_0_24px_rgba(38,200,184,0.6)]"
             />
           </div>
-          <div className="absolute inset-2 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
         </div>
       </div>
 
