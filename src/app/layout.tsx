@@ -5,6 +5,8 @@ import { TopNav } from "@/components/nav/top-nav";
 import { Footer } from "@/components/nav/footer";
 import { Providers } from "@/components/providers";
 import { WelcomeModal } from "@/components/onboarding/welcome-modal";
+import { LazyMotionProvider } from "@/components/motion/lazy-motion-provider";
+import { RouteProgress } from "@/components/motion/route-progress";
 
 const grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -131,12 +133,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`dark ${grotesk.variable} ${jbMono.variable}`}>
       <body className="min-h-screen flex flex-col">
-        <Providers>
-          <TopNav />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <WelcomeModal />
-        </Providers>
+        <LazyMotionProvider>
+          <Providers>
+            <RouteProgress />
+            <TopNav />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <WelcomeModal />
+          </Providers>
+        </LazyMotionProvider>
       </body>
     </html>
   );
