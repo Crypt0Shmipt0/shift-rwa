@@ -5,13 +5,34 @@ import Image from "next/image";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { TOKENS } from "@/data/tokens";
 import { CountUp } from "@/components/motion/count-up";
+import { useRef } from "react";
+import { m, useScroll, useTransform } from "motion/react";
+import { useMotionOk } from "@/hooks/use-motion-ok";
 
 export function LandingFarm() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const motionOk = useMotionOk();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Parallax: translate up to 20% of blob height (1100px * 0.2 = 220px)
+  const blobY = useTransform(scrollYProgress, [0, 1], [110, -110]);
+
   return (
-    <section className="relative overflow-hidden border-y border-border/60">
+    <section ref={sectionRef} className="relative overflow-hidden border-y border-border/60">
       {/* Mint atmospheric backdrop */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/2 size-[1100px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,_rgba(38,200,184,0.18)_0%,_rgba(38,200,184,0.05)_30%,_transparent_60%)]" />
+        {motionOk ? (
+          <m.div
+            className="absolute left-1/2 top-1/2 size-[1100px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,_rgba(38,200,184,0.18)_0%,_rgba(38,200,184,0.05)_30%,_transparent_60%)]"
+            style={{ y: blobY }}
+          />
+        ) : (
+          <div className="absolute left-1/2 top-1/2 size-[1100px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,_rgba(38,200,184,0.18)_0%,_rgba(38,200,184,0.05)_30%,_transparent_60%)]" />
+        )}
         <div
           className="absolute inset-0 opacity-[0.08]"
           style={{

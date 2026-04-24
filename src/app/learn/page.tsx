@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BookOpen, FileText, ArrowUpRight, ShieldCheck, CircleCheck, Coins, ArrowLeftRight, ArrowUpFromLine } from "lucide-react";
+import { ScrollProgress } from "@/components/motion/scroll-progress";
 
 import type { Metadata } from "next";
 
@@ -53,6 +54,8 @@ const FAQ = [
 
 export default function LearnPage() {
   return (
+    <>
+    <ScrollProgress />
     <div className="mx-auto max-w-[1100px] px-6 lg:px-[72px] py-10">
       {/* Hero */}
       <div className="mb-12 max-w-2xl">
@@ -183,5 +186,6 @@ export default function LearnPage() {
         </div>
       </Card>
     </div>
+    </>
   );
 }
