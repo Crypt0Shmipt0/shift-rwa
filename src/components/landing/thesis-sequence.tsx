@@ -14,6 +14,7 @@
  */
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Zap, ShieldOff, TrendingUp, RotateCcw } from "lucide-react";
 import { m, AnimatePresence } from "motion/react";
 import { useMotionOk } from "@/hooks/use-motion-ok";
@@ -22,7 +23,6 @@ import { useMotionOk } from "@/hooks/use-motion-ok";
 const MINT = "#26C8B8";
 const MINT_SOFT = "#14A6C8";
 const DANGER = "#FF4D6A";
-const MIDNIGHT = "#021C24";
 
 /* ── Chart geometry ──────────────────────────────────────────────────────── */
 const W = 1000;
@@ -98,14 +98,22 @@ export function ThesisSequence() {
                 <span className="size-1.5 rounded-full bg-mint animate-pulse" />
                 SHIFT · 3× Long · TSL3L
               </div>
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-[-0.03em] leading-[1.0]">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-[-0.03em] leading-[1.0] flex items-center justify-center gap-2 md:gap-3">
+                <Image
+                  src="/brand/shift-lockup-gradient-dark.png"
+                  alt="SHIFT"
+                  width={480}
+                  height={120}
+                  priority={false}
+                  className="h-[0.75em] w-auto drop-shadow-[0_0_24px_rgba(38,200,184,0.35)]"
+                />
                 <span
                   className="bg-clip-text text-transparent"
                   style={{
                     backgroundImage: `linear-gradient(135deg, ${MINT} 0%, ${MINT_SOFT} 100%)`,
                   }}
                 >
-                  SHIFT It.
+                  It.
                 </span>
               </h2>
             </m.div>
@@ -271,32 +279,6 @@ export function ThesisSequence() {
               />
             )}
 
-            {/* +224% SAFE flag at the top */}
-            <g transform="translate(820, 30)">
-              <rect x="0" y="0" width="160" height="44" rx="6" fill={MINT} />
-              <rect
-                x="0"
-                y="0"
-                width="160"
-                height="44"
-                rx="6"
-                fill="none"
-                stroke="rgba(255,255,255,0.25)"
-                strokeWidth="1"
-              />
-              <text
-                x="80"
-                y="29"
-                textAnchor="middle"
-                fill={MIDNIGHT}
-                fontSize="18"
-                fontWeight="800"
-                fontFamily="ui-monospace,SFMono-Regular,monospace"
-                letterSpacing="1.5"
-              >
-                +224% SAFE
-              </text>
-            </g>
           </m.g>
         </svg>
 
