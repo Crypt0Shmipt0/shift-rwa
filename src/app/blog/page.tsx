@@ -144,6 +144,7 @@ async function BlogContent({
                 fill
                 sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                style={{ viewTransitionName: `blog-thumb-${post.slug}` }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A2730] via-[#0A2730]/20 to-transparent" />
               <span
@@ -155,7 +156,10 @@ async function BlogContent({
 
             {/* Content */}
             <div className="flex flex-col flex-1 p-6">
-              <h2 className="text-white font-semibold text-lg leading-snug mb-2 group-hover:text-mint transition-colors line-clamp-2">
+              <h2
+                className="text-white font-semibold text-lg leading-snug mb-2 group-hover:text-mint transition-colors line-clamp-2"
+                style={{ viewTransitionName: `blog-title-${post.slug}` }}
+              >
                 {post.title}
               </h2>
               {post.subtitle && (

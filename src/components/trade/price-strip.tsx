@@ -51,8 +51,14 @@ export function PriceStrip({
         width={32}
         height={32}
         className="size-8 rounded-full object-cover shrink-0"
+        style={{ viewTransitionName: `asset-${symbol.toLowerCase()}` }}
       />
-      <span className="font-semibold text-foreground tracking-tight">{symbol}</span>
+      <span
+        className="font-semibold text-foreground tracking-tight"
+        style={{ viewTransitionName: `asset-ticker-${symbol.toLowerCase()}` }}
+      >
+        {symbol}
+      </span>
       <span className="font-mono tabular-nums text-foreground text-lg leading-none">
         {formattedPrice}
       </span>

@@ -127,6 +127,22 @@
     @apply font-sans;
     color-scheme: dark;
   }
+
+  /* ── View Transitions — Next.js 16 native ─────────────────────────────── */
+  @view-transition { navigation: auto; }
+
+  ::view-transition-old(root) { animation: 200ms ease both vt-fade-out; }
+  ::view-transition-new(root) { animation: 300ms ease both vt-fade-in; }
+  @keyframes vt-fade-out { to { opacity: 0; } }
+  @keyframes vt-fade-in  { from { opacity: 0; } }
+
+  /* Shared-element morphs — asset tokens (markets ↔ trade) */
+  ::view-transition-old(asset-*),
+  ::view-transition-new(asset-*) { animation-duration: 400ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(*), ::view-transition-new(*) { animation: none; }
+  }
 }
 
 /* ─── SHIFT Motion keyframes ────────────────────────────────────────────────

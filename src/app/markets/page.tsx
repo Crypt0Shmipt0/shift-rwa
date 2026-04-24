@@ -64,10 +64,17 @@ export default function MarketsPage() {
                   className="flex flex-col md:flex-row md:items-center gap-2 md:gap-0 px-6 py-4 hover:bg-secondary/30 transition-colors group"
                 >
                   <div className="flex-1 min-w-0 flex items-center gap-3">
-                    <Image src={a.image} alt={a.symbol} width={40} height={40} className="size-10 rounded-full object-cover shrink-0" />
+                    <Image
+                      src={a.image}
+                      alt={a.symbol}
+                      width={40}
+                      height={40}
+                      className="size-10 rounded-full object-cover shrink-0"
+                      style={{ viewTransitionName: `asset-${a.symbol.toLowerCase()}` }}
+                    />
                     <div className="min-w-0">
                       <div className="font-semibold truncate flex items-center gap-2">
-                        {a.symbol}
+                        <span style={{ viewTransitionName: `asset-ticker-${a.symbol.toLowerCase()}` }}>{a.symbol}</span>
                         <span className="text-[10px] font-bold text-mint bg-mint/10 border border-mint/30 px-1.5 py-0.5 rounded">
                           {a.leverage > 0 ? `${a.leverage}×` : `${Math.abs(a.leverage)}× short`}
                         </span>

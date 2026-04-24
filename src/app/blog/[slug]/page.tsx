@@ -121,7 +121,10 @@ export default async function BlogPostPage({
         >
           {TAG_LABELS[post.tag]}
         </span>
-        <h1 className="text-3xl md:text-[2.5rem] font-bold text-white tracking-tight leading-[1.15] mb-4">
+        <h1
+          className="text-3xl md:text-[2.5rem] font-bold text-white tracking-tight leading-[1.15] mb-4"
+          style={{ viewTransitionName: `blog-title-${post.slug}` }}
+        >
           {post.title}
         </h1>
         {post.subtitle && (
@@ -146,6 +149,7 @@ export default async function BlogPostPage({
             priority
             sizes="(min-width: 1024px) 960px, 100vw"
             className="object-cover"
+            style={{ viewTransitionName: `blog-thumb-${post.slug}` }}
           />
         </div>
       </div>
