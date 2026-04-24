@@ -43,43 +43,9 @@ function ShiftCore({ pointer }: { pointer: { x: number; y: number } }) {
 
   return (
     <group>
-      {/* Volumetric glow halos — three nested additive spheres replace the
-       * former solid mint orb, keeping the "energy core" feel without the
-       * cyan ball that read as an unbranded placeholder. */}
-      <mesh>
-        <sphereGeometry args={[2.0, 32, 32]} />
-        <meshBasicMaterial
-          color="#26C8B8"
-          transparent
-          opacity={0.05}
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
-      <mesh>
-        <sphereGeometry args={[1.55, 32, 32]} />
-        <meshBasicMaterial
-          color="#26C8B8"
-          transparent
-          opacity={0.11}
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
-      <mesh>
-        <sphereGeometry args={[1.2, 32, 32]} />
-        <meshBasicMaterial
-          color="#26C8B8"
-          transparent
-          opacity={0.2}
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
-
-      {/* SHIFT mark plane — billboarded to camera, parallax-tilted */}
+      {/* SHIFT mark — the center element. Transparent plane, no orb behind. */}
       <mesh ref={ref}>
-        <planeGeometry args={[2.2, 2.2]} />
+        <planeGeometry args={[2.8, 2.8]} />
         <meshBasicMaterial
           map={logoTexture}
           transparent
@@ -241,20 +207,14 @@ function CssFallback() {
         />
       ))}
 
-      {/* Center SHIFT mark — mint glow halos behind, no solid orb */}
+      {/* Center SHIFT mark — no orb, no halos, just the symbol */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative size-48 md:size-56">
-          <div className="absolute inset-0 rounded-full bg-mint/50 blur-3xl" />
-          <div className="absolute inset-4 rounded-full bg-mint/25 blur-2xl" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/shift-mark-white.png"
-              alt="SHIFT"
-              className="w-3/4 h-auto drop-shadow-[0_0_24px_rgba(38,200,184,0.6)]"
-            />
-          </div>
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/shift-mark-white.png"
+          alt="SHIFT"
+          className="w-48 md:w-56 h-auto drop-shadow-[0_0_32px_rgba(38,200,184,0.55)]"
+        />
       </div>
 
       {/* CSS orbiting chips */}

@@ -1,12 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { ArrowRight } from "lucide-react";
 import { CountUp } from "@/components/motion/count-up";
 import { useRef } from "react";
 import { m, useScroll, useTransform } from "motion/react";
 import { useMotionOk } from "@/hooks/use-motion-ok";
+
+// Lazy-load the WebGL orb client-side only — keeps it out of the initial bundle.
+const LandingTokenOrb = dynamic(
+  () => import("./token-orb").then((m) => m.LandingTokenOrb),
+  { ssr: false },
+);
 
 export function LandingFarm() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -80,39 +86,10 @@ export function LandingFarm() {
             </div>
           </div>
 
-          {/* RIGHT — SHIFT lockup with mint glow halo + gentle idle float */}
-          <div className="relative aspect-square max-w-[420px] sm:max-w-[520px] mx-auto w-full flex items-center justify-center">
-            {/* Soft mint glow backdrop — NOT a solid orb, just atmospheric light */}
-            <div className="absolute inset-[12%] rounded-full bg-mint/20 blur-3xl" />
-            <div className="absolute inset-[28%] rounded-full bg-mint/15 blur-2xl" />
-
-            {motionOk ? (
-              <m.div
-                className="relative z-10 w-4/5 flex items-center justify-center"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <Image
-                  src="/brand/shift-lockup-gradient-dark.png"
-                  alt="SHIFT"
-                  width={800}
-                  height={240}
-                  className="w-full h-auto drop-shadow-[0_0_40px_rgba(38,200,184,0.55)]"
-                  priority={false}
-                />
-              </m.div>
-            ) : (
-              <div className="relative z-10 w-4/5 flex items-center justify-center">
-                <Image
-                  src="/brand/shift-lockup-gradient-dark.png"
-                  alt="SHIFT"
-                  width={800}
-                  height={240}
-                  className="w-full h-auto drop-shadow-[0_0_40px_rgba(38,200,184,0.55)]"
-                  priority={false}
-                />
-              </div>
-            )}
+          {/* RIGHT — WebGL 3D scene with SHIFT symbol at center surrounded
+              by orbiting token chips. No more solid cyan sphere. */}
+          <div className="relative aspect-square max-w-[420px] sm:max-w-[520px] mx-auto w-full">
+            <LandingTokenOrb />
           </div>
         </div>
       </div>
