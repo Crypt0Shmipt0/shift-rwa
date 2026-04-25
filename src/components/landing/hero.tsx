@@ -1,11 +1,19 @@
 import Link from "next/link";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
+import { Magnetic } from "@/components/motion/magnetic";
+// HeroScene is a "use client" component — Next.js automatically code-splits it
+// into its own client chunk. Internally it gates on desktop + WebGL +
+// motion-ok and React.lazy's the heavy three.js + postprocessing imports, so
+// on mobile / reduced-motion the CSS gradient + grid below remain as the
+// zero-CLS fallback and the heavy bundle never loads.
+import { HeroScene } from "./hero-scene";
 
 export function LandingHero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Background gradient + grid */}
+      {/* Background gradient + grid (CSS — always rendered, fallback for
+          mobile / reduced-motion / no-WebGL). */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(38,200,184,0.18)_0%,_transparent_60%)]" />
         <div
@@ -15,6 +23,32 @@ export function LandingHero() {
               "linear-gradient(rgba(38,200,184,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(38,200,184,0.08) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
             maskImage: "radial-gradient(ellipse at top, black 0%, transparent 70%)",
+          }}
+        />
+
+        {/* WebGL parallax depth scene — desktop + motion-ok only. Renders
+            ABOVE the CSS gradient (still inside the -z-10 stack) so the
+            hero copy stays on top. */}
+        <div className="absolute inset-0 overflow-hidden">
+          <HeroScene />
+        </div>
+
+        {/* Legibility scrim — soft radial dark mask at the center where the
+            H1 sits. Keeps mint glow loud at the edges, calms the busy grid
+            behind the headline. */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 55% at 50% 45%, rgba(2,28,36,0.78) 0%, rgba(2,28,36,0.55) 35%, rgba(2,28,36,0.0) 75%)",
+          }}
+        />
+        {/* Bottom-edge fade so the scene blends into the next section */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(2,28,36,0) 0%, rgba(2,28,36,1) 100%)",
           }}
         />
       </div>
@@ -50,19 +84,23 @@ export function LandingHero() {
 
         <Reveal delay={0.2}>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            href="/app"
-            className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-base px-6 h-12 rounded-full hover:bg-mint/90 active:-translate-y-px transition-all shadow-[0_0_30px_rgba(38,200,184,0.25)]"
-          >
-            Launch App
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
-          <Link
-            href="/learn"
-            className="inline-flex items-center gap-2 border border-border bg-secondary/40 backdrop-blur text-foreground font-medium text-base px-6 h-12 rounded-full hover:border-mint/40 transition-colors"
-          >
-            How it works
-          </Link>
+          <Magnetic strength={0.35}>
+            <Link
+              href="/app"
+              className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-base px-6 h-12 rounded-full hover:bg-mint/90 active:-translate-y-px transition-all shadow-[0_0_30px_rgba(38,200,184,0.25)]"
+            >
+              Launch App
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          </Magnetic>
+          <Magnetic strength={0.25} noGlow>
+            <Link
+              href="/learn"
+              className="inline-flex items-center gap-2 border border-border bg-secondary/40 backdrop-blur text-foreground font-medium text-base px-6 h-12 rounded-full hover:border-mint/40 transition-colors"
+            >
+              How it works
+            </Link>
+          </Magnetic>
         </div>
         </Reveal>
 

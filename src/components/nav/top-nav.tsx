@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { m } from "motion/react";
 import { useMotionOk } from "@/hooks/use-motion-ok";
+import { Magnetic } from "@/components/motion/magnetic";
 
 const LINKS = [
   { href: "/markets", label: "Markets", match: ["/trade", "/markets"] },
@@ -65,12 +66,14 @@ export function TopNav() {
           </nav>
         </div>
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          <Link
-            href="/app"
-            className="hidden md:inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-mint text-primary-foreground text-sm font-semibold hover:bg-mint/90 transition-colors"
-          >
-            Launch App
-          </Link>
+          <Magnetic strength={0.3} className="hidden md:inline-block">
+            <Link
+              href="/app"
+              className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-mint text-primary-foreground text-sm font-semibold hover:bg-mint/90 transition-colors"
+            >
+              Launch App
+            </Link>
+          </Magnetic>
           {/* Mobile hamburger */}
           <button
             type="button"

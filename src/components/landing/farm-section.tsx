@@ -4,6 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ArrowRight } from "lucide-react";
 import { CountUp } from "@/components/motion/count-up";
+import { Magnetic } from "@/components/motion/magnetic";
 import { useRef } from "react";
 import { m, useScroll, useTransform } from "motion/react";
 import { useMotionOk } from "@/hooks/use-motion-ok";
@@ -69,13 +70,15 @@ export function LandingFarm() {
               foundation.
             </p>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-10">
-              <Link
-                href="/rewards"
-                className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-base px-6 h-12 rounded-full hover:bg-mint/90 active:-translate-y-px transition-all shadow-[0_0_30px_rgba(38,200,184,0.3)]"
-              >
-                Join the rewards program
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
+              <Magnetic strength={0.35}>
+                <Link
+                  href="/rewards"
+                  className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-base px-6 h-12 rounded-full hover:bg-mint/90 active:-translate-y-px transition-all shadow-[0_0_30px_rgba(38,200,184,0.3)]"
+                >
+                  Join the rewards program
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+              </Magnetic>
             </div>
 
             {/* Stat row */}

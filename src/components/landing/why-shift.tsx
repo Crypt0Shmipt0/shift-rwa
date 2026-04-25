@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ShieldOff, Repeat, Layers, Wallet, ArrowLeftRight, Clock } from "lucide-react";
 import { TOKENS } from "@/data/tokens";
 import { TiltCard } from "@/components/motion/tilt-card";
+import { SpotlightCard } from "@/components/motion/spotlight-card";
 import { ThesisSequence } from "@/components/landing/thesis-sequence";
 
 const ROW_1 = [
@@ -101,7 +102,7 @@ function TokenTile({ ticker, img, sub }: { ticker: string; img: string; sub: str
 
 function FeatureCard({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-mint/30 bg-gradient-to-br from-mint/10 via-card to-card p-5 backdrop-blur">
+    <SpotlightCard className="rounded-2xl border border-mint/30 bg-gradient-to-br from-mint/10 via-card to-card p-5 backdrop-blur">
       <div className="absolute -top-10 -right-10 size-28 rounded-full bg-mint/10 blur-2xl" />
       <div className="relative">
         <div className="size-9 rounded-lg bg-mint/20 border border-mint/40 flex items-center justify-center text-mint mb-3">
@@ -110,6 +111,6 @@ function FeatureCard({ icon, title, body }: { icon: React.ReactNode; title: stri
         <div className="font-bold text-white text-lg mb-1.5 tracking-tight">{title}</div>
         <p className="text-sm text-foreground/70 leading-relaxed">{body}</p>
       </div>
-    </div>
+    </SpotlightCard>
   );
 }

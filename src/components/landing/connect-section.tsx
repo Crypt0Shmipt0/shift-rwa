@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Wallet, Zap, ShieldCheck, TrendingUp } from "lucide-react";
+import { Magnetic } from "@/components/motion/magnetic";
+// Lazy GLSL shader: lives behind a client-component wrapper so this Server
+// Component file can stay server-rendered while still client-loading the
+// heavy three + @react-three/fiber chunk.
+import AmbientGridShader from "@/components/motion/ambient-grid-shader-lazy";
 
 const FEATURES = [
   {
@@ -29,8 +34,23 @@ const HOLDINGS = [
 
 export function LandingConnect() {
   return (
-    <section className="relative mx-auto max-w-[1200px] px-6 py-24">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-16 items-center">
+    <section className="relative mx-auto max-w-[1200px] px-6 py-24 overflow-hidden">
+      {/* Ambient GLSL backdrop — sits behind all content. Mask edges with a
+       * radial fade so the shader doesn't fight the surrounding sections. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 pointer-events-none"
+        style={{
+          maskImage:
+            "radial-gradient(ellipse at center, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 85%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at center, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 85%)",
+        }}
+      >
+        <AmbientGridShader opacity={0.7} />
+      </div>
+
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-16 items-center">
         {/* Phone mockup */}
         <div className="relative flex justify-center">
           <div className="absolute inset-0 -z-10 flex items-center justify-center">
@@ -166,13 +186,15 @@ export function LandingConnect() {
             })}
           </ul>
 
-          <Link
-            href="/app"
-            className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-base px-6 h-12 rounded-full hover:bg-mint/90 transition-colors shadow-[0_0_30px_rgba(38,200,184,0.3)]"
-          >
-            Connect wallet
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
+          <Magnetic strength={0.35}>
+            <Link
+              href="/app"
+              className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-base px-6 h-12 rounded-full hover:bg-mint/90 transition-colors shadow-[0_0_30px_rgba(38,200,184,0.3)]"
+            >
+              Connect wallet
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          </Magnetic>
         </div>
       </div>
     </section>
