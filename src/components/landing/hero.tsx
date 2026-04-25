@@ -2,12 +2,14 @@ import Link from "next/link";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { Magnetic } from "@/components/motion/magnetic";
-// HeroScene is a "use client" component — Next.js automatically code-splits it
-// into its own client chunk. Internally it gates on desktop + WebGL +
-// motion-ok and React.lazy's the heavy three.js + postprocessing imports, so
-// on mobile / reduced-motion the CSS gradient + grid below remain as the
-// zero-CLS fallback and the heavy bundle never loads.
-import { HeroScene } from "./hero-scene";
+// HeroScene is loaded via a client-side `next/dynamic({ ssr: false })` shim
+// (`./hero-scene-lazy`) so three.js + @react-three/fiber +
+// @react-three/postprocessing land in their own deferred chunk instead of
+// the landing route's initial client bundle. On mobile / reduced-motion /
+// no-WebGL the inner component renders nothing, so the CSS gradient + grid
+// below stay as the zero-CLS SSR fallback and the heavy WebGL bundle never
+// downloads at all on phones.
+import { HeroScene } from "./hero-scene-lazy";
 
 export function LandingHero() {
   return (
