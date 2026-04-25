@@ -23,7 +23,6 @@ export const BACKERS: readonly Partner[] = [
   { slug: "hellolabs", name: "Hello Labs",   logo: "/partners/backers/hellolabs.png", url: "https://hellolabs.xyz", label: "Founder" },
   { slug: "cvex",      name: "CVEX",         logo: "/partners/backers/cvex.png",      url: "https://cvex.trade",    label: "Founder" },
   { slug: "kraken",    name: "Kraken",       logo: "/partners/backers/kraken.png",    url: "https://kraken.com",    label: "US CEO" },
-  { slug: "chaingpt",  name: "ChainGPT",     logo: "/partners/backers/chaingpt.png",  url: "https://chaingpt.org" },
 ] as const;
 
 export const INTEGRATIONS: readonly Partner[] = [
