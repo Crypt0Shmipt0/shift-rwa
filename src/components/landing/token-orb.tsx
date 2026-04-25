@@ -9,7 +9,7 @@
  * render a static CSS version matching the previous orbital chip layout.
  */
 
-import { Component, Suspense, useMemo, useRef, useState, type ReactNode } from "react";
+import { Component, Suspense, useCallback, useMemo, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { Canvas, useFrame, useLoader, type ThreeEvent } from "@react-three/fiber";
 import { Environment, Float } from "@react-three/drei";
@@ -89,6 +89,7 @@ function TokenChip({
   phase,
   tilt,
   size = 0.42,
+  onPop,
 }: {
   texture: THREE.Texture;
   radius: number;
@@ -96,19 +97,47 @@ function TokenChip({
   phase: number;
   tilt: number;
   size?: number;
+  onPop?: () => void;
 }) {
   const ref = useRef<THREE.Group>(null);
   const faceRef = useRef<THREE.Group>(null);
+  const popStartRef = useRef<number | null>(null);
+  const poppingRef = useRef(false);
+  const [removed, setRemoved] = useState(false);
+  const POP_DURATION = 0.35;
 
   useFrame(({ clock, camera }) => {
+    // Orbit the chip around the SHIFT mark
     const t = clock.getElapsedTime() * speed + phase;
     const x = Math.cos(t) * radius;
     const z = Math.sin(t) * radius;
     const y = Math.sin(t + phase) * tilt;
     if (ref.current) ref.current.position.set(x, y, z);
-    // Billboard the face so the chip + halo always look at the camera
     if (faceRef.current) faceRef.current.lookAt(camera.position);
+
+    // Pop animation: rebase the start time on the first frame after click
+    // so we use the R3F clock consistently rather than mixing time sources.
+    if (poppingRef.current && popStartRef.current === null) {
+      popStartRef.current = clock.getElapsedTime();
+    }
+    if (popStartRef.current !== null && ref.current) {
+      const elapsed = clock.getElapsedTime() - popStartRef.current;
+      const p = Math.min(elapsed / POP_DURATION, 1);
+      // Quick burst up then collapse to zero
+      const s = p < 0.4 ? 1 + p * 1.5 : Math.max(0, 1.6 - (p - 0.4) * 2.7);
+      ref.current.scale.setScalar(s);
+      if (p >= 1) setRemoved(true);
+    }
   });
+
+  if (removed) return null;
+
+  const handlePop = (e: ThreeEvent<PointerEvent>) => {
+    e.stopPropagation();
+    if (poppingRef.current) return;
+    poppingRef.current = true;
+    onPop?.();
+  };
 
   return (
     <group ref={ref}>
@@ -124,13 +153,13 @@ function TokenChip({
             blending={THREE.AdditiveBlending}
           />
         </mesh>
-        {/* Token icon disc */}
-        <mesh>
+        {/* Token icon disc — pointer target */}
+        <mesh onPointerDown={handlePop}>
           <circleGeometry args={[size, 48]} />
           <meshBasicMaterial map={texture} transparent depthWrite={false} />
         </mesh>
       </group>
-      {/* Soft mint ring outline (orbits the chip in 3D, not billboarded) */}
+      {/* Soft mint ring outline */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[size * 1.05, 0.015, 16, 48]} />
         <meshBasicMaterial color="#26C8B8" transparent opacity={0.55} />
@@ -174,6 +203,36 @@ function OrbitingChips() {
     [textures],
   );
 
+  // "Pop the tokens" easter egg: tap each orbiting chip; popping all of
+  // them within 12 seconds dispatches `shift:open-runner` to launch the
+  // SHIFT Runner overlay. Resets after 12s of no progress.
+  const poppedRef = useRef<Set<number>>(new Set());
+  const lastPopRef = useRef<number>(0);
+  const firedRef = useRef(false);
+
+  const handlePop = useCallback(
+    (i: number) => {
+      const now = Date.now();
+      // Reset if too long between pops
+      if (lastPopRef.current && now - lastPopRef.current > 12000) {
+        poppedRef.current = new Set();
+        firedRef.current = false;
+      }
+      lastPopRef.current = now;
+      poppedRef.current.add(i);
+
+      if (
+        poppedRef.current.size >= chips.length &&
+        !firedRef.current &&
+        typeof window !== "undefined"
+      ) {
+        firedRef.current = true;
+        window.dispatchEvent(new CustomEvent("shift:open-runner"));
+      }
+    },
+    [chips.length],
+  );
+
   return (
     <>
       {chips.map((c, i) => (
@@ -184,6 +243,7 @@ function OrbitingChips() {
           speed={c.speed}
           phase={c.phase}
           tilt={c.tilt}
+          onPop={() => handlePop(i)}
         />
       ))}
     </>
