@@ -21,7 +21,7 @@ import { useMotionOk } from "@/hooks/use-motion-ok";
  * wrapped in additive-blended mint halos so the "orb" glow still reads. */
 function ShiftCore({ pointer }: { pointer: { x: number; y: number } }) {
   const ref = useRef<THREE.Mesh>(null);
-  const logoTexture = useLoader(THREE.TextureLoader, "/brand/shift-mark-white.png");
+  const logoTexture = useLoader(THREE.TextureLoader, "/brand/shift-mark-gradient.png");
   logoTexture.colorSpace = THREE.SRGBColorSpace;
   logoTexture.anisotropy = 8;
 
@@ -67,9 +67,9 @@ function ShiftCore({ pointer }: { pointer: { x: number; y: number } }) {
         />
       </mesh>
 
-      {/* SHIFT mark — the center subject */}
+      {/* SHIFT mark — the center subject (gradient logomark, 70% scale) */}
       <mesh ref={ref}>
-        <planeGeometry args={[2.8, 2.8]} />
+        <planeGeometry args={[1.96, 1.96]} />
         <meshBasicMaterial
           map={logoTexture}
           transparent
@@ -248,9 +248,9 @@ function CssFallback() {
       <div className="absolute inset-0 flex items-center justify-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/brand/shift-mark-white.png"
+          src="/brand/shift-mark-gradient.png"
           alt="SHIFT"
-          className="w-48 md:w-56 h-auto drop-shadow-[0_0_32px_rgba(38,200,184,0.55)]"
+          className="w-[8.4rem] md:w-[9.8rem] h-auto drop-shadow-[0_0_32px_rgba(38,200,184,0.55)]"
         />
       </div>
 
