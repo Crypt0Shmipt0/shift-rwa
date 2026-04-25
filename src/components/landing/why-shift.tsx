@@ -41,7 +41,7 @@ export function LandingWhy() {
       </div>
 
       {/* Concept tile grid — row 1 */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-5">
         {ROW_1.map((tile) => (
           <TiltCard key={tile.label} maxTilt={6} glare={false}>
             <ConceptTile icon={tile.icon} label={tile.label} sub={tile.sub} />

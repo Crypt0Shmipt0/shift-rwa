@@ -74,7 +74,7 @@ export function TopNav() {
           {/* Mobile hamburger */}
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center size-9 rounded-lg text-foreground/75 hover:text-white hover:bg-secondary/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+            className="md:hidden inline-flex items-center justify-center size-11 -mr-1 rounded-lg text-foreground/75 hover:text-white hover:bg-secondary/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
             aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav"

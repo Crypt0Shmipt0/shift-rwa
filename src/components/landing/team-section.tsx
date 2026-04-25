@@ -89,7 +89,7 @@ function TeamCard({ member }: { member: TeamMember }) {
             {member.credentials.slice(0, 2).map((c) => (
               <span
                 key={c}
-                className="text-[9px] font-medium tracking-tight text-foreground/70 bg-white/[0.04] border border-border/60 rounded-full px-1.5 py-0.5"
+                className="text-[10px] font-medium tracking-tight text-foreground/70 bg-white/[0.04] border border-border/60 rounded-full px-2 py-0.5"
               >
                 {c}
               </span>
@@ -105,14 +105,14 @@ function TeamSocials({ member }: { member: TeamMember }) {
   const displayName = member.namePrefix ? `${member.namePrefix} ${member.name}` : member.name;
   if (!member.linkedin && !member.x) return null;
   return (
-    <div className="flex items-center gap-1.5">
+    <div className="flex items-center gap-0.5 -my-2">
       {member.linkedin && (
         <a
           href={member.linkedin}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${displayName} on LinkedIn`}
-          className="text-foreground/40 hover:text-mint transition-colors"
+          className="inline-flex items-center justify-center size-9 rounded-lg text-foreground/40 hover:text-mint hover:bg-secondary/40 transition-colors"
         >
           <Globe className="h-4 w-4" />
         </a>
@@ -123,7 +123,7 @@ function TeamSocials({ member }: { member: TeamMember }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${displayName} on X`}
-          className="text-foreground/40 hover:text-mint transition-colors"
+          className="inline-flex items-center justify-center size-9 rounded-lg text-foreground/40 hover:text-mint hover:bg-secondary/40 transition-colors"
         >
           <X className="h-4 w-4" />
         </a>

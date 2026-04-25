@@ -113,16 +113,16 @@ export function LandingComparisonTable() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border bg-card">
-                <th className="text-left px-5 py-4 text-foreground/50 font-semibold text-xs uppercase tracking-wider w-[40%]">
+                <th className="text-left px-3 sm:px-5 py-4 text-foreground/50 font-semibold text-xs uppercase tracking-wider w-[40%]">
                   Feature
                 </th>
-                <th className="px-5 py-4 text-center text-foreground/50 font-semibold text-xs uppercase tracking-wider">
+                <th className="px-3 sm:px-5 py-4 text-center text-foreground/50 font-semibold text-xs uppercase tracking-wider">
                   Spot stocks
                 </th>
-                <th className="px-5 py-4 text-center text-foreground/50 font-semibold text-xs uppercase tracking-wider">
+                <th className="px-3 sm:px-5 py-4 text-center text-foreground/50 font-semibold text-xs uppercase tracking-wider">
                   Perps
                 </th>
-                <th className="px-5 py-4 text-center font-semibold text-xs uppercase tracking-wider bg-mint/5 text-mint border-l border-mint/20">
+                <th className="px-3 sm:px-5 py-4 text-center font-semibold text-xs uppercase tracking-wider bg-mint/5 text-mint border-l border-mint/20">
                   SHIFT
                 </th>
               </tr>
@@ -136,7 +136,7 @@ export function LandingComparisonTable() {
                 >
                   <th
                     scope="row"
-                    className="px-5 py-3.5 text-foreground/80 font-medium text-left font-normal"
+                    className="px-3 sm:px-5 py-3.5 text-foreground/80 font-medium text-left font-normal"
                   >
                     {row.tooltip ? (
                       <Tooltip>
@@ -154,13 +154,13 @@ export function LandingComparisonTable() {
                       row.label
                     )}
                   </th>
-                  <td className="px-5 py-3.5 text-center">
+                  <td className="px-3 sm:px-5 py-3.5 text-center">
                     <div className="flex justify-center"><Cell value={row.spot} /></div>
                   </td>
-                  <td className="px-5 py-3.5 text-center">
+                  <td className="px-3 sm:px-5 py-3.5 text-center">
                     <div className="flex justify-center"><Cell value={row.perps} /></div>
                   </td>
-                  <td className="px-5 py-3.5 text-center bg-mint/[0.03] border-l border-mint/20">
+                  <td className="px-3 sm:px-5 py-3.5 text-center bg-mint/[0.03] border-l border-mint/20">
                     <div className="flex justify-center"><Cell value={row.shift} highlight /></div>
                   </td>
                 </tr>

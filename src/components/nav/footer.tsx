@@ -45,9 +45,9 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="size-8 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-mint hover:bg-secondary/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
+                className="size-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-mint hover:bg-secondary/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint"
               >
-                <Icon className="h-3.5 w-3.5" />
+                <Icon className="h-4 w-4" />
               </a>
             ))}
           </div>
@@ -75,10 +75,10 @@ function FooterCol({ title, links }: { title: string; links: { href: string; lab
       <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
         {title}
       </div>
-      <ul className="space-y-2.5">
+      <ul className="space-y-1">
         {links.map((l) => (
           <li key={l.href}>
-            <Link href={l.href} className="text-sm text-foreground/80 hover:text-mint transition-colors">
+            <Link href={l.href} className="block py-2 text-sm text-foreground/80 hover:text-mint transition-colors -ml-1 px-1 rounded">
               {l.label}
             </Link>
           </li>

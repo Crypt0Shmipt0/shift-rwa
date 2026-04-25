@@ -167,14 +167,14 @@ function MemberSocials({ member }: { member: TeamMember }) {
   const displayName = member.namePrefix ? `${member.namePrefix} ${member.name}` : member.name;
   if (!member.linkedin && !member.x) return null;
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-0.5 -my-2">
       {member.linkedin && (
         <a
           href={member.linkedin}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${displayName} on LinkedIn`}
-          className="text-foreground/40 hover:text-mint transition-colors"
+          className="inline-flex items-center justify-center size-9 rounded-lg text-foreground/40 hover:text-mint hover:bg-secondary/40 transition-colors"
         >
           <Globe className="h-4 w-4" />
         </a>
@@ -185,7 +185,7 @@ function MemberSocials({ member }: { member: TeamMember }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${displayName} on X`}
-          className="text-foreground/40 hover:text-mint transition-colors"
+          className="inline-flex items-center justify-center size-9 rounded-lg text-foreground/40 hover:text-mint hover:bg-secondary/40 transition-colors"
         >
           <X className="h-4 w-4" />
         </a>
