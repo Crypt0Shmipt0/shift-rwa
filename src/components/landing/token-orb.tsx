@@ -43,7 +43,31 @@ function ShiftCore({ pointer }: { pointer: { x: number; y: number } }) {
 
   return (
     <group>
-      {/* SHIFT mark — the center element. Transparent plane, no orb behind. */}
+      {/* Halo glow behind the mark — flat camera-facing planes with additive
+       * blending so it reads as light radiating from behind the logo, not as
+       * a 3D ball. Two stacked passes give a soft inner-to-outer falloff. */}
+      <mesh position={[0, 0, -0.4]}>
+        <circleGeometry args={[3.2, 64]} />
+        <meshBasicMaterial
+          color="#26C8B8"
+          transparent
+          opacity={0.06}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+      <mesh position={[0, 0, -0.3]}>
+        <circleGeometry args={[2.0, 64]} />
+        <meshBasicMaterial
+          color="#26C8B8"
+          transparent
+          opacity={0.18}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+
+      {/* SHIFT mark — the center subject */}
       <mesh ref={ref}>
         <planeGeometry args={[2.8, 2.8]} />
         <meshBasicMaterial
@@ -74,7 +98,7 @@ function TokenChip({
   size?: number;
 }) {
   const ref = useRef<THREE.Group>(null);
-  const faceRef = useRef<THREE.Mesh>(null);
+  const faceRef = useRef<THREE.Group>(null);
 
   useFrame(({ clock, camera }) => {
     const t = clock.getElapsedTime() * speed + phase;
@@ -82,18 +106,31 @@ function TokenChip({
     const z = Math.sin(t) * radius;
     const y = Math.sin(t + phase) * tilt;
     if (ref.current) ref.current.position.set(x, y, z);
-    // Billboard the face so the logo always looks at the camera
+    // Billboard the face so the chip + halo always look at the camera
     if (faceRef.current) faceRef.current.lookAt(camera.position);
   });
 
   return (
     <group ref={ref}>
-      <mesh ref={faceRef}>
-        {/* Circular disc */}
-        <circleGeometry args={[size, 48]} />
-        <meshBasicMaterial map={texture} transparent />
-      </mesh>
-      {/* Soft mint ring around the chip */}
+      <group ref={faceRef}>
+        {/* Halo behind chip — additive mint disc */}
+        <mesh position={[0, 0, -0.02]}>
+          <circleGeometry args={[size * 1.9, 48]} />
+          <meshBasicMaterial
+            color="#26C8B8"
+            transparent
+            opacity={0.18}
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+          />
+        </mesh>
+        {/* Token icon disc */}
+        <mesh>
+          <circleGeometry args={[size, 48]} />
+          <meshBasicMaterial map={texture} transparent depthWrite={false} />
+        </mesh>
+      </group>
+      {/* Soft mint ring outline (orbits the chip in 3D, not billboarded) */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[size * 1.05, 0.015, 16, 48]} />
         <meshBasicMaterial color="#26C8B8" transparent opacity={0.55} />
