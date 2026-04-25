@@ -71,35 +71,28 @@ export function LandingWhy() {
 
 function ConceptTile({ icon: Icon, label, sub }: { icon: React.ComponentType<{ className?: string }>; label: string; sub: string }) {
   return (
-    <div className="relative aspect-square rounded-3xl border border-border bg-gradient-to-b from-card to-background p-6 overflow-hidden hover:border-mint/40 transition-colors group">
-      {/* Mint corner glow */}
-      <div className="absolute -bottom-16 -right-16 size-40 rounded-full bg-mint/5 blur-3xl group-hover:bg-mint/10 transition-colors" />
-      <div className="relative h-full flex flex-col items-center justify-between text-center">
-        <div className="flex-1 flex items-center justify-center w-full">
-          <div className="size-14 rounded-2xl bg-mint/10 border border-mint/30 flex items-center justify-center group-hover:bg-mint/20 transition-colors">
-            <Icon className="h-7 w-7 text-mint" />
-          </div>
-        </div>
-        <div className="mt-4">
-          <div className="text-sm font-semibold text-white">{label}</div>
-          <div className="text-xs text-muted-foreground mt-1">{sub}</div>
-        </div>
+    <div className="relative rounded-2xl border border-border bg-gradient-to-b from-card to-background p-5 overflow-hidden hover:border-mint/40 transition-colors group flex items-center gap-4 min-h-[112px]">
+      <div className="absolute -bottom-12 -right-12 size-32 rounded-full bg-mint/5 blur-3xl group-hover:bg-mint/10 transition-colors" />
+      <div className="relative size-11 rounded-xl bg-mint/10 border border-mint/30 flex items-center justify-center shrink-0 group-hover:bg-mint/20 transition-colors">
+        <Icon className="h-5 w-5 text-mint" />
       </div>
-      {/* Mint border accent on hover */}
-      <div className="absolute inset-0 rounded-3xl border border-mint/0 group-hover:border-mint/30 transition-colors pointer-events-none" />
+      <div className="relative">
+        <div className="text-sm font-semibold text-white leading-tight">{label}</div>
+        <div className="text-xs text-muted-foreground mt-1 leading-snug">{sub}</div>
+      </div>
     </div>
   );
 }
 
 function TokenTile({ ticker, img, sub }: { ticker: string; img: string; sub: string }) {
   return (
-    <div className="relative aspect-square rounded-3xl border border-mint/20 bg-gradient-to-br from-mint/[0.04] via-card to-card p-6 overflow-hidden hover:border-mint/50 transition-colors group">
-      <div className="absolute -bottom-20 -right-20 size-48 rounded-full bg-mint/8 blur-3xl group-hover:bg-mint/15 transition-colors" />
-      <div className="relative h-full flex flex-col items-center justify-center text-center gap-4">
-        <Image src={img} alt={ticker} width={96} height={96} className="size-20 md:size-24 rounded-full object-cover drop-shadow-[0_0_30px_rgba(38,200,184,0.4)]" />
+    <div className="relative rounded-2xl border border-mint/20 bg-gradient-to-br from-mint/[0.04] via-card to-card p-4 overflow-hidden hover:border-mint/50 transition-colors group">
+      <div className="absolute -bottom-12 -right-12 size-32 rounded-full bg-mint/8 blur-3xl group-hover:bg-mint/15 transition-colors" />
+      <div className="relative flex flex-col items-center justify-center text-center gap-2">
+        <Image src={img} alt={ticker} width={72} height={72} className="size-12 md:size-14 rounded-full object-cover drop-shadow-[0_0_20px_rgba(38,200,184,0.35)]" />
         <div>
-          <div className="text-xl font-bold text-white">{ticker}</div>
-          <div className="text-xs text-mint mt-0.5">{sub}</div>
+          <div className="text-base font-bold text-white">{ticker}</div>
+          <div className="text-[11px] text-mint mt-0.5">{sub}</div>
         </div>
       </div>
     </div>
@@ -108,13 +101,13 @@ function TokenTile({ ticker, img, sub }: { ticker: string; img: string; sub: str
 
 function FeatureCard({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-mint/30 bg-gradient-to-br from-mint/10 via-card to-card p-6 backdrop-blur">
-      <div className="absolute -top-12 -right-12 size-32 rounded-full bg-mint/10 blur-2xl" />
+    <div className="relative overflow-hidden rounded-2xl border border-mint/30 bg-gradient-to-br from-mint/10 via-card to-card p-5 backdrop-blur">
+      <div className="absolute -top-10 -right-10 size-28 rounded-full bg-mint/10 blur-2xl" />
       <div className="relative">
-        <div className="size-10 rounded-xl bg-mint/20 border border-mint/40 flex items-center justify-center text-mint mb-4">
+        <div className="size-9 rounded-lg bg-mint/20 border border-mint/40 flex items-center justify-center text-mint mb-3">
           {icon}
         </div>
-        <div className="font-bold text-white text-2xl mb-2 tracking-tight">{title}</div>
+        <div className="font-bold text-white text-lg mb-1.5 tracking-tight">{title}</div>
         <p className="text-sm text-foreground/70 leading-relaxed">{body}</p>
       </div>
     </div>
