@@ -53,7 +53,9 @@ export function useKonami(callback: () => void) {
         }
       } else {
         // Allow the first arrow up to immediately re-start the sequence.
-        positionRef.current = key === KONAMI_SEQUENCE[0] ? 1 : 0;
+        // Compare against raw e.key (not the lowercased variant) since
+        // KONAMI_SEQUENCE[0] is "ArrowUp", not "arrowup".
+        positionRef.current = e.key === KONAMI_SEQUENCE[0] ? 1 : 0;
       }
     };
 
