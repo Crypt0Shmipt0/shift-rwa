@@ -2,63 +2,19 @@
 
 import { useEffect } from "react";
 import { toast } from "sonner";
-import { useKonami } from "@/hooks/use-konami";
 import { useScrollMilestones } from "@/hooks/use-scroll-milestones";
 import { CursorTrail } from "@/components/whimsy/cursor-trail";
 
 /**
  * Mounts whimsy listeners that decorate the landing page:
  *   • Cursor sparkler trail inside the hero zone
- *   • Konami code easter egg (toggles `data-bull-mode` on <html>)
  *   • Scroll milestones — subtle XP-style toasts at major sections
  *
- * The Konami trigger flips a global flag rather than reaching into the
- * thesis-sequence directly: that component reads the same flag and goes
- * vertical when it's set, keeping the contract loose.
+ * The Konami easter egg moved to the global `<KonamiListener />` mount in
+ * `app/layout.tsx` — it now opens the SHIFT Runner mini-game overlay on
+ * every route, not just the landing page.
  */
 export function LandingWhimsy() {
-  // Konami code → 2026 BULL MODE
-  useKonami(() => {
-    if (typeof document === "undefined") return;
-    document.documentElement.setAttribute("data-bull-mode", "1");
-
-    // Auto-scroll to the thesis chart so the parabolic payoff is visible.
-    // Without this, users who trigger Konami from the hero see only the toast.
-    const thesis = document.querySelector("[data-milestone='thesis']");
-    if (thesis) {
-      thesis.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-
-    // Console signature for finders.
-    const SHIFT_LOGO = `
-   ███████╗██╗  ██╗██╗███████╗████████╗
-   ██╔════╝██║  ██║██║██╔════╝╚══██╔══╝
-   ███████╗███████║██║█████╗     ██║
-   ╚════██║██╔══██║██║██╔══╝     ██║
-   ███████║██║  ██║██║██║        ██║
-   ╚══════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝
-        2 0 2 6   B U L L   M O D E
-`;
-    // eslint-disable-next-line no-console
-    console.log("%c" + SHIFT_LOGO, "color:#26C8B8; font-family:monospace");
-    // eslint-disable-next-line no-console
-    console.log("📡 you found us. dm @SHIFTfin for an early-trader role.");
-
-    // Banner toast at top.
-    toast("📈 2026 BULL MODE", {
-      description: "Konami unlocked. Charts going parabolic.",
-      duration: 6000,
-      position: "top-center",
-      className:
-        "!bg-mint !text-primary-foreground !border-mint font-bold uppercase tracking-[0.2em]",
-    });
-
-    // Hold bull mode long enough for the user to scroll, screenshot, brag.
-    window.setTimeout(() => {
-      document.documentElement.removeAttribute("data-bull-mode");
-    }, 7000);
-  });
-
   // Scroll milestones — fire once per visitor.
   useScrollMilestones([
     {
