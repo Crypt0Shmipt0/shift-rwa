@@ -27,6 +27,7 @@ import { useMotionOk } from "@/hooks/use-motion-ok";
 import { Sparkles, TrendingUp } from "lucide-react";
 
 const MINT = "#26C8B8";
+const STEEL = "#4FC8E8"; // brighter cousin of brand tidal-steel — used for SOX3S inverse
 const OFF_WHITE = "#EDEEEE";
 const DANGER = "#FF4D6A";
 
@@ -39,6 +40,10 @@ const PAD_B = 32;
 
 const DAYS = 30;
 const LEVERAGE = 3;
+// Visual floor — never show any series below this, in line with the
+// "no liquidation" narrative (NAV can drop, but we cap visualization
+// at -90% to keep the chart legible and on-message).
+const NAV_FLOOR = 0.1; // = -90% return
 
 /* ── Tiny deterministic PRNG (mulberry32) ─────────────────────────────────── */
 function mulberry32(seed: number) {
@@ -63,11 +68,11 @@ function gauss(rand: () => number): number {
 
 interface SimResult {
   underlying: number[]; // length DAYS+1, normalized to start at 1.0
-  shift: number[]; // length DAYS+1, normalized to start at 1.0
+  long: number[]; // SOX3L — daily-rebalanced 3× long
+  inverse: number[]; // SOX3S — daily-rebalanced 3× short (inverse)
   finalUnderlying: number; // %
-  finalShift: number; // %
-  minShift: number; // %
-  maxShift: number; // %
+  finalLong: number; // %
+  finalInverse: number; // %
 }
 
 // Realistic positive long-run drift — equity benchmarks have averaged ~10–25%
@@ -81,29 +86,26 @@ function simulate(sigmaPct: number): SimResult {
   const sigma = sigmaPct / 100;
   const rand = mulberry32(Math.round(sigmaPct * 1000) + 7);
   const underlying: number[] = [1];
-  const shift: number[] = [1];
+  const long: number[] = [1];
+  const inverse: number[] = [1];
   for (let d = 1; d <= DAYS; d++) {
     const z = gauss(rand);
     const r = DAILY_DRIFT + sigma * z; // drift + diffusion on the underlying
     underlying.push(underlying[d - 1] * (1 + r));
-    // Daily-rebalanced 3× long: each day's NAV multiplies by (1 + 3·r).
-    // Floor at 0 so a single catastrophic move can't go negative (it
-    // would just zero the NAV — matching the "worst case is NAV → 0,
-    // never forced close" narrative in the FAQ).
-    const factor = Math.max(0, 1 + LEVERAGE * r);
-    shift.push(shift[d - 1] * factor);
+    // Daily-rebalanced 3× LONG: NAV[d] = NAV[d-1] · (1 + 3·r), floored at NAV_FLOOR.
+    const longFactor = 1 + LEVERAGE * r;
+    long.push(Math.max(NAV_FLOOR, long[d - 1] * longFactor));
+    // Daily-rebalanced 3× INVERSE (SOX3S): NAV[d] = NAV[d-1] · (1 − 3·r).
+    const invFactor = 1 - LEVERAGE * r;
+    inverse.push(Math.max(NAV_FLOOR, inverse[d - 1] * invFactor));
   }
-  const finalU = (underlying[DAYS] - 1) * 100;
-  const finalS = (shift[DAYS] - 1) * 100;
-  const minS = (Math.min(...shift) - 1) * 100;
-  const maxS = (Math.max(...shift) - 1) * 100;
   return {
     underlying,
-    shift,
-    finalUnderlying: finalU,
-    finalShift: finalS,
-    minShift: minS,
-    maxShift: maxS,
+    long,
+    inverse,
+    finalUnderlying: (underlying[DAYS] - 1) * 100,
+    finalLong: (long[DAYS] - 1) * 100,
+    finalInverse: (inverse[DAYS] - 1) * 100,
   };
 }
 
@@ -135,8 +137,8 @@ export function LeverageSimulator() {
   // randomness, fully stable across SSR/CSR). Post-mount: real sim.
   const sim = useMemo(() => simulate(mounted ? sigma : 0), [sigma, mounted]);
 
-  // Choose y-range so both series fit. Pad ±5% so peaks don't kiss the edge.
-  const all = [...sim.underlying, ...sim.shift];
+  // Choose y-range so all three series fit. Pad ±8% so peaks don't kiss the edge.
+  const all = [...sim.underlying, ...sim.long, ...sim.inverse];
   const lo = Math.min(...all);
   const hi = Math.max(...all);
   const pad = (hi - lo) * 0.08 || 0.05;
@@ -144,7 +146,8 @@ export function LeverageSimulator() {
   const yMax = hi + pad;
 
   const underlyingPath = buildPath(sim.underlying, yMin, yMax);
-  const shiftPath = buildPath(sim.shift, yMin, yMax);
+  const longPath = buildPath(sim.long, yMin, yMax);
+  const inversePath = buildPath(sim.inverse, yMin, yMax);
 
   // Horizontal grid: 4 lines.
   const gridLines = [0, 0.25, 0.5, 0.75, 1].map((t) => {
@@ -155,7 +158,8 @@ export function LeverageSimulator() {
     return { y, label: `${Number(pct) >= 0 ? "+" : ""}${pct}%` };
   });
 
-  const finalShiftPositive = sim.finalShift >= 0;
+  const longPositive = sim.finalLong >= 0;
+  const inversePositive = sim.finalInverse >= 0;
 
   return (
     <section
@@ -172,17 +176,19 @@ export function LeverageSimulator() {
             Leverage simulator
           </div>
           <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">
-            Drag the volatility. Watch 3× compound.
+            Drag the volatility. Watch 3× compound — long & short.
           </h3>
-          <p className="text-xs md:text-sm text-muted-foreground mt-1 max-w-[520px]">
-            30-day path of TSLA vs SHIFT TSL3L (3× long) under daily rebalancing.
-            Illustrative — past performance is not indicative of future returns.
+          <p className="text-xs md:text-sm text-muted-foreground mt-1 max-w-[560px]">
+            30-day path of SOXX vs SHIFT SOX3L (3× long) and SOX3S (3× short)
+            under daily rebalancing. Illustrative — past performance is not
+            indicative of future returns.
           </p>
         </div>
 
-        <div className="flex gap-3">
-          <Stat label="TSLA" value={sim.finalUnderlying} accent="off" />
-          <Stat label="TSL3L" value={sim.finalShift} accent={finalShiftPositive ? "mint" : "danger"} />
+        <div className="flex flex-wrap gap-2">
+          <Stat label="SOXX" value={sim.finalUnderlying} accent="off" />
+          <Stat label="SOX3L" value={sim.finalLong} accent={longPositive ? "mint" : "danger"} />
+          <Stat label="SOX3S" value={sim.finalInverse} accent={inversePositive ? "steel" : "danger"} />
         </div>
       </header>
 
@@ -193,15 +199,22 @@ export function LeverageSimulator() {
           className="w-full h-[260px] md:h-[320px]"
           preserveAspectRatio="none"
           role="img"
-          aria-label={`SHIFT TSL3L returned ${sim.finalShift.toFixed(1)} percent over 30 days versus the underlying TSLA at ${sim.finalUnderlying.toFixed(1)} percent, with daily volatility set to ${sigma} percent.`}
+          aria-label={`Over 30 days at ${sigma}% daily volatility: SOXX ${sim.finalUnderlying.toFixed(1)}%, SHIFT SOX3L (3× long) ${sim.finalLong.toFixed(1)}%, SHIFT SOX3S (3× short) ${sim.finalInverse.toFixed(1)}%.`}
         >
           <defs>
-            <linearGradient id="lev-shift-fill" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor={MINT} stopOpacity="0.32" />
+            <linearGradient id="lev-long-fill" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor={MINT} stopOpacity="0.28" />
               <stop offset="100%" stopColor={MINT} stopOpacity="0" />
             </linearGradient>
-            <filter id="lev-glow" x="-10%" y="-10%" width="120%" height="120%">
+            <linearGradient id="lev-inverse-fill" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor={STEEL} stopOpacity="0.22" />
+              <stop offset="100%" stopColor={STEEL} stopOpacity="0" />
+            </linearGradient>
+            <filter id="lev-glow-mint" x="-10%" y="-10%" width="120%" height="120%">
               <feGaussianBlur stdDeviation="3" />
+            </filter>
+            <filter id="lev-glow-steel" x="-10%" y="-10%" width="120%" height="120%">
+              <feGaussianBlur stdDeviation="2.5" />
             </filter>
           </defs>
 
@@ -260,36 +273,59 @@ export function LeverageSimulator() {
             transition={{ duration: motionOk ? 0.45 : 0, ease: "easeOut" }}
           />
 
-          {/* SHIFT area fill */}
+          {/* SOX3L (long) area fill + line */}
           <m.path
-            d={`${shiftPath} L${W - PAD_R},${H - PAD_B} L${PAD_L},${H - PAD_B} Z`}
-            fill="url(#lev-shift-fill)"
+            d={`${longPath} L${W - PAD_R},${H - PAD_B} L${PAD_L},${H - PAD_B} Z`}
+            fill="url(#lev-long-fill)"
             initial={false}
-            animate={{ d: `${shiftPath} L${W - PAD_R},${H - PAD_B} L${PAD_L},${H - PAD_B} Z` }}
+            animate={{ d: `${longPath} L${W - PAD_R},${H - PAD_B} L${PAD_L},${H - PAD_B} Z` }}
             transition={{ duration: motionOk ? 0.45 : 0, ease: "easeOut" }}
           />
-
-          {/* SHIFT line — mint, glow */}
           <m.path
-            d={shiftPath}
+            d={longPath}
             fill="none"
             stroke={MINT}
             strokeOpacity="0.4"
             strokeWidth="3"
-            filter="url(#lev-glow)"
+            filter="url(#lev-glow-mint)"
             initial={false}
-            animate={{ d: shiftPath }}
+            animate={{ d: longPath }}
             transition={{ duration: motionOk ? 0.45 : 0, ease: "easeOut" }}
           />
           <m.path
-            d={shiftPath}
+            d={longPath}
             fill="none"
             stroke={MINT}
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
             initial={false}
-            animate={{ d: shiftPath }}
+            animate={{ d: longPath }}
+            transition={{ duration: motionOk ? 0.45 : 0, ease: "easeOut" }}
+          />
+
+          {/* SOX3S (inverse) line — steel-blue */}
+          <m.path
+            d={inversePath}
+            fill="none"
+            stroke={STEEL}
+            strokeOpacity="0.4"
+            strokeWidth="3"
+            filter="url(#lev-glow-steel)"
+            initial={false}
+            animate={{ d: inversePath }}
+            transition={{ duration: motionOk ? 0.45 : 0, ease: "easeOut" }}
+          />
+          <m.path
+            d={inversePath}
+            fill="none"
+            stroke={STEEL}
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="2 0"
+            initial={false}
+            animate={{ d: inversePath }}
             transition={{ duration: motionOk ? 0.45 : 0, ease: "easeOut" }}
           />
 
@@ -299,12 +335,15 @@ export function LeverageSimulator() {
             const innerH = H - PAD_T - PAD_B;
             const xEnd = PAD_L + innerW;
             const yU = PAD_T + innerH - ((sim.underlying[DAYS] - yMin) / (yMax - yMin)) * innerH;
-            const yS = PAD_T + innerH - ((sim.shift[DAYS] - yMin) / (yMax - yMin)) * innerH;
+            const yL = PAD_T + innerH - ((sim.long[DAYS] - yMin) / (yMax - yMin)) * innerH;
+            const yI = PAD_T + innerH - ((sim.inverse[DAYS] - yMin) / (yMax - yMin)) * innerH;
             return (
               <>
-                <circle cx={xEnd} cy={yU} r="4" fill={OFF_WHITE} fillOpacity="0.7" />
-                <circle cx={xEnd} cy={yS} r="5" fill={MINT} />
-                <circle cx={xEnd} cy={yS} r="9" fill={MINT} fillOpacity="0.25" />
+                <circle cx={xEnd} cy={yU} r="3.5" fill={OFF_WHITE} fillOpacity="0.7" />
+                <circle cx={xEnd} cy={yL} r="5" fill={MINT} />
+                <circle cx={xEnd} cy={yL} r="9" fill={MINT} fillOpacity="0.25" />
+                <circle cx={xEnd} cy={yI} r="5" fill={STEEL} />
+                <circle cx={xEnd} cy={yI} r="9" fill={STEEL} fillOpacity="0.22" />
               </>
             );
           })()}
@@ -332,14 +371,18 @@ export function LeverageSimulator() {
         </svg>
 
         {/* Legend */}
-        <div className="mt-2 flex items-center gap-4 text-[11px] font-mono uppercase tracking-[0.12em]">
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] font-mono uppercase tracking-[0.12em]">
           <span className="inline-flex items-center gap-1.5">
             <span className="size-2 rounded-full" style={{ background: MINT, boxShadow: `0 0 10px ${MINT}` }} />
-            <span className="text-mint">TSL3L · 3× SHIFT</span>
+            <span className="text-mint">SOX3L · 3× long</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="size-2 rounded-full" style={{ background: STEEL, boxShadow: `0 0 10px ${STEEL}` }} />
+            <span style={{ color: STEEL }}>SOX3S · 3× short</span>
           </span>
           <span className="inline-flex items-center gap-1.5">
             <span className="size-2 rounded-full" style={{ background: OFF_WHITE, opacity: 0.6 }} />
-            <span className="text-foreground/55">TSLA · spot</span>
+            <span className="text-foreground/55">SOXX · spot</span>
           </span>
         </div>
       </div>
@@ -388,19 +431,27 @@ function Stat({
 }: {
   label: string;
   value: number;
-  accent: "mint" | "danger" | "off";
+  accent: "mint" | "danger" | "off" | "steel";
 }) {
   const sign = value >= 0 ? "+" : "";
   const color =
-    accent === "mint" ? "text-mint" : accent === "danger" ? "text-[#FF4D6A]" : "text-foreground/70";
+    accent === "mint"
+      ? "text-mint"
+      : accent === "steel"
+        ? "text-[#4FC8E8]"
+        : accent === "danger"
+          ? "text-[#FF4D6A]"
+          : "text-foreground/70";
   const bg =
     accent === "mint"
       ? "bg-mint/10 border-mint/30"
-      : accent === "danger"
-        ? "bg-[#FF4D6A]/10 border-[#FF4D6A]/30"
-        : "bg-white/5 border-white/15";
+      : accent === "steel"
+        ? "bg-[#4FC8E8]/10 border-[#4FC8E8]/30"
+        : accent === "danger"
+          ? "bg-[#FF4D6A]/10 border-[#FF4D6A]/30"
+          : "bg-white/5 border-white/15";
   return (
-    <div className={`rounded-xl border ${bg} px-3 py-2 min-w-[110px]`}>
+    <div className={`rounded-xl border ${bg} px-3 py-2 min-w-[100px]`}>
       <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-foreground/55">
         {label} · 30d
       </div>
