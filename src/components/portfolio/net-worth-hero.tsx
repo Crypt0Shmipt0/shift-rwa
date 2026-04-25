@@ -11,10 +11,10 @@ export function NetWorthHero() {
   const labels = ["08:00 AM", "12:00 PM", "04:00 PM", "CURRENT"];
 
   return (
-    <Card className="bg-card border-border rounded-2xl p-8 col-span-12 lg:col-span-8">
+    <Card className="bg-card border-border rounded-2xl p-5 md:p-6 col-span-12 lg:col-span-8">
       <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Total Net Worth</div>
-      <div className="text-4xl font-semibold tabular-nums mb-3">{FORMATTERS.usd(NET_WORTH.total)}</div>
-      <div className="flex items-center gap-3 mb-6">
+      <div className="text-3xl md:text-4xl font-semibold tabular-nums mb-3">{FORMATTERS.usd(NET_WORTH.total)}</div>
+      <div className="flex items-center gap-3 mb-5 flex-wrap">
         <span className="inline-flex items-center gap-1 bg-mint/15 text-mint text-xs font-semibold px-2.5 py-1 rounded-full">
           <TrendingUp className="h-3 w-3" />
           {FORMATTERS.pct(NET_WORTH.change24hPct)}
@@ -24,7 +24,7 @@ export function NetWorthHero() {
         </span>
       </div>
 
-      <div className="h-[240px]">
+      <div className="h-[200px] md:h-[240px]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 24 }}>
             <defs>

@@ -27,8 +27,8 @@ export default function SettingsPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-10">
-      <div className="mb-10">
-        <h1 className="text-3xl font-semibold text-white mb-2">Settings</h1>
+      <div className="mb-8 md:mb-10">
+        <h1 className="text-3xl md:text-4xl font-semibold text-white mb-2 tracking-tight">Settings</h1>
         <p className="text-sm text-muted-foreground">Preferences are stored locally on this device.</p>
       </div>
 
@@ -130,10 +130,10 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <Card className="bg-card border-border rounded-3xl p-6">
-      <div className="flex items-center gap-3 mb-5">
+    <Card className="bg-card border-border rounded-3xl p-5 md:p-6">
+      <div className="flex items-center gap-3 mb-4">
         <div className="size-9 rounded-lg bg-mint/10 border border-mint/30 flex items-center justify-center">
-          <Icon className="h-4 w-4 text-mint" />
+          <Icon className="h-5 w-5 text-mint" />
         </div>
         <h2 className="text-base font-semibold">{title}</h2>
       </div>

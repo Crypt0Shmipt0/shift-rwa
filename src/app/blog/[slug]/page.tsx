@@ -125,13 +125,13 @@ export default async function BlogPostPage({
         </span>
         <h1
           id="blog-post-title"
-          className="text-3xl md:text-[2.5rem] font-bold text-white tracking-tight leading-[1.15] mb-4"
+          className="text-2xl md:text-[2.25rem] font-bold text-white tracking-tight leading-[1.15] mb-3"
           style={{ viewTransitionName: `blog-title-${post.slug}` }}
         >
           {post.title}
         </h1>
         {post.subtitle && (
-          <p className="text-xl text-foreground/60 font-normal mb-6">{post.subtitle}</p>
+          <p className="text-base md:text-lg text-foreground/60 font-normal mb-5 leading-relaxed">{post.subtitle}</p>
         )}
         <div className="flex items-center gap-4 text-sm text-foreground/40">
           <span>{getAuthor(post)}</span>
@@ -158,20 +158,20 @@ export default async function BlogPostPage({
       </div>
 
       {/* Article body — constrained to 680px for ~65-70 chars/line readability */}
-      <article className="mx-auto max-w-[680px] px-6 pb-20">
-        <div className="text-[17px] md:text-[18px] leading-[1.75] text-foreground/85">
+      <article className="mx-auto max-w-[680px] px-6 pb-16">
+        <div className="text-base md:text-lg leading-relaxed text-foreground/85">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
               h2: ({ ...props }) => (
                 <h2
-                  className="text-2xl md:text-3xl font-bold mt-12 mb-4 text-white tracking-tight"
+                  className="text-xl md:text-2xl font-bold mt-10 mb-3 text-white tracking-tight"
                   {...props}
                 />
               ),
               h3: ({ ...props }) => (
                 <h3
-                  className="text-xl font-semibold mt-8 mb-3 text-white"
+                  className="text-lg md:text-xl font-semibold mt-7 mb-2 text-white"
                   {...props}
                 />
               ),
@@ -229,10 +229,10 @@ export default async function BlogPostPage({
       {/* Read next */}
       {relatedPosts.length > 0 && (
         <div className="border-t border-border/60">
-          <div className="mx-auto max-w-[1200px] px-6 py-16">
-            <h2 className="text-2xl font-bold text-white mb-2">Read next.</h2>
-            <p className="text-foreground/50 text-sm mb-8">More from {TAG_LABELS[post.tag]}</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mx-auto max-w-[1200px] px-6 py-12 md:py-16">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-2">Read next.</h2>
+            <p className="text-foreground/50 text-sm mb-6">More from {TAG_LABELS[post.tag]}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {relatedPosts.map((related) => (
                 <Link
                   key={related.slug}
@@ -249,14 +249,14 @@ export default async function BlogPostPage({
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0A2730] via-[#0A2730]/20 to-transparent" />
                   </div>
-                  <div className="flex flex-col flex-1 p-5">
+                  <div className="flex flex-col flex-1 p-4">
                     <h3 className="text-white font-semibold text-base leading-snug mb-2 group-hover:text-mint transition-colors line-clamp-2">
                       {related.title}
                     </h3>
                     <p className="text-foreground/55 text-sm leading-relaxed line-clamp-2 flex-1">
                       {related.excerpt}
                     </p>
-                    <div className="flex items-center justify-between text-xs text-foreground/40 pt-4 mt-4 border-t border-border/40">
+                    <div className="flex items-center justify-between text-xs text-foreground/40 pt-3 mt-3 border-t border-border/40">
                       <span>{formatDate(related.publishedAt)}</span>
                       <span>{related.readingMinutes} min read</span>
                     </div>
@@ -270,9 +270,9 @@ export default async function BlogPostPage({
 
       {/* CTA footer */}
       <div className="border-t border-border/60">
-        <div className="mx-auto max-w-[680px] px-6 py-14 text-center">
+        <div className="mx-auto max-w-[680px] px-6 py-12 text-center">
           <p className="text-foreground/50 text-sm mb-2">Ready to trade tokenized stocks?</p>
-          <h2 className="text-2xl font-bold text-white mb-6">
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-5">
             Start trading on SHIFT — 24/7, on-chain.
           </h2>
           <Link

@@ -37,9 +37,9 @@ const TX: Tx[] = [
 export default function HistoryPage() {
   return (
     <div className="mx-auto max-w-[1100px] px-6 lg:px-[72px] py-10">
-      <div className="flex items-end justify-between mb-8 gap-4 flex-wrap">
+      <div className="flex items-end justify-between mb-6 md:mb-8 gap-3 flex-wrap">
         <div>
-          <h1 className="text-3xl font-semibold text-white mb-1">History</h1>
+          <h1 className="text-3xl md:text-4xl font-semibold text-white mb-1 tracking-tight">History</h1>
           <p className="text-sm text-muted-foreground">Every trade your wallet has executed on SHIFT.</p>
         </div>
         <div className="flex items-center gap-2">

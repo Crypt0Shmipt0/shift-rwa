@@ -29,28 +29,28 @@ export function PortfolioGate() {
 
 function ConnectGate() {
   return (
-    <div className="mx-auto max-w-[1100px] px-6 py-20 md:py-28">
-      <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
+    <div className="mx-auto max-w-[1100px] px-6 py-14 md:py-20">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-12 items-center">
         {/* Left — copy + CTA */}
         <div>
-          <div className="inline-flex items-center gap-1.5 bg-mint/15 border border-mint/30 text-mint text-xs font-bold uppercase tracking-[0.18em] px-3 py-1 rounded-full mb-6">
+          <div className="inline-flex items-center gap-1.5 bg-mint/15 border border-mint/30 text-mint text-xs font-bold uppercase tracking-[0.18em] px-3 py-1 rounded-full mb-5">
             <Wallet className="h-3 w-3" />
             Wallet required
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white tracking-[-0.02em] leading-[1.05] pb-1 mb-5">
+          <h1 className="text-3xl md:text-5xl font-bold text-white tracking-[-0.02em] leading-[1.05] pb-1 mb-4">
             Connect a wallet to
             <br />
             <span className="text-gradient-mint">
               see your portfolio.
             </span>
           </h1>
-          <p className="text-base text-foreground/70 leading-relaxed max-w-[480px] mb-8">
+          <p className="text-base text-foreground/70 leading-relaxed max-w-[480px] mb-6">
             SHIFT is fully non-custodial — your portfolio is your wallet. Connect any
             WalletConnect-compatible wallet to see your net worth, holdings, allocation, and PnL
             across every SHIFT market.
           </p>
 
-          <div className="mb-10">
+          <div className="mb-8">
             <ConnectButton.Custom>
               {({ openConnectModal, mounted }) => (
                 <button
@@ -85,11 +85,11 @@ function ConnectGate() {
           <div className="absolute inset-0 -z-10 flex items-center justify-center">
             <div className="size-[440px] rounded-full bg-[radial-gradient(circle,_rgba(38,200,184,0.18)_0%,_transparent_60%)]" />
           </div>
-          <div className="relative rounded-3xl border border-border bg-card/60 backdrop-blur p-8">
+          <div className="relative rounded-3xl border border-border bg-card/60 backdrop-blur p-6 md:p-7">
             <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
               Total Net Worth
             </div>
-            <div className="text-5xl font-bold tabular-nums tracking-tight text-foreground/30 blur-sm select-none mb-3">
+            <div className="text-4xl md:text-5xl font-bold tabular-nums tracking-tight text-foreground/30 blur-sm select-none mb-3">
               $—,———.——
             </div>
             <div className="h-2 w-32 rounded-full bg-secondary mb-8" />

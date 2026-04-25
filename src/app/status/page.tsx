@@ -35,14 +35,14 @@ export default function StatusPage() {
   const allGreen = COMPONENTS.every((c) => c.status === "operational");
   return (
     <div className="mx-auto max-w-3xl px-6 py-10">
-      <div className="flex items-center gap-3 mb-8">
+      <div className="flex items-center gap-3 mb-6 md:mb-8">
         <Activity className="h-5 w-5 text-mint" />
-        <h1 className="text-3xl font-semibold text-white">System status</h1>
+        <h1 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">System status</h1>
       </div>
 
       {/* Big green bar */}
       <Card
-        className={`rounded-3xl p-8 mb-8 border ${
+        className={`rounded-3xl p-5 md:p-6 mb-6 md:mb-8 border ${
           allGreen ? "bg-mint/10 border-mint/40" : "bg-destructive/10 border-destructive/40"
         }`}
       >

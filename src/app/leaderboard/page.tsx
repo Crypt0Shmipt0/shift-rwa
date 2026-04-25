@@ -26,16 +26,16 @@ export default function LeaderboardPage() {
   return (
     <div className="mx-auto max-w-[1100px] px-6 lg:px-[72px] py-10">
       {/* Hero */}
-      <div className="mb-16 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-10 items-center">
+      <div className="mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 md:gap-10 items-center">
         <div>
           <span className="inline-flex items-center gap-1.5 bg-mint/15 border border-mint/30 text-mint text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-5">
             <Trophy className="h-3 w-3" />
             Coming Soon!
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             The SHIFT Leaderboard
           </h1>
-          <p className="text-base text-muted-foreground max-w-[520px] leading-relaxed mb-8">
+          <p className="text-base text-muted-foreground max-w-[520px] leading-relaxed mb-6">
             Compete in weekly trading competitions ranked by realized PnL, win rate, and trade volume.
             Top traders earn $SHFT rewards, badge upgrades, and bragging rights on-chain.
           </p>
@@ -71,14 +71,16 @@ export default function LeaderboardPage() {
           </div>
         </div>
 
-        <Card className="bg-gradient-to-br from-[#07638C]/40 via-card to-card border-mint/30 rounded-3xl p-8 relative overflow-hidden">
+        <Card className="bg-gradient-to-br from-[#07638C]/40 via-card to-card border-mint/30 rounded-3xl p-6 relative overflow-hidden">
           <div className="absolute -top-12 -right-12 size-40 rounded-full bg-mint/20 blur-3xl" />
           <div className="relative">
-            <Trophy className="h-10 w-10 text-mint mb-4" />
+            <div className="size-11 rounded-xl bg-mint/15 border border-mint/30 flex items-center justify-center mb-3">
+              <Trophy className="h-5 w-5 text-mint" />
+            </div>
             <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">
               Estimated launch
             </div>
-            <div className="text-2xl font-bold text-white mb-4">Q3 2026</div>
+            <div className="text-lg md:text-xl font-bold text-white mb-3">Q3 2026</div>
             <div className="text-xs text-muted-foreground leading-relaxed">
               Weekly competitions with $SHFT prize pools. Connect a wallet to enter when live.
             </div>

@@ -84,15 +84,15 @@ export default function BlogIndexPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: blogLd }} />
       {/* Header */}
       <div className="border-b border-border/60">
-        <div className="mx-auto max-w-[1200px] px-6 py-20 md:py-28">
-          <div className="inline-flex items-center gap-2 bg-mint/15 border border-mint/40 text-mint text-xs font-bold uppercase tracking-[0.18em] px-4 py-1.5 rounded-full mb-6">
+        <div className="mx-auto max-w-[1200px] px-6 py-14 md:py-20">
+          <div className="inline-flex items-center gap-2 bg-mint/15 border border-mint/40 text-mint text-xs font-bold uppercase tracking-[0.18em] px-4 py-1.5 rounded-full mb-5">
             <span className="size-1.5 rounded-full bg-mint" />
             From the blog
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] mb-4">
+          <h1 className="text-3xl md:text-5xl font-bold text-white tracking-[-0.03em] leading-[1.05] mb-3">
             Read the SHIFT thesis.
           </h1>
-          <p className="text-lg text-foreground/60 max-w-[560px]">
+          <p className="text-base md:text-lg text-foreground/60 max-w-[560px]">
             Signals, deep-dives, and education on tokenized equities, RWAs, and the infrastructure
             reshaping global capital markets.
           </p>
@@ -139,7 +139,7 @@ async function BlogContent({
             className={`group flex flex-col rounded-2xl border border-border/60 border-l-4 ${TAG_BORDER_ACCENT[post.tag]} bg-[#0A2730] hover:bg-[#0d2f38] transition-all duration-200 overflow-hidden`}
           >
             {/* Thumbnail */}
-            <div className="relative h-48 w-full flex-shrink-0 overflow-hidden bg-[#0a2730]">
+            <div className="relative h-40 md:h-44 w-full flex-shrink-0 overflow-hidden bg-[#0a2730]">
               <Image
                 src={getThumbnail(post)}
                 alt={post.title}
@@ -157,7 +157,7 @@ async function BlogContent({
             </div>
 
             {/* Content */}
-            <div className="flex flex-col flex-1 p-6">
+            <div className="flex flex-col flex-1 p-5">
               <h2
                 className="text-white font-semibold text-lg leading-snug mb-2 group-hover:text-mint transition-colors line-clamp-2"
                 style={{ viewTransitionName: `blog-title-${post.slug}` }}
@@ -167,12 +167,12 @@ async function BlogContent({
               {post.subtitle && (
                 <p className="text-foreground/50 text-sm mb-3 line-clamp-1">{post.subtitle}</p>
               )}
-              <p className="text-foreground/65 text-sm leading-relaxed mb-5 line-clamp-3 flex-1">
+              <p className="text-foreground/65 text-sm leading-relaxed mb-4 line-clamp-3 flex-1">
                 {post.excerpt}
               </p>
 
               {/* Footer */}
-              <div className="flex items-center justify-between text-xs text-foreground/40 pt-4 border-t border-border/40">
+              <div className="flex items-center justify-between text-xs text-foreground/40 pt-3 border-t border-border/40">
                 <div className="flex flex-col gap-0.5">
                   <span>{getAuthor(post)}</span>
                   <span>{formatDate(post.publishedAt)}</span>

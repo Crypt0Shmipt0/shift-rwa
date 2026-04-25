@@ -59,12 +59,12 @@ export default function LearnPage() {
     <ScrollProgress />
     <div className="mx-auto max-w-[1100px] px-6 lg:px-[72px] py-10">
       {/* Hero */}
-      <div className="mb-12 max-w-2xl">
+      <div className="mb-10 md:mb-12 max-w-2xl">
         <span className="inline-flex items-center gap-1.5 bg-mint/15 border border-mint/30 text-mint text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
           <BookOpen className="h-3 w-3" />
           Learn hub
         </span>
-        <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
+        <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">
           Why SHIFT, and how it works.
         </h1>
         <p className="text-base text-muted-foreground leading-relaxed">
@@ -112,7 +112,7 @@ export default function LearnPage() {
       </div>
 
       {/* Gitbook CTA */}
-      <Card className="bg-gradient-to-br from-mint/10 via-card to-card border-mint/30 rounded-3xl p-8 md:p-10 relative overflow-hidden">
+      <Card className="bg-gradient-to-br from-mint/10 via-card to-card border-mint/30 rounded-3xl p-6 md:p-8 relative overflow-hidden">
         <div className="absolute -top-20 -right-20 size-52 rounded-full bg-mint/15 blur-3xl" />
         <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="max-w-xl">

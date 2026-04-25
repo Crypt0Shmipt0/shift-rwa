@@ -40,12 +40,12 @@ export function IntelligenceCard({ symbol = "TSL2L" }: { symbol?: string }) {
   }, [symbol]);
 
   return (
-    <div className="bg-card rounded-3xl p-8 h-full">
-      <div className="flex items-center justify-between mb-8">
+    <div className="bg-card rounded-3xl p-5 md:p-6 h-full">
+      <div className="flex items-center justify-between mb-5">
         <h3 className="text-lg text-foreground">Intelligence</h3>
         {loading && <span className="text-xs text-mist">Loading…</span>}
       </div>
-      <ul className="space-y-6">
+      <ul className="space-y-5">
         {items.map((item, i) => (
           <li key={item.id}>
             <a
@@ -54,18 +54,18 @@ export function IntelligenceCard({ symbol = "TSL2L" }: { symbol?: string }) {
               rel="noopener noreferrer"
               className="flex gap-3 group"
             >
-              <div className="size-[68px] rounded-lg overflow-hidden shrink-0 bg-secondary relative">
+              <div className="size-14 md:size-16 rounded-lg overflow-hidden shrink-0 bg-secondary relative">
                 <Image
                   src={item.image}
                   alt=""
                   fill
-                  sizes="68px"
+                  sizes="64px"
                   className="object-cover"
                   unoptimized={item.image.startsWith("http")}
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-base leading-snug text-white group-hover:text-mint transition-colors line-clamp-3">
+                <p className="text-sm md:text-base leading-snug text-white group-hover:text-mint transition-colors line-clamp-3">
                   {item.title}
                 </p>
                 <div className="flex items-center justify-between text-xs text-muted-foreground mt-2">
@@ -74,7 +74,7 @@ export function IntelligenceCard({ symbol = "TSL2L" }: { symbol?: string }) {
                 </div>
               </div>
             </a>
-            {i < items.length - 1 && <div className="h-px bg-border mt-6" />}
+            {i < items.length - 1 && <div className="h-px bg-border mt-5" />}
           </li>
         ))}
       </ul>

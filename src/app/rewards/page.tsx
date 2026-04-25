@@ -35,18 +35,18 @@ export default function RewardsPage() {
   return (
     <div className="mx-auto max-w-[1100px] px-6 lg:px-[72px] py-10">
       {/* Hero */}
-      <div className="mb-16 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-10 items-center">
+      <div className="mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8 md:gap-10 items-center">
         <div>
           <span className="inline-flex items-center gap-1.5 bg-mint/15 border border-mint/30 text-mint text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-5">
             <Sparkles className="h-3 w-3" />
             Now live · Waitlist open
           </span>
           <Reveal>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+            <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
               Earn from every <span className="text-mint">shift</span>.
             </h1>
           </Reveal>
-          <p className="text-base text-muted-foreground max-w-[520px] leading-relaxed mb-8">
+          <p className="text-base text-muted-foreground max-w-[520px] leading-relaxed mb-6">
             Every trade earns on-chain XP. XP unlocks fee rebates, tighter spreads, and a bigger
             $SHFT allocation at TGE. The earlier you start, the more you earn.
           </p>
@@ -78,12 +78,14 @@ export default function RewardsPage() {
             </div>
           )}
         </div>
-        <Card className="bg-gradient-to-br from-[#07638C]/40 via-card to-card border-mint/30 rounded-3xl p-8 relative overflow-hidden">
+        <Card className="bg-gradient-to-br from-[#07638C]/40 via-card to-card border-mint/30 rounded-3xl p-6 relative overflow-hidden">
           <div className="absolute -top-12 -right-12 size-40 rounded-full bg-mint/20 blur-3xl" />
           <div className="relative">
-            <Trophy className="h-10 w-10 text-mint mb-4" />
+            <div className="size-11 rounded-xl bg-mint/15 border border-mint/30 flex items-center justify-center mb-3">
+              <Trophy className="h-5 w-5 text-mint" />
+            </div>
             <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Farm status</div>
-            <div className="text-2xl font-bold text-white mb-4">Points accruing now</div>
+            <div className="text-lg md:text-xl font-bold text-white mb-3">Points accruing now</div>
             <div className="text-xs text-muted-foreground leading-relaxed">
               Full redemption program launches Q3 2026. Early traders get 2× XP and first access to
               the OTC desk.
@@ -93,24 +95,24 @@ export default function RewardsPage() {
       </div>
 
       {/* Badges */}
-      <div className="mb-6 flex items-center gap-2">
+      <div className="mb-5 flex items-center gap-2">
         <Zap className="h-4 w-4 text-mint" />
-        <h2 className="text-xl font-semibold text-white">Badges</h2>
+        <h2 className="text-lg font-semibold text-white">Badges</h2>
       </div>
-      <StaggerChildren staggerDelay={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <StaggerChildren staggerDelay={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {BADGES.map((t, i) => (
           <RevealChild key={t.name}>
             <Card
-              className={`bg-card border rounded-2xl p-4 md:p-6 relative overflow-hidden h-full ${
+              className={`bg-card border rounded-2xl p-4 md:p-5 relative overflow-hidden h-full ${
                 i === 0 ? "border-border" : "border-border hover:border-mint/30 transition-colors"
               }`}
             >
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3">
                 <div className="text-xs text-muted-foreground font-mono">BADGE {String(i + 1).padStart(2, "0")}</div>
                 <Gift className="h-4 w-4 text-mint/60" />
               </div>
-              <div className="text-xl font-bold text-white mb-1">{t.name}</div>
-              <div className="text-xs text-muted-foreground mb-5">
+              <div className="text-lg font-bold text-white mb-1">{t.name}</div>
+              <div className="text-xs text-muted-foreground mb-4">
                 {t.min === 0 ? "Start here" : `${t.min.toLocaleString()}+ XP`}
               </div>
               <ul className="space-y-2">

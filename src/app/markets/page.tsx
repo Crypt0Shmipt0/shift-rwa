@@ -35,8 +35,8 @@ const MOCK_7D: Record<string, number> = {
 export default function MarketsPage() {
   return (
     <div className="mx-auto max-w-[1440px] px-6 lg:px-[72px] py-10">
-      <div className="mb-10">
-        <h1 className="text-3xl font-semibold text-white mb-2">Every SHIFT market. Long and short.</h1>
+      <div className="mb-8 md:mb-10">
+        <h1 className="text-3xl md:text-4xl font-semibold text-white mb-2 tracking-tight">Every SHIFT market. Long and short.</h1>
         <p className="text-sm text-muted-foreground">
           3× and 2× leveraged, bi-directional, zero liquidation. Tap a market to trade.
         </p>

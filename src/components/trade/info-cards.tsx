@@ -39,7 +39,7 @@ function getEducationCopy(shiftTicker: string) {
 export function EducationCard({ symbol = "TSL2L" }: { symbol?: string }) {
   const copy = getEducationCopy(symbol);
   return (
-    <div className="bg-card rounded-3xl p-8">
+    <div className="bg-card rounded-3xl p-5 md:p-6">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-lg text-foreground">{copy.title}</h3>
       </div>
@@ -52,14 +52,14 @@ export function EducationCard({ symbol = "TSL2L" }: { symbol?: string }) {
 
 export function MarketNewsCard() {
   return (
-    <div className="bg-card rounded-3xl p-8">
+    <div className="bg-card rounded-3xl p-5 md:p-6">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-lg text-foreground">Risk Disclosure</h3>
         <a href="/disclaimer" className="flex items-center gap-2 text-mint text-xs hover:opacity-80 transition-opacity">
           Full Disclosure <ArrowRight className="h-3 w-3" />
         </a>
       </div>
-      <div className="h-px bg-border mb-6" />
+      <div className="h-px bg-border mb-4" />
       <p className="text-sm text-foreground/80 leading-relaxed">
         The important part: these products target daily returns, not long-term returns. Because of
         daily reset and compounding, holding them for more than one day can produce results that
