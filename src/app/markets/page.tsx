@@ -1,9 +1,15 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ASSETS, FORMATTERS } from "@/lib/mock";
-import { TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
+import { ASSETS } from "@/lib/mock";
+import { ArrowUpRight } from "lucide-react";
 
 import type { Metadata } from "next";
+
+import { MarketsHero } from "./widgets/markets-hero";
+import { Scoreboard } from "./widgets/scoreboard";
+import { MarketsPulseStrip } from "./widgets/pulse-strip";
+import { MarketsDashboard } from "./widgets/markets-dashboard";
+import { ComingSoon } from "./widgets/coming-soon";
+import AmbientMistLazy from "./widgets/ambient-mist-lazy";
 
 export const metadata: Metadata = {
   title: "Markets",
@@ -14,117 +20,62 @@ export const metadata: Metadata = {
 
 // TODO: real market data
 const MOCK_VOLUME: Record<string, number> = {
-  "TSL2L":  8_420_000,
-  "TSL1S":  1_940_000,
-  "SOX3L":  6_210_000,
-  "SOX3S":  2_150_000,
-  "SPX3L":  3_870_000,
-  "SPX3S":  1_480_000,
-};
-
-// TODO: real market data
-const MOCK_7D: Record<string, number> = {
-  "TSL2L":  7.84,
-  "TSL1S": -5.33,
-  "SOX3L": -4.62,
-  "SOX3S":  3.41,
-  "SPX3L":  2.18,
-  "SPX3S": -1.95,
+  TSL2L: 8_420_000,
+  TSL1S: 1_940_000,
+  SOX3L: 6_210_000,
+  SOX3S: 2_150_000,
+  SPX3L: 3_870_000,
+  SPX3S: 1_480_000,
+  URA2L: 2_420_000,
 };
 
 export default function MarketsPage() {
+  const totalVolume = ASSETS.reduce(
+    (sum, a) => sum + (MOCK_VOLUME[a.symbol] ?? 0),
+    0,
+  );
+
   return (
-    <div className="mx-auto max-w-[1440px] px-6 lg:px-[72px] py-10">
-      <div className="mb-8 md:mb-10">
-        <h1 className="text-3xl md:text-4xl font-semibold text-white mb-2 tracking-tight">Every SHIFT market. Long and short.</h1>
-        <p className="text-sm text-muted-foreground">
-          3× and 2× leveraged, bi-directional, zero liquidation. Tap a market to trade.
-        </p>
+    <div className="relative">
+      {/* Ambient backdrop — drifts behind everything but stays out of focus. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 overflow-hidden -z-10"
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(38,200,184,0.08) 0%, rgba(7,99,140,0.04) 30%, rgba(2,28,36,0) 65%)",
+          }}
+        />
+        <AmbientMistLazy density={0.5} maxAlpha={0.35} />
       </div>
 
-      <div className="bg-card border border-border rounded-3xl overflow-hidden">
-        <div className="hidden md:flex items-center px-6 py-4 text-xs text-muted-foreground uppercase tracking-wider border-b border-border">
-          <div className="flex-1 min-w-0">Asset</div>
-          <div className="w-28 text-right">Price</div>
-          <div className="w-28 text-right">24h</div>
-          <div className="w-28 text-right">7d</div>
-          <div className="w-36 text-right">24h Volume</div>
-          <div className="w-24 text-right">Leverage</div>
-          <div className="w-10" />
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-[72px] py-10 md:py-14 space-y-10 md:space-y-12">
+        <MarketsHero />
+
+        <Scoreboard assets={ASSETS} totalVolume={totalVolume} />
+
+        <MarketsPulseStrip assets={ASSETS} />
+
+        <MarketsDashboard assets={ASSETS} volumes={MOCK_VOLUME} />
+
+        <ComingSoon />
+
+        <div className="flex flex-col items-center text-center pt-6 border-t border-border/40">
+          <p className="text-xs text-foreground/55 mb-3">
+            Want a market we don&apos;t have? Submit a ticker request.
+          </p>
+          <Link
+            href="/learn"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-mint text-background text-sm font-semibold hover:bg-mint/90 transition-colors hover:shadow-[0_0_24px_rgba(38,200,184,0.45)]"
+          >
+            Visit the Learn hub
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
         </div>
-        <ul className="divide-y divide-border">
-          {ASSETS.map((a) => {
-            const pos24 = a.change24h >= 0;
-            const seven = MOCK_7D[a.symbol] ?? 0;
-            const pos7 = seven >= 0;
-            return (
-              <li key={a.symbol}>
-                <Link
-                  href={`/trade/${a.symbol}`}
-                  className="flex flex-col md:flex-row md:items-center gap-2 md:gap-0 px-6 py-4 hover:bg-secondary/30 transition-colors group"
-                >
-                  <div className="flex-1 min-w-0 flex items-center gap-3">
-                    <Image
-                      src={a.image}
-                      alt={a.symbol}
-                      width={40}
-                      height={40}
-                      className="size-10 rounded-full object-cover shrink-0"
-                      style={{ viewTransitionName: `asset-${a.symbol.toLowerCase()}` }}
-                    />
-                    <div className="min-w-0">
-                      <div className="font-semibold truncate flex items-center gap-2">
-                        <span style={{ viewTransitionName: `asset-ticker-${a.symbol.toLowerCase()}` }}>{a.symbol}</span>
-                        <span className="text-[10px] font-bold text-mint bg-mint/10 border border-mint/30 px-1.5 py-0.5 rounded">
-                          {a.leverage > 0 ? `${a.leverage}×` : `${Math.abs(a.leverage)}× short`}
-                        </span>
-                      </div>
-                      <div className="text-xs text-muted-foreground truncate">
-                        {a.name} · underlying {a.underlying}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Mobile stats row */}
-                  <div className="md:hidden flex items-center justify-between text-xs">
-                    <span className="tabular-nums">{FORMATTERS.usd(a.price)}</span>
-                    <span className={pos24 ? "text-mint" : "text-destructive"}>
-                      {FORMATTERS.pct(a.change24h)}
-                    </span>
-                  </div>
-
-                  {/* Desktop cells */}
-                  <div className="hidden md:block w-28 text-right tabular-nums">{FORMATTERS.usd(a.price)}</div>
-                  <div className="hidden md:flex w-28 justify-end">
-                    <span className={`flex items-center gap-1 text-sm ${pos24 ? "text-mint" : "text-destructive"}`}>
-                      {pos24 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
-                      {FORMATTERS.pct(a.change24h)}
-                    </span>
-                  </div>
-                  <div className="hidden md:flex w-28 justify-end">
-                    <span className={`text-sm ${pos7 ? "text-mint" : "text-destructive"}`}>
-                      {FORMATTERS.pct(seven)}
-                    </span>
-                  </div>
-                  <div className="hidden md:block w-36 text-right text-sm text-muted-foreground tabular-nums">
-                    {FORMATTERS.usdShort(MOCK_VOLUME[a.symbol] ?? 0)}
-                  </div>
-                  <div className="hidden md:block w-24 text-right text-sm text-muted-foreground">
-                    {a.leverage > 0 ? `${a.leverage}× long` : `${Math.abs(a.leverage)}× short`}
-                  </div>
-                  <div className="hidden md:flex w-10 justify-end text-muted-foreground group-hover:text-mint transition-colors">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </div>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
       </div>
-
-      <p className="text-xs text-muted-foreground text-center mt-6">
-        More markets launching soon. Submit a ticker request in <Link href="/learn" className="text-mint hover:underline">the Learn hub</Link>.
-      </p>
     </div>
   );
 }
