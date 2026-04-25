@@ -346,20 +346,22 @@ export function ThesisSequence() {
           )}
         </AnimatePresence>
 
-        {/* Post-resolve feature badges */}
+        {/* Post-resolve feature badges — centered vertically over the chart */}
         <AnimatePresence>
           {resolved && (
             <m.div
               key="post-resolve"
-              className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-wrap justify-center gap-2 px-4 w-full max-w-[600px]"
+              className="absolute inset-0 flex items-center justify-center pointer-events-none px-4"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
               transition={{ delay: 0.35, duration: 0.45 }}
             >
-              <Badge icon={<ShieldOff className="h-3 w-3" />} label="No liquidation" />
-              <Badge icon={<TrendingUp className="h-3 w-3" />} label="Real volatility" />
-              <Badge icon={<Zap className="h-3 w-3" />} label="24/7 trade · 24/5 mint" />
+              <div className="flex flex-col items-center gap-3 md:gap-5">
+                <Badge icon={<ShieldOff className="h-7 w-7 md:h-12 md:w-12" />} label="No liquidation" />
+                <Badge icon={<TrendingUp className="h-7 w-7 md:h-12 md:w-12" />} label="Real volatility" />
+                <Badge icon={<Zap className="h-7 w-7 md:h-12 md:w-12" />} label="24/7 trade · 24/5 mint" />
+              </div>
             </m.div>
           )}
         </AnimatePresence>
@@ -396,7 +398,7 @@ export function ThesisSequence() {
 
 function Badge({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 bg-mint/15 border border-mint/40 text-mint text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-sm">
+    <span className="inline-flex items-center gap-3 md:gap-5 bg-mint/15 border border-mint/40 text-mint text-2xl md:text-5xl font-semibold px-6 md:px-12 py-3 md:py-6 rounded-full backdrop-blur-sm">
       {icon}
       {label}
     </span>
