@@ -64,6 +64,15 @@ export function Footer() {
             All systems operational
           </span>
         </div>
+        <div className="mx-auto max-w-[1440px] px-6 sm:px-[72px] pb-5 -mt-3 text-[11px] text-muted-foreground/70 text-center sm:text-left">
+          We&rsquo;re hiring builders who hate liquidations.{" "}
+          <a
+            href="mailto:careers@shift.finance"
+            className="text-mint/80 hover:text-mint transition-colors"
+          >
+            → careers@
+          </a>
+        </div>
       </div>
     </footer>
   );

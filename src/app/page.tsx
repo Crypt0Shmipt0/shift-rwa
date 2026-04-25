@@ -10,10 +10,12 @@ import { LandingFarm } from "@/components/landing/farm-section";
 import { LandingBlogFeatured } from "@/components/landing/blog-featured";
 import { LandingConnect } from "@/components/landing/connect-section";
 import { LandingFaq } from "@/components/landing/faq";
+import { LandingWhimsy } from "@/components/whimsy/landing-whimsy";
 
 export default function LandingPage() {
   return (
     <>
+      <LandingWhimsy />
       <LandingHero />
       <LandingMarketPulse />
       <LandingTractionStrip />

@@ -13,7 +13,7 @@ import { HeroScene } from "./hero-scene-lazy";
 
 export function LandingHero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden" data-cursor-trail-zone>
       {/* Background gradient + grid (CSS — always rendered, fallback for
           mobile / reduced-motion / no-WebGL). */}
       <div className="absolute inset-0 -z-10">

@@ -1,12 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Wallet, ShieldCheck, Eye, ArrowRight } from "lucide-react";
+import { m, AnimatePresence } from "motion/react";
 import { NetWorthHero } from "@/components/portfolio/net-worth-hero";
 import { AllocationDonut } from "@/components/portfolio/allocation-donut";
 import { HoldingsTable } from "@/components/portfolio/holdings-table";
 import { FeatureCallouts } from "@/components/portfolio/feature-callouts";
+import { useMotionOk } from "@/hooks/use-motion-ok";
 
 export function PortfolioGate() {
   const { isConnected } = useAccount();
@@ -28,6 +31,22 @@ export function PortfolioGate() {
 }
 
 function ConnectGate() {
+  const motionOk = useMotionOk();
+  const [bored, setBored] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const id = window.setTimeout(() => setBored(true), 15000);
+    const cancel = () => window.clearTimeout(id);
+    window.addEventListener("click", cancel, { once: true });
+    window.addEventListener("keydown", cancel, { once: true });
+    return () => {
+      window.clearTimeout(id);
+      window.removeEventListener("click", cancel);
+      window.removeEventListener("keydown", cancel);
+    };
+  }, []);
+
   return (
     <div className="mx-auto max-w-[1100px] px-6 py-14 md:py-20">
       <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-12 items-center">
@@ -112,10 +131,36 @@ function ConnectGate() {
             ))}
 
             {/* Lock overlay */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="size-16 rounded-2xl bg-mint/15 border border-mint/40 backdrop-blur-md flex items-center justify-center">
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none gap-3">
+              <m.div
+                className="size-16 rounded-2xl bg-mint/15 border border-mint/40 backdrop-blur-md flex items-center justify-center"
+                animate={
+                  bored && motionOk
+                    ? { rotate: [0, -8, 8, -6, 6, 0], y: [0, -3, 0, -2, 0] }
+                    : { rotate: 0, y: 0 }
+                }
+                transition={
+                  bored && motionOk
+                    ? { duration: 1.4, repeat: Infinity, repeatDelay: 1.4, ease: "easeInOut" }
+                    : { duration: 0.2 }
+                }
+              >
                 <Wallet className="h-7 w-7 text-mint" />
-              </div>
+              </m.div>
+              <AnimatePresence>
+                {bored && (
+                  <m.p
+                    key="bored-line"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="text-[11px] text-mint/80 text-center max-w-[260px] leading-snug px-3"
+                  >
+                    👻 nothing to see here. yet. tap connect or keep flexing your savings account.
+                  </m.p>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>

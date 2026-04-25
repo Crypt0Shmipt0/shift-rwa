@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import { ShiftLogo } from "@/components/nav/shift-logo";
+import { LogoTooltip } from "@/components/whimsy/logo-tooltip";
 import {
   Sheet,
   SheetContent,
@@ -33,9 +34,11 @@ export function TopNav() {
     <header className="border-b border-border sticky top-0 z-30 bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/85">
       <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-4 sm:px-6 gap-4">
         <div className="flex items-center gap-6 md:gap-12 min-w-0">
-          <Link href="/" aria-label="SHIFT home" className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded">
-            <ShiftLogo />
-          </Link>
+          <LogoTooltip>
+            <Link href="/" aria-label="SHIFT home" className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint rounded">
+              <ShiftLogo />
+            </Link>
+          </LogoTooltip>
           <nav aria-label="Main navigation" className="hidden md:flex items-center gap-1 text-sm">
             {LINKS.map((l) => {
               const active = isActive(l.match);

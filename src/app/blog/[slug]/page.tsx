@@ -8,6 +8,7 @@ import { BLOG_POSTS, getPost, getThumbnail, getAuthor } from "@/data/blog-posts"
 import type { BlogTag } from "@/data/blog-posts";
 import { NewsletterForm } from "@/components/blog/newsletter-form";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
+import { BlogCompletionRibbon } from "@/components/whimsy/blog-completion-ribbon";
 
 const BASE_URL = "https://shift-rwa.vercel.app";
 
@@ -95,6 +96,7 @@ export default async function BlogPostPage({
   return (
     <div className="min-h-screen bg-[#021C24]">
       <ScrollProgress />
+      <BlogCompletionRibbon slug={post.slug} />
       {/* eslint-disable-next-line react/no-danger -- JSON-LD is static internal data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleLd }} />
       {/* Back link */}

@@ -10,7 +10,7 @@ import { StaggerChildren, RevealChild } from "@/components/motion/stagger-childr
 
 export function LandingTeam() {
   return (
-    <section className="relative mx-auto max-w-[1200px] px-6 py-20">
+    <section className="relative mx-auto max-w-[1200px] px-6 py-20" data-milestone="team">
       <div className="text-center mb-3">
         <span className="text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
           Leadership

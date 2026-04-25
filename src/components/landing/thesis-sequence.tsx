@@ -13,11 +13,13 @@
  * Resolve button still toggles state.
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Zap, ShieldOff, TrendingUp, RotateCcw } from "lucide-react";
 import { m, AnimatePresence } from "motion/react";
+import { toast } from "sonner";
 import { useMotionOk } from "@/hooks/use-motion-ok";
+import { fireMilestone } from "@/hooks/use-scroll-milestones";
 
 /* ── Brand palette (inline — SVG strokes don't read Tailwind tokens) ─────── */
 const MINT = "#26C8B8";
@@ -49,23 +51,74 @@ const STABLE_POINTS: [number, number][] = [
   [900, 135], [960, 110], [1000, 95],
 ];
 
+/* Konami "BULL MODE" path: starts flat, then goes parabolic and pierces the top. */
+const PARABOLIC_POINTS: [number, number][] = [
+  [0, 360], [80, 358], [160, 352], [240, 342], [320, 325],
+  [400, 300], [480, 260], [560, 210], [640, 150], [720, 90],
+  [800, 40], [870, 14], [940, 4], [1000, 0],
+];
+
 function toPath(points: [number, number][]) {
   return points.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x},${y}`).join(" ");
 }
 
 const CRASH_LINE = toPath(CRASH_POINTS);
 const STABLE_LINE = toPath(STABLE_POINTS);
+const PARABOLIC_LINE = toPath(PARABOLIC_POINTS);
 const CRASH_AREA = `${CRASH_LINE} L${W},${H} L0,${H} Z`;
 const STABLE_AREA = `${STABLE_LINE} L${W},${H} L0,${H} Z`;
+const PARABOLIC_AREA = `${PARABOLIC_LINE} L${W},${H} L0,${H} Z`;
 
 /* ── Component ───────────────────────────────────────────────────────────── */
 
 export function ThesisSequence() {
   const motionOk = useMotionOk();
   const [resolved, setResolved] = useState(false);
+  const [bullMode, setBullMode] = useState(false);
+  const [burstAt, setBurstAt] = useState<{ x: number; y: number; key: number } | null>(
+    null
+  );
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  // Sync `data-bull-mode` flag from <html> (set by Konami listener).
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    const sync = () => setBullMode(root.getAttribute("data-bull-mode") === "1");
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(root, { attributes: true, attributeFilter: ["data-bull-mode"] });
+    return () => observer.disconnect();
+  }, []);
+
+  const handleResolve = () => {
+    setResolved(true);
+
+    // Capture the button center for the confetti burst origin.
+    const rect = buttonRef.current?.getBoundingClientRect();
+    const container = buttonRef.current?.closest(".relative")?.getBoundingClientRect();
+    if (rect && container) {
+      setBurstAt({
+        x: rect.left + rect.width / 2 - container.left,
+        y: rect.top + rect.height / 2 - container.top,
+        key: Date.now(),
+      });
+      window.setTimeout(() => setBurstAt(null), 1100);
+    }
+
+    fireMilestone("thesis-resolve", () =>
+      toast("⚡ SHIFT activated. +250 XP", {
+        position: "bottom-right",
+        duration: 2400,
+      })
+    );
+  };
 
   return (
-    <div className="relative w-full overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-b from-[#041E27] to-[#02171D] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)]">
+    <div
+      className="relative w-full overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-b from-[#041E27] to-[#02171D] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)]"
+      data-milestone="thesis"
+    >
       {/* Header: morphing headline + status chip */}
       <div className="relative z-10 px-6 pt-8 pb-4 text-center">
         <AnimatePresence mode="wait">
@@ -163,7 +216,7 @@ export function ThesisSequence() {
 
           {/* Crash chart layer */}
           <m.g
-            animate={{ opacity: resolved ? 0 : 1 }}
+            animate={{ opacity: bullMode ? 0 : resolved ? 0 : 1 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
           >
             <path d={CRASH_AREA} fill="url(#thesis-crash-fill)" />
@@ -236,7 +289,7 @@ export function ThesisSequence() {
 
           {/* Stable chart layer */}
           <m.g
-            animate={{ opacity: resolved ? 1 : 0 }}
+            animate={{ opacity: resolved && !bullMode ? 1 : 0 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
           >
             <path d={STABLE_AREA} fill="url(#thesis-stable-fill)" />
@@ -280,6 +333,31 @@ export function ThesisSequence() {
             )}
 
           </m.g>
+
+          {/* Konami "BULL MODE" parabolic chart layer */}
+          <m.g
+            animate={{ opacity: bullMode ? 1 : 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <path d={PARABOLIC_AREA} fill="url(#thesis-stable-fill)" />
+            <path
+              d={PARABOLIC_LINE}
+              fill="none"
+              stroke={MINT}
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              filter="url(#thesis-glow-mint)"
+            />
+            <path
+              d={PARABOLIC_LINE}
+              fill="none"
+              stroke={MINT}
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </m.g>
         </svg>
 
         {/* Flashing RESOLVE button (center overlay, pre-resolution only) */}
@@ -321,8 +399,9 @@ export function ThesisSequence() {
               )}
 
               <m.button
+                ref={buttonRef}
                 type="button"
-                onClick={() => setResolved(true)}
+                onClick={handleResolve}
                 className="pointer-events-auto relative inline-flex items-center gap-2.5 bg-mint text-primary-foreground font-bold text-base md:text-xl px-8 md:px-12 py-4 md:py-5 rounded-full uppercase tracking-[0.12em] shadow-[0_0_60px_rgba(38,200,184,0.55)]"
                 animate={
                   motionOk
@@ -345,6 +424,11 @@ export function ThesisSequence() {
             </m.div>
           )}
         </AnimatePresence>
+
+        {/* Confetti / particle burst on RESOLVE */}
+        {motionOk && burstAt && (
+          <ConfettiBurst key={burstAt.key} x={burstAt.x} y={burstAt.y} />
+        )}
 
         {/* Post-resolve feature badges — centered vertically over the chart */}
         <AnimatePresence>
@@ -402,5 +486,36 @@ function Badge({ icon, label }: { icon: React.ReactNode; label: string }) {
       {icon}
       {label}
     </span>
+  );
+}
+
+/* Lightweight CSS-only mint particle burst — no external lib. */
+const BURST_PARTICLES = Array.from({ length: 18 }).map((_, i) => {
+  const angle = (Math.PI * 2 * i) / 18 + Math.random() * 0.4;
+  const distance = 80 + Math.random() * 70;
+  return {
+    dx: Math.cos(angle) * distance,
+    dy: Math.sin(angle) * distance,
+    delay: Math.random() * 0.05,
+  };
+});
+
+function ConfettiBurst({ x, y }: { x: number; y: number }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute"
+      style={{ left: x, top: y, width: 0, height: 0 }}
+    >
+      {BURST_PARTICLES.map((p, i) => (
+        <m.span
+          key={i}
+          className="absolute size-2 rounded-full bg-mint shadow-[0_0_10px_rgba(38,200,184,0.85)]"
+          initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+          animate={{ x: p.dx, y: p.dy, opacity: 0, scale: 0.4 }}
+          transition={{ duration: 0.85, delay: p.delay, ease: "easeOut" }}
+        />
+      ))}
+    </div>
   );
 }
