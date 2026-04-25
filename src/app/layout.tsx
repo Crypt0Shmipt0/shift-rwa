@@ -24,7 +24,7 @@ const jbMono = JetBrains_Mono({
 
 const SITE_URL = "https://shift-rwa.vercel.app";
 const SITE_NAME = "SHIFT Finance";
-const TITLE = "SHIFT — 3× & 2× Bi-Directional Tokenized Stocks. No Liquidations.";
+const TITLE = "SHIFT RWA | Leveraged & Inverse Tokenized Stocks & ETFs";
 const DESCRIPTION =
   "SHIFT fixes Web3 stock adoption: boring low-vol stocks and dangerous leveraged liquidations. Trade 3×/2× bi-directional tokenized stocks, ETFs, and ETNs on-chain — long or short — with zero liquidation risk.";
 
