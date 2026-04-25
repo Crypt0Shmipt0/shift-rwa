@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { Check, X } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import {
@@ -9,6 +10,13 @@ import {
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
+
+// Cheap canvas-driven mist — lazy loaded so it doesn't bloat the initial bundle
+// and never runs on SSR. No fallback needed; if the chunk hasn't loaded yet the
+// section just shows its normal background.
+const DataMist = dynamic(() => import("@/components/motion/data-mist"), {
+  ssr: false,
+});
 
 interface RowData {
   label: string;
@@ -92,9 +100,25 @@ export function LandingComparisonTable() {
   }, []);
 
   return (
-    <section className="relative mx-auto max-w-[1000px] px-6 py-16">
+    <section className="relative mx-auto max-w-[1000px] px-6 py-16 overflow-hidden">
+      {/* Ambient mist + faint scan-grid behind the table. Subtle enough that
+       * the table chrome reads first; the scan lines provide a "data console"
+       * texture that aligns with the comparison frame. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 pointer-events-none vfx-scan-grid"
+        style={{
+          maskImage:
+            "radial-gradient(ellipse 90% 70% at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 90%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 90% 70% at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 90%)",
+        }}
+      >
+        <DataMist density={0.65} maxAlpha={0.42} />
+      </div>
+
       <Reveal>
-        <div className="text-center mb-3">
+        <div className="relative z-10 text-center mb-3">
           <span className="text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em] text-mint">
             Why not perps?
           </span>
@@ -108,7 +132,7 @@ export function LandingComparisonTable() {
         </h2>
       </Reveal>
 
-      <div className="overflow-x-auto rounded-2xl border border-border">
+      <div className="relative z-10 overflow-x-auto rounded-2xl border border-border bg-background/60 backdrop-blur-[2px]">
         <TooltipProvider>
           <table className="w-full text-sm">
             <thead>

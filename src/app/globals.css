@@ -18,6 +18,42 @@
   color: transparent;
 }
 
+/* ── VFX: scan-grid backdrop (Track B)
+ * A faint static grid + slow horizontal scan-line, used behind the comparison
+ * table so the data-mist canvas reads as "data console" not just "particles
+ * floating in space". The grid is a CSS gradient (zero JS / paint cost) and
+ * the scan-line is a separately layered keyframe so it can pause under
+ * prefers-reduced-motion without affecting the static grid.
+ */
+@utility vfx-scan-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(38, 200, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(38, 200, 184, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px, 48px 48px;
+  background-position: center;
+}
+
+/* ── VFX: chromatic-fringe edge (Track B)
+ * Optional helper for any future section that wants the "holographic" feel
+ * without booting the full GLSL canvas. Pure CSS — uses a layered radial
+ * gradient that fades to transparent at the corners with a tiny mint-cyan
+ * fringe.
+ */
+@utility vfx-chroma-fringe {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 120% 90% at 50% 50%,
+      rgba(38, 200, 184, 0) 60%,
+      rgba(38, 200, 184, 0.06) 78%,
+      rgba(7, 99, 140, 0.10) 100%
+    );
+  pointer-events: none;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -282,6 +318,39 @@
     50%       { filter: drop-shadow(0 0 4px rgba(38,200,184,0.8)); }
   }
   .shift-shield-pulse { animation: shift-shield-pulse 3s ease-in-out infinite; }
+
+  /* ── VFX: scan-line drift overlay (Track B)
+   * Lives on the same element as `.vfx-scan-grid` via ::after — slow
+   * vertical drift gives the grid a "live console" feel. Gated by the parent
+   * @media (prefers-reduced-motion: no-preference) so reduced-motion users
+   * see only the static grid.
+   */
+  @keyframes vfx-scan-drift {
+    0%   { background-position: 0px 0px, 0px 0px; }
+    100% { background-position: 0px 96px, 48px 0px; }
+  }
+  .vfx-scan-grid {
+    animation: vfx-scan-drift 24s linear infinite;
+  }
+  .vfx-scan-grid::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(38, 200, 184, 0) 0%,
+      rgba(38, 200, 184, 0.07) 48%,
+      rgba(38, 200, 184, 0) 52%,
+      rgba(38, 200, 184, 0) 100%
+    );
+    background-size: 100% 200%;
+    animation: vfx-scanline 11s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes vfx-scanline {
+    0%   { background-position: 0 -100%; }
+    100% { background-position: 0 200%; }
+  }
 
   /* Trade page — price flash animations */
   @keyframes flash-up {
