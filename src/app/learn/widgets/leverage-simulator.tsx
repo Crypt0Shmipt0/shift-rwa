@@ -70,16 +70,21 @@ interface SimResult {
   maxShift: number; // %
 }
 
+// Realistic positive long-run drift — equity benchmarks have averaged ~10–25%
+// annualized historically. 0.1% daily ≈ 25%/yr — keeps the chart green-leaning
+// without faking the math.
+const DAILY_DRIFT = 0.001;
+
 function simulate(sigmaPct: number): SimResult {
-  // Daily vol expressed as decimal. Drift = 0 (mean-reverting illustrative
-  // walk centered on the start). Seed by integer sigma for determinism.
+  // Daily vol expressed as decimal, plus a small positive drift so paths
+  // trend up by default (matches long-run equity behavior).
   const sigma = sigmaPct / 100;
   const rand = mulberry32(Math.round(sigmaPct * 1000) + 7);
   const underlying: number[] = [1];
   const shift: number[] = [1];
   for (let d = 1; d <= DAYS; d++) {
     const z = gauss(rand);
-    const r = sigma * z; // daily simple return on the underlying
+    const r = DAILY_DRIFT + sigma * z; // drift + diffusion on the underlying
     underlying.push(underlying[d - 1] * (1 + r));
     // Daily-rebalanced 3× long: each day's NAV multiplies by (1 + 3·r).
     // Floor at 0 so a single catastrophic move can't go negative (it
@@ -117,8 +122,8 @@ function buildPath(series: number[], yMin: number, yMax: number): string {
 
 export function LeverageSimulator() {
   const motionOk = useMotionOk();
-  // Realistic daily-vol anchor: TSLA realizes ~3% daily σ, S&P ~1%, panic regimes ~10%
-  const [sigma, setSigma] = useState(3);
+  // Realistic daily-vol anchor: S&P ~1%, TSLA ~3%, crisis regimes ~7–10%
+  const [sigma, setSigma] = useState(2);
   // Math.sin/cos/log can differ across engines (V8 vs Chromium) by sub-ULPs,
   // which propagates through compounding. Gate the live numbers behind a
   // mount flag to keep SSR/CSR in sync (we render a stable placeholder until
