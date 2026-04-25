@@ -22,6 +22,13 @@ export function LandingWhimsy() {
     if (typeof document === "undefined") return;
     document.documentElement.setAttribute("data-bull-mode", "1");
 
+    // Auto-scroll to the thesis chart so the parabolic payoff is visible.
+    // Without this, users who trigger Konami from the hero see only the toast.
+    const thesis = document.querySelector("[data-milestone='thesis']");
+    if (thesis) {
+      thesis.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
     // Console signature for finders.
     const SHIFT_LOGO = `
    ███████╗██╗  ██╗██╗███████╗████████╗
@@ -40,16 +47,16 @@ export function LandingWhimsy() {
     // Banner toast at top.
     toast("📈 2026 BULL MODE", {
       description: "Konami unlocked. Charts going parabolic.",
-      duration: 3000,
+      duration: 6000,
       position: "top-center",
       className:
         "!bg-mint !text-primary-foreground !border-mint font-bold uppercase tracking-[0.2em]",
     });
 
-    // Lift the flag after 3.2s so the chart relaxes back.
+    // Hold bull mode long enough for the user to scroll, screenshot, brag.
     window.setTimeout(() => {
       document.documentElement.removeAttribute("data-bull-mode");
-    }, 3200);
+    }, 7000);
   });
 
   // Scroll milestones — fire once per visitor.
