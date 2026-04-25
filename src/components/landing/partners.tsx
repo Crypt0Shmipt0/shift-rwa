@@ -76,20 +76,20 @@ function PartnerCard({ partner }: { partner: Partner }) {
       target="_blank"
       rel="noreferrer noopener"
       aria-label={label ? `${label} of ${name}` : name}
-      className="group relative flex flex-col items-center justify-center gap-3 rounded-2xl border border-border/60 bg-white/[0.03] hover:bg-white/[0.06] hover:border-mint/40 transition-all duration-200 px-5 py-7 min-h-[140px]"
+      className="group relative flex flex-col items-center justify-center gap-2.5 rounded-2xl border border-border/60 bg-white/[0.03] hover:bg-white/[0.06] hover:border-mint/40 transition-all duration-200 p-5 min-h-[124px]"
     >
       {/* Logo (or text fallback) */}
-      <div className="relative h-12 w-full flex items-center justify-center">
+      <div className="relative h-10 w-full flex items-center justify-center">
         {logo ? (
           <Image
             src={logo}
             alt={name}
-            height={48}
-            width={160}
-            className="h-12 w-auto max-w-[140px] object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+            height={40}
+            width={140}
+            className="h-10 w-auto max-w-[130px] object-contain opacity-80 group-hover:opacity-100 transition-opacity"
           />
         ) : (
-          <span className="text-xl font-bold tracking-tight text-foreground/70 group-hover:text-white transition-colors">
+          <span className="text-lg font-bold tracking-tight text-foreground/70 group-hover:text-white transition-colors">
             {name}
           </span>
         )}
@@ -97,7 +97,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
 
       {/* Name + optional label */}
       <div className="flex flex-col items-center gap-0.5 text-center">
-        <span className="text-sm font-semibold text-foreground/80 group-hover:text-white transition-colors">
+        <span className="text-[13px] font-semibold text-foreground/80 group-hover:text-white transition-colors">
           {name}
         </span>
         {label && (

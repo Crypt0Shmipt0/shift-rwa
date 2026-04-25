@@ -56,14 +56,14 @@ export function LandingFarm() {
               <span className="size-1.5 rounded-full bg-mint animate-pulse" />
               Now Live · Farm Incentives
             </div>
-            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-1 mb-6">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-1 mb-6">
               Trade today.
               <br />
               <span className="text-gradient-mint">
                 Earn $SHFT tomorrow.
               </span>
             </h2>
-            <p className="text-base md:text-lg text-foreground/70 leading-relaxed mb-8 max-w-[520px]">
+            <p className="text-base text-foreground/70 leading-relaxed mb-8 max-w-[520px]">
               Every trade, every position, every referral earns farm points that convert to $SHFT
               tokens at TGE. The earlier you trade, the bigger your allocation in the protocol&apos;s
               foundation.
@@ -71,7 +71,7 @@ export function LandingFarm() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-10">
               <Link
                 href="/rewards"
-                className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-base px-7 py-3.5 rounded-full hover:bg-mint/90 active:-translate-y-px transition-all shadow-[0_0_30px_rgba(38,200,184,0.3)]"
+                className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-base px-6 h-12 rounded-full hover:bg-mint/90 active:-translate-y-px transition-all shadow-[0_0_30px_rgba(38,200,184,0.3)]"
               >
                 Join the rewards program
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
@@ -100,8 +100,8 @@ export function LandingFarm() {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-2xl font-bold text-white tabular-nums">{value}</div>
-      <div className="text-xs uppercase tracking-wider text-muted-foreground mt-1">{label}</div>
+      <div className="text-xl md:text-2xl font-bold text-white tabular-nums">{value}</div>
+      <div className="text-[11px] uppercase tracking-wider text-muted-foreground mt-1">{label}</div>
     </div>
   );
 }
@@ -119,10 +119,10 @@ function StatAnimated({
 }) {
   return (
     <div>
-      <div className="text-2xl font-bold text-white tabular-nums">
+      <div className="text-xl md:text-2xl font-bold text-white tabular-nums">
         <CountUp to={to} prefix={prefix} suffix={suffix} duration={1.5} />
       </div>
-      <div className="text-xs uppercase tracking-wider text-muted-foreground mt-1">{label}</div>
+      <div className="text-[11px] uppercase tracking-wider text-muted-foreground mt-1">{label}</div>
     </div>
   );
 }

@@ -38,20 +38,20 @@ export function LandingFaq() {
   return (
     <section className="mx-auto max-w-[860px] px-6 py-24">
       <Reveal>
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-mint mb-3">
             FAQ
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
             Frequently asked.
           </h2>
         </div>
       </Reveal>
-      <div className="rounded-3xl border border-border bg-card px-8 py-2">
+      <div className="rounded-3xl border border-border bg-card px-6 md:px-8 py-2">
         <Accordion className="w-full">
           {FAQ.map((f, i) => (
             <AccordionItem key={f.q} value={`q-${i}`} className="border-border">
-              <AccordionTrigger className="text-left font-semibold text-foreground hover:text-mint hover:no-underline py-5">
+              <AccordionTrigger className="text-left text-[15px] md:text-base font-semibold text-foreground hover:text-mint hover:no-underline py-5">
                 {f.q}
               </AccordionTrigger>
               <AccordionContent className="text-sm text-foreground/70 leading-relaxed pb-5">

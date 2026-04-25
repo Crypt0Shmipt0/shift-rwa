@@ -134,14 +134,14 @@ export function LandingConnect() {
           <div className="text-xs font-bold uppercase tracking-[0.2em] text-mint mb-4">
             Connect your wallet
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-1 mb-6">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-[-0.03em] leading-[1.05] pb-1 mb-6">
             Trade leveraged stocks
             <br />
             <span className="text-gradient-mint">
               like a crypto native.
             </span>
           </h2>
-          <p className="text-base text-foreground/70 leading-relaxed mb-10 max-w-[480px]">
+          <p className="text-base text-foreground/70 leading-relaxed mb-8 max-w-[480px]">
             No brokerage account. No KYC. No margin paperwork. Connect a wallet, fund with USDC, and
             you&apos;re trading 3× and 2× tokenized stocks in under a minute.
           </p>
@@ -154,11 +154,11 @@ export function LandingConnect() {
                   {/* Feature-list bullets desaturated from mint — mint reserved for
                    * brand signal (eyebrow badge, "Live" dot, CTA) so these body-copy
                    * icons read as neutral supporting marks on the dark surface. */}
-                  <div className="size-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center shrink-0">
+                  <div className="size-9 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center shrink-0">
                     <Icon className="h-4 w-4 text-foreground/70" />
                   </div>
                   <div>
-                    <div className="font-semibold text-white mb-0.5">{f.title}</div>
+                    <div className="font-semibold text-white text-[15px] mb-0.5">{f.title}</div>
                     <p className="text-sm text-foreground/65 leading-relaxed">{f.body}</p>
                   </div>
                 </li>
@@ -168,7 +168,7 @@ export function LandingConnect() {
 
           <Link
             href="/app"
-            className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-base px-7 py-3.5 rounded-full hover:bg-mint/90 transition-colors shadow-[0_0_30px_rgba(38,200,184,0.3)]"
+            className="group inline-flex items-center gap-2 bg-mint text-primary-foreground font-semibold text-base px-6 h-12 rounded-full hover:bg-mint/90 transition-colors shadow-[0_0_30px_rgba(38,200,184,0.3)]"
           >
             Connect wallet
             <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
