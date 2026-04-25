@@ -100,7 +100,7 @@ export function ThesisSequence() {
               </div>
               <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-[-0.03em] leading-[1.0] flex items-center justify-center gap-2 md:gap-3">
                 <Image
-                  src="/brand/shift-lockup-gradient-dark.png"
+                  src="/brand/shift-lockup-light-logotype.png"
                   alt="SHIFT"
                   width={480}
                   height={120}
