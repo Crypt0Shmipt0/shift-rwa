@@ -117,7 +117,8 @@ function buildPath(series: number[], yMin: number, yMax: number): string {
 
 export function LeverageSimulator() {
   const motionOk = useMotionOk();
-  const [sigma, setSigma] = useState(4); // 4% daily vol — close to realized TSLA
+  // Realistic daily-vol anchor: TSLA realizes ~3% daily σ, S&P ~1%, panic regimes ~10%
+  const [sigma, setSigma] = useState(3);
   // Math.sin/cos/log can differ across engines (V8 vs Chromium) by sub-ULPs,
   // which propagates through compounding. Gate the live numbers behind a
   // mount flag to keep SSR/CSR in sync (we render a stable placeholder until
@@ -344,23 +345,24 @@ export function LeverageSimulator() {
           <span className="text-foreground/60">Daily volatility (σ)</span>
           <span className="text-mint font-bold">
             <TrendingUp className="inline-block h-3 w-3 mr-1 -translate-y-px" />
-            {sigma.toFixed(0)}%
+            {sigma.toFixed(1)}%
           </span>
         </div>
         <input
           type="range"
           min={0}
-          max={50}
-          step={1}
+          max={10}
+          step={0.5}
           value={sigma}
           onChange={(e) => setSigma(Number(e.target.value))}
           className="w-full accent-[var(--mint)] h-2 cursor-pointer"
           aria-label="Daily volatility percentage"
         />
         <div className="flex justify-between text-[10px] font-mono uppercase tracking-[0.14em] text-foreground/40 mt-1">
-          <span>0% · calm</span>
-          <span>25%</span>
-          <span>50% · violent</span>
+          <span>1% · S&amp;P</span>
+          <span>3% · TSLA</span>
+          <span>5% · wild</span>
+          <span>10% · panic</span>
         </div>
       </div>
 

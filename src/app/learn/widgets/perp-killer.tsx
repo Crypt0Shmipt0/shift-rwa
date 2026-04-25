@@ -26,34 +26,37 @@ const H = 200;
 
 /**
  * Shared underlying price path (16 steps over the loop).
- * Starts flat, dips ~6% at step 6, then recovers fully by step 13.
- * Indexed values are %-from-start so we can scale identically on both panels.
+ * Wicks down −10% by step 6 (the canonical "10× liquidation" trigger),
+ * then recovers to +0.5% by step 15.
  */
 const UNDERLYING: number[] = [
-  0.0, -0.4, -0.9, -1.6, -2.8, -4.6, -6.0, // wick down
-  -5.0, -3.0, -1.2, -0.2, 0.4, 0.8, 1.0, 0.7, 0.5, // recovery
+  0.0, -0.6, -1.5, -3.0, -5.0, -7.5, -10.0, // wick to −10%
+  -8.0, -5.0, -2.5, -1.0, -0.2, 0.2, 0.4, 0.5, 0.5, // recovery to +0.5%
 ];
 
-/**
- * Perp 10× outcome: linear scale of underlying until liquidation
- * (−10% NAV at any moment liquidates a 10× position with 10% margin →
- * we use the actual mechanics: liquidation triggers when 10·move ≤ −100%,
- * i.e. underlying ≤ −10%. Our wick only hits −6%, so 10·(−6%) = −60% of
- * NAV; we then add maintenance-margin slippage and forced-close to push
- * the bar to −100%). This is realistic for a typical Bybit/Hyperliquid
- * cross-margin 10× under wick conditions.
- */
-const PERP: number[] = UNDERLYING.map((u, i) => {
-  // Linear 10× until threshold, then snap to −100% (liquidated).
-  const naive = u * 10;
-  if (naive <= -55) return -100;
-  // Once liquidated, stays at −100 (frozen)
-  if (i > 6) return -100;
-  return naive;
-});
+const PERP_LEVERAGE = 10;
+const SHIFT_LEVERAGE = 3;
+// 10× cross-margin liquidates when the position's NAV hits ~−100%, i.e.
+// underlying move × leverage ≤ −100. With slippage + forced-close we
+// settle at exactly −100% on the trigger step and stay there (frozen).
+const LIQ_THRESHOLD = -100;
 
-/** SHIFT 3× outcome: 3× the underlying, capped to never go below −100%. */
-const SHIFT_3X: number[] = UNDERLYING.map((u) => Math.max(-100, u * 3));
+const PERP: number[] = (() => {
+  let liquidated = false;
+  return UNDERLYING.map((u) => {
+    if (liquidated) return -100;
+    const nav = u * PERP_LEVERAGE;
+    if (nav <= LIQ_THRESHOLD) {
+      liquidated = true;
+      return -100;
+    }
+    return nav;
+  });
+})();
+
+/** SHIFT 3× outcome: intraday — exposure tracks 3× the underlying linearly
+ * (no rebalance mid-day). Floor at −100% so the SVG path never escapes. */
+const SHIFT_3X: number[] = UNDERLYING.map((u) => Math.max(-100, u * SHIFT_LEVERAGE));
 
 const PAD = 20;
 function buildPath(values: number[]): string {
@@ -87,10 +90,10 @@ export function PerpKiller() {
           Same wick. Different outcomes.
         </div>
         <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">
-          A 6% dump on the underlying — what happens to your position?
+          A 10% dump on the underlying — what happens to your position?
         </h3>
         <p className="text-xs md:text-sm text-muted-foreground mt-1">
-          On the left: a 10× perp gets liquidated and stays liquidated. On the right: a SHIFT 3× token dips with the wick and rides the recovery.
+          On the left: a 10× perp hits its liquidation price on the wick and stays liquidated. On the right: a SHIFT 3× token tracks the same wick and rides the recovery — same volatility, no forced close.
         </p>
       </header>
 
@@ -123,8 +126,7 @@ export function PerpKiller() {
 
       <footer className="px-5 md:px-7 py-4 bg-[#021921] text-[11px] text-foreground/55 leading-relaxed">
         <span className="font-mono uppercase tracking-[0.14em] text-foreground/40 mr-2">Note</span>
-        Perp blow-up modelled at typical 10× cross-margin under wick slippage.
-        SHIFT recovery follows daily-rebalanced 3× exposure on the same 6% wick — final NAV is illustrative.
+        10× cross-margin perp liquidates when the position NAV hits −100% (≈ −10% on the underlying). SHIFT 3× tracks the same wick intraday at 3× exposure — illustrative path, no forecast.
       </footer>
 
       {/* hidden — used as ref for axis */}
